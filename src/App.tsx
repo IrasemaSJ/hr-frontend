@@ -1,7 +1,7 @@
-import Navigation from './navigation/Navigation'
+import Navigation from './navigation/Navigation';
 
 const App = () => {
-  return <Navigation/>
-}
+  return <Navigation />;
+};
 
-export default App
+export default App;

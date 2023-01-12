@@ -4,29 +4,33 @@ import { Layout, theme } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import { MenuRouter } from '../menu-router/MenuRouter';
-import './MainLayout.css'
+import './MainLayout.css';
 
 type Props = {
-  children: JSX.Element
-}
+  children: JSX.Element;
+};
 
-export const MainLayout = ({children}:Props) => {
-
+export const MainLayout = ({ children }: Props) => {
   const [collapsed, setCollapsed] = useState(false);
-  const { token: { colorBgContainer } } = theme.useToken();
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
 
   return (
-    <Layout style={{height:'100vh'}}>
+    <Layout style={{ height: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="mainlayout-logo" />
-        <MenuRouter/>
+        <MenuRouter />
       </Sider>
       <Layout className="mainlayout-site-layout">
         <Header style={{ padding: 0, background: colorBgContainer }}>
-          {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-            className: 'mainlayout-trigger',
-            onClick: () => setCollapsed(!collapsed),
-          })}
+          {React.createElement(
+            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+            {
+              className: 'mainlayout-trigger',
+              onClick: () => setCollapsed(!collapsed),
+            },
+          )}
         </Header>
         <Content
           style={{
@@ -40,5 +44,5 @@ export const MainLayout = ({children}:Props) => {
         </Content>
       </Layout>
     </Layout>
-  )
-}
+  );
+};

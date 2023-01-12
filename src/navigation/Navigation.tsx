@@ -1,6 +1,14 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { Auth, Error404 } from '../components'
-import { EmployeeInfo, Employees, History, Holidays, Login, Request, VacationSeniority } from '../pages'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Auth, Error404 } from '../components';
+import {
+  EmployeeInfo,
+  Employees,
+  History,
+  Holidays,
+  Login,
+  Request,
+  VacationSeniority,
+} from '../pages';
 
 // export const routes = {
 //   root:'/',
@@ -17,18 +25,60 @@ import { EmployeeInfo, Employees, History, Holidays, Login, Request, VacationSen
 const Navigation = () => {
   return (
     <BrowserRouter>
-        <Routes>
-            <Route path='/' element={<Login/>} />
-            <Route path='/request' element={<Auth><Request/></Auth>} />
-            <Route path='/employees' element={<Auth><Employees/></Auth>} />
-            <Route path='/employees/:id' element={<Auth><EmployeeInfo/></Auth>} />
-            <Route path='/history' element={<Auth><History/></Auth>} />
-            <Route path='/holidays' element={<Auth><Holidays/></Auth>} />
-            <Route path='/vacations_seniority' element={<Auth><VacationSeniority/></Auth>} />
-            <Route path='*' element={<Error404/>} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route
+          path="/request"
+          element={
+            <Auth>
+              <Request />
+            </Auth>
+          }
+        />
+        <Route
+          path="/employees"
+          element={
+            <Auth>
+              <Employees />
+            </Auth>
+          }
+        />
+        <Route
+          path="/employees/:id"
+          element={
+            <Auth>
+              <EmployeeInfo />
+            </Auth>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <Auth>
+              <History />
+            </Auth>
+          }
+        />
+        <Route
+          path="/holidays"
+          element={
+            <Auth>
+              <Holidays />
+            </Auth>
+          }
+        />
+        <Route
+          path="/vacations_seniority"
+          element={
+            <Auth>
+              <VacationSeniority />
+            </Auth>
+          }
+        />
+        <Route path="*" element={<Error404 />} />
+      </Routes>
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default Navigation
+export default Navigation;
