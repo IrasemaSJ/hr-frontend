@@ -1,0 +1,7 @@
+.card-action-container-container{
+    display: flex;
+    gap: 10px;
+    overflow-x: scroll;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

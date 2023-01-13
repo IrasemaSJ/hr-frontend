@@ -34,7 +34,7 @@ export const MenuRouter = () => {
           key: 'employees',
           icon: <VideoCameraOutlined />,
           label: 'employees',
-          onClick: () => navigate(`/employees/2`),
+          onClick: () => navigate(`/employees`),
         },
         {
           key: 'history',
