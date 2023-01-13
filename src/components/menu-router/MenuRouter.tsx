@@ -6,12 +6,13 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Routes } from '../../navigation/Navigation';
 // import { ParamRoutes } from '../../navigation/Navigation';
 
 export const MenuRouter = () => {
   // const navigate:(url:ParamRoutes) => void = useNavigate()
   //TODO: search a way to set the type to the router
-  const navigate = useNavigate();
+  const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
 
   //get the path name of url to active the right item menu
   const { pathname } = useLocation();
@@ -33,7 +34,7 @@ export const MenuRouter = () => {
           key: 'employees',
           icon: <VideoCameraOutlined />,
           label: 'employees',
-          onClick: () => navigate('/employees'),
+          onClick: () => navigate(`/employees/2`),
         },
         {
           key: 'history',
