@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Auth, Error404, MainLayout } from '../components';
+import { Auth, Error404 } from '../components';
 import {
   EmployeeInfo,
   Employees,
@@ -23,7 +23,6 @@ export interface Routes {
 const Navigation = () => {
   return (
     <BrowserRouter>
-      <MainLayout>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route
@@ -76,7 +75,6 @@ const Navigation = () => {
           />
           <Route path="*" element={<Error404 />} />
         </Routes>
-      </MainLayout>
     </BrowserRouter>
   );
 };
