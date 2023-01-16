@@ -5,6 +5,8 @@ import { Content, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import { MenuRouter } from '../menu-router/MenuRouter';
 import './MainLayout.css';
+import { useLocation } from 'react-router-dom';
+import { Login } from '../../pages';
 
 type Props = {
   children: JSX.Element;
@@ -15,7 +17,7 @@ export const MainLayout = ({ children }: Props) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>

@@ -1,8 +1,10 @@
+import { MainLayout } from "../layout/MainLayout";
+
 type Props = {
   children: JSX.Element;
 };
 
 export const Auth = ({ children }: Props) => {
   //TODO: make session logic
-  return <>{children}</>;
+  return <MainLayout>{children}</MainLayout>;
 };
