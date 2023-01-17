@@ -1,5 +1,6 @@
 import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
+import { Step, Stepper } from '../../components';
 import { ContingencyForm } from '../../components/form/ContingencyForm';
 
 export const Request = () => {
@@ -18,7 +19,8 @@ export const Request = () => {
       <h1>Request</h1>
       <Button onClick={showModal}>Modal</Button>
       <Modal open={isModalOpen} onCancel={handleCancel} footer={[]}>
-        <ContingencyForm />
+        {/* <ContingencyForm /> */}
+        <Stepper></Stepper>
       </Modal>
     </div>
   );
