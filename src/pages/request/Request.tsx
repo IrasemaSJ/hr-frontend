@@ -1,25 +1,17 @@
-import { Button, Modal } from 'antd';
-import React, { useState } from 'react';
-import { ContingencyForm } from '../../components/form/ContingencyForm';
+import { Button } from 'antd';
+import React from 'react';
+import { Stepper } from '../../components';
+import { useModal } from '../../hooks';
 
 export const Request = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
+  const { UseModal, showModal, handleCancel } = useModal();
   return (
     <div>
       <h1>Request</h1>
       <Button onClick={showModal}>Modal</Button>
-      <Modal open={isModalOpen} onCancel={handleCancel} footer={[]}>
-        <ContingencyForm />
-      </Modal>
+      <UseModal>
+        <Stepper closeModal={handleCancel} />
+      </UseModal>
     </div>
   );
 };
