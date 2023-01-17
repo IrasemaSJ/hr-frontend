@@ -1,6 +1,6 @@
 import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
-import { Contingency } from '../../components/form/Contingency';
+import { ContingencyForm } from '../../components/form/ContingencyForm';
 
 export const Request = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,7 +18,7 @@ export const Request = () => {
       <h1>Request</h1>
       <Button onClick={showModal}>Modal</Button>
       <Modal open={isModalOpen} onCancel={handleCancel} footer={[]}>
-        <Contingency />
+        <ContingencyForm />
       </Modal>
     </div>
   );
