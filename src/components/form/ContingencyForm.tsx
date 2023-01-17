@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, Checkbox, DatePicker, Form } from 'antd';
+import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
+
+const { Title, Text } = Typography;
 
 export const ContingencyForm: React.FC = () => {
   const onFinish = (values: any) => {
@@ -30,7 +32,14 @@ export const ContingencyForm: React.FC = () => {
       autoComplete="off"
       layout="vertical"
     >
-      <div className="horizontal">
+      <div className="contingency-form-row">
+        <Title level={4}>Contingency</Title>
+        <Text>
+          <b>Folio</b> 1234 algo así
+        </Text>
+      </div>
+
+      <div className="contingency-form-row">
         <Form.Item
           label="Date"
           name="date"
@@ -58,7 +67,11 @@ export const ContingencyForm: React.FC = () => {
         name="message"
         // rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <TextArea rows={4} placeholder="Write your comments here..." />
+        <TextArea
+          autoSize={{ minRows: 4, maxRows: 4 }}
+          rows={4}
+          placeholder="Write your comments here..."
+        />
       </Form.Item>
 
       <Form.Item>
