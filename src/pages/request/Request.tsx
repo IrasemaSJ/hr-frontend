@@ -1,8 +1,7 @@
 import { CheckOutlined } from '@ant-design/icons';
-import { Badge, Button, Table, Tabs, theme } from 'antd';
+import { Badge, Button, Table, Tabs } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'antd/es/typography/Link';
-import { useModal } from '../../hooks';
 
 /*--------------------------Table information------------------------- */
 interface DataType {
