@@ -1,8 +1,5 @@
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Card } from 'antd';
-import { StyleHTMLAttributes } from 'react';
-import { useModal } from '../../hooks';
-import { Stepper } from '../request-step/Stepper';
 import './SectionEmployeeInfo.css';
 
 interface Props {
@@ -28,21 +25,17 @@ export const SectionEmployeeInfo = ({
   no_paid,
   onClick,
 }: Props) => {
-  const { UseModal, showModal, handleCancel } = useModal();
   return (
     <div className="section-employee-info-container-information-left">
       <Card className="section-employee-info-container-open-request">
         <Button
-          onClick={showModal}
+          onClick={onClick}
           type="primary"
           icon={<DownloadOutlined />}
           size={'large'}
         >
           Open Request
         </Button>
-        <UseModal>
-          <Stepper closeModal={handleCancel} />
-        </UseModal>
       </Card>
       <Card className="section-employee-info-information-left-card">
         <div className="section-employee-info-information-left">

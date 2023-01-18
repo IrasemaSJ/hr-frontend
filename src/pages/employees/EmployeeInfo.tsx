@@ -2,8 +2,9 @@ import { CheckOutlined } from '@ant-design/icons';
 import { Button, Tabs, Tag } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
 import Link from 'antd/es/typography/Link';
-import { HeaderEmployeeInfo } from '../../components';
+import { HeaderEmployeeInfo, Stepper } from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
+import { useModal } from '../../hooks';
 import './EmployeeInfo.css';
 /**------------------   datos tabla ------------------------------*/
 interface DataType {
@@ -124,6 +125,8 @@ const data: DataType[] = [
 /**------------------   datos tabla ------------------------------*/
 
 export const EmployeeInfo = () => {
+  const { UseModal, showModal, handleCancel } = useModal();
+
   return (
     <>
       <HeaderEmployeeInfo
@@ -142,8 +145,12 @@ export const EmployeeInfo = () => {
         marriage={0}
         pregnancy={0}
         no_paid={0}
-        onClick={() => console.log('click')}
+        onClick={showModal}
       />
+      {/* Modal that does vacation request! */}
+      <UseModal>
+        <Stepper closeModal={handleCancel} />
+      </UseModal>
       <Tabs
         defaultActiveKey="1"
         tabPosition={'top'}
