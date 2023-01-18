@@ -60,13 +60,13 @@ const columns: ColumnsType<DataType> = [
             type="primary"
             shape="circle"
             icon={<CheckOutlined />}
-            style={{ background: 'red', margin: '2px' }}
+            style={{ background: 'green', margin: '2px' }}
           />
           <Button
             type="primary"
             shape="circle"
             icon={'X'}
-            style={{ background: 'green', margin: '2px' }}
+            style={{ background: 'red', margin: '2px' }}
           />
         </>
       ) : record.status === 'approved' ? (
