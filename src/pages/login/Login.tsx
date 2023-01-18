@@ -1,7 +1,15 @@
-import React from 'react'
+import React from 'react';
+import './Login.css'
+
 
 export const Login = () => {
   return (
-    <div>Login</div>
-  )
-}
+    <>
+      <div className="login-general">
+        <div className="login-container">
+          
+        </div>
+      </div>
+    </>
+  );
+};
