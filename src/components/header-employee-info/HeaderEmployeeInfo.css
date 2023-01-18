@@ -1,0 +1,27 @@
+.header-employee-info-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header-employee-info-subcontainer{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.header-employee-info-icon-container{
+    display: flex;
+    justify-content: center;
+}
+
+.header-employee-info-icon{
+    font-size: 50px;
+    background-color: #cecece;
+    width: 80px;
+    border-radius: 50%;
+}
