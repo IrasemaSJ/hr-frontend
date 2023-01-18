@@ -17,7 +17,7 @@ export const MainLayout = ({ children }: Props) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  
+
   return (
     <Layout style={{ height: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -40,6 +40,7 @@ export const MainLayout = ({ children }: Props) => {
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
+            overflowY: 'auto',
           }}
         >
           {children}
