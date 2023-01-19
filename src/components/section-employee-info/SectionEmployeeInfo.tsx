@@ -1,6 +1,5 @@
 import { DownloadOutlined } from '@ant-design/icons';
 import { Button, Card } from 'antd';
-import { StyleHTMLAttributes } from 'react';
 import './SectionEmployeeInfo.css';
 
 interface Props {

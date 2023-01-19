@@ -10,7 +10,7 @@ interface Foo {
 interface Props {
   onSuccess?: Foo[];
 }
-export const ContingencyForm = ({ onSuccess }: Props) => {
+export const VacationForm = ({ onSuccess }: Props) => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
     onSuccess?.forEach((fun) => {
@@ -37,7 +37,7 @@ export const ContingencyForm = ({ onSuccess }: Props) => {
       autoComplete="off"
       layout="vertical"
     >
-      <Title level={4}>Contingency</Title>
+      <Title level={4}>Vacation</Title>
 
       <div className="contingency-form-row">
         <Form.Item

@@ -6,23 +6,23 @@ interface Props {
 export const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = () => {
+  const openModal = () => {
     setIsModalOpen(true);
   };
 
-  const handleCancel = () => {
+  const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const UseModal = ({ children }: Props) => (
-    <Modal width={1000} open={isModalOpen} onCancel={handleCancel} footer={[]}>
+  const ModalWrapper = ({ children }: Props) => (
+    <Modal width={1000} open={isModalOpen} onCancel={closeModal} footer={[]}>
       {children}
     </Modal>
   );
 
   return {
-    UseModal,
-    showModal,
-    handleCancel,
+    ModalWrapper,
+    openModal,
+    closeModal,
   };
 };

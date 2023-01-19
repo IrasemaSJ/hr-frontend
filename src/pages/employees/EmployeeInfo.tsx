@@ -2,8 +2,9 @@ import { CheckOutlined } from '@ant-design/icons';
 import { Button, Tabs, Tag } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
 import Link from 'antd/es/typography/Link';
-import { HeaderEmployeeInfo } from '../../components';
+import { HeaderEmployeeInfo, Stepper } from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
+import { useModal } from '../../hooks';
 import './EmployeeInfo.css';
 /**------------------   datos tabla ------------------------------*/
 interface DataType {
@@ -60,13 +61,13 @@ const columns: ColumnsType<DataType> = [
             type="primary"
             shape="circle"
             icon={<CheckOutlined />}
-            style={{ background: 'red', margin: '2px' }}
+            style={{ background: 'green', margin: '2px' }}
           />
           <Button
             type="primary"
             shape="circle"
             icon={'X'}
-            style={{ background: 'green', margin: '2px' }}
+            style={{ background: 'red', margin: '2px' }}
           />
         </>
       ) : record.status === 'approved' ? (
@@ -124,6 +125,8 @@ const data: DataType[] = [
 /**------------------   datos tabla ------------------------------*/
 
 export const EmployeeInfo = () => {
+  const { ModalWrapper, openModal, closeModal } = useModal();
+
   return (
     <>
       <HeaderEmployeeInfo
@@ -142,8 +145,12 @@ export const EmployeeInfo = () => {
         marriage={0}
         pregnancy={0}
         no_paid={0}
-        onClick={() => console.log('click')}
+        onClick={openModal}
       />
+      {/* Modal that does vacation request! */}
+      <ModalWrapper>
+        <Stepper closeModal={closeModal} />
+      </ModalWrapper>
       <Tabs
         defaultActiveKey="1"
         tabPosition={'top'}
