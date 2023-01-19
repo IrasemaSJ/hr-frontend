@@ -3,7 +3,7 @@ import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 interface Foo {
   (): void;
 }

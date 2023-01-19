@@ -1,25 +1,32 @@
 import React from 'react';
 import { CardActionContainer } from '../card-action-container/CardActionContainer';
 import { CardAction } from '../card-action.tsx/CardAction';
+import { RequestType } from './Stepper';
 
 interface Props {
   next: () => void;
+  setType: (type: RequestType) => void;
 }
-export const StepOne = ({ next }: Props) => {
+export const StepOne = ({ next, setType }: Props) => {
+  const handleClick = (type: RequestType) => {
+    setType(type);
+    next();
+  };
+
   return (
     <CardActionContainer>
       <CardAction
         urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"
         title="Vacations"
         text="7 days"
-        onClick={next}
+        onClick={() => handleClick('vacation')}
         // onClick={() => action('vacation')}
       />
       <CardAction
         urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"
         title="Contingency"
         text="7 days"
-        onClick={next}
+        onClick={() => handleClick('contingecy')}
         // onClick={() => action('contingency')}
       />
       {/* <CardAction
