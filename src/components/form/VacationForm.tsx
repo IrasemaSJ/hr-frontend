@@ -3,19 +3,11 @@ import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
 
-const { Title, Text } = Typography;
-interface Foo {
-  (): void;
-}
-interface Props {
-  onSuccess?: Foo[];
-}
-export const ContingencyForm = ({ onSuccess }: Props) => {
+const { Title } = Typography;
+
+export const VacationForm: React.FC = () => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
-    onSuccess?.forEach((fun) => {
-      fun();
-    });
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -37,7 +29,7 @@ export const ContingencyForm = ({ onSuccess }: Props) => {
       autoComplete="off"
       layout="vertical"
     >
-      <Title level={4}>Contingency</Title>
+      <Title level={4}>Vacation</Title>
 
       <div className="contingency-form-row">
         <Form.Item

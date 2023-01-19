@@ -1,55 +1,40 @@
-import React, { useState } from 'react';
-import { Button, message, Steps, theme } from 'antd';
+import React from 'react';
+import { Button, message, Steps } from 'antd';
 import { ContingencyForm } from '../form/ContingencyForm';
 import { StepOne } from './StepOne';
 import { LastStep } from './LastStep';
+import { useStepper } from '../../hooks';
+import { useState } from 'react';
+import { StepMid } from './StepMid';
 // const description = <p>holo</p>;
 
 interface Props {
   closeModal: () => void;
 }
+
 export const Stepper = ({ closeModal }: Props) => {
-  const steps = [
-    {
-      title: 'Type',
-      content: <StepOne />,
-    },
-    {
-      title: 'Fill',
-      content: <ContingencyForm />,
-    },
-    {
-      title: 'Response',
-      content: <LastStep />,
-    },
-  ];
-  // const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
+  const [requestType, setRequestType] = useState('');
 
-  const next = () => {
-    setCurrent(current + 1);
-  };
-
-  const prev = () => {
-    setCurrent(current - 1);
-  };
-
-  const items = steps.map((item) => ({
-    key: item.title,
-    title: item.title,
-  }));
+  const { steps, items, next, prev, current } = useStepper({
+    steps: [
+      {
+        title: 'Type',
+        content: () => <StepOne next={next} />,
+      },
+      {
+        title: 'Fill',
+        content: () => <StepMid next={next} />,
+      },
+      {
+        title: 'Response',
+        content: () => <LastStep prev={prev} closeModal={closeModal} />,
+      },
+    ],
+  });
 
   const contentStyle: React.CSSProperties = {
-    // lineHeight: '260px',
-    // textAlign: 'center',
-    // backgroundColor: token.colorFillAlter,
-    // borderRadius: token.borderRadiusLG,
-    // border: `1px dashed ${token.colorBorder}`,
-    // color: token.colorTextTertiary,
     color: 'black',
     padding: '10px',
-    // background: 'blue',
-    // marginTop: 50,
   };
 
   return (
@@ -65,33 +50,7 @@ export const Stepper = ({ closeModal }: Props) => {
         items={items}
       />
       {/* content */}
-      <div style={contentStyle}>{steps[current].content}</div>
-
-      {/* footer */}
-
-      <div style={{ marginTop: 24 }}>
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => {
-              closeModal();
-              message.success('Processing complete!');
-            }}
-          >
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-            Previous
-          </Button>
-        )}
-      </div>
+      <div style={contentStyle}>{steps[current].content()}</div>
     </>
   );
 };
