@@ -9,8 +9,9 @@ interface Foo {
 }
 interface Props {
   onSuccess?: Foo[];
+  prev?: () => void;
 }
-export const ContingencyForm = ({ onSuccess }: Props) => {
+export const ContingencyForm = ({ onSuccess, prev }: Props) => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
     onSuccess?.forEach((fun) => {
@@ -66,9 +67,16 @@ export const ContingencyForm = ({ onSuccess }: Props) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {prev && (
+            <Button type="default" onClick={prev}>
+              Previous
+            </Button>
+          )}
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </div>
       </Form.Item>
     </Form>
   );

@@ -18,16 +18,18 @@ export const Stepper = ({ closeModal }: Props) => {
   const { steps, items, next, prev, current } = useStepper({
     steps: [
       {
-        title: 'Type',
+        title: 'Select',
         content: () => <StepOne next={next} setType={setRequestType} />,
       },
       {
-        title: 'Fill',
-        content: () => <StepMid next={next} requestType={requestType} />,
+        title: 'Fill Out',
+        content: () => (
+          <StepMid next={next} requestType={requestType} prev={prev} />
+        ),
       },
       {
-        title: 'Response',
-        content: () => <LastStep prev={prev} closeModal={closeModal} />,
+        title: 'Review',
+        content: () => <LastStep closeModal={closeModal} />,
       },
     ],
   });
@@ -39,7 +41,7 @@ export const Stepper = ({ closeModal }: Props) => {
 
   return (
     <>
-      <h1>Request {requestType}</h1>
+      <h1>Request 🗓️</h1>
 
       <Steps
         responsive={true}
