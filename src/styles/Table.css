@@ -1,0 +1,5 @@
+@media (min-width: 768px) {
+    .hidden-table-column {
+      display: none;
+    }
+}

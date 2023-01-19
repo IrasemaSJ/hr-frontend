@@ -2,6 +2,7 @@ import { CheckOutlined } from '@ant-design/icons';
 import { Badge, Button, Table, Tabs } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import Link from 'antd/es/typography/Link';
+import '../../styles/Table.css';
 
 /*--------------------------Table information------------------------- */
 interface DataType {
@@ -24,12 +25,31 @@ const columns: ColumnsType<DataType> = [
     dataIndex: 'initial_date',
     key: '3',
     align: 'center',
+    responsive: ['md'],
   },
   {
     title: 'Days requested',
     dataIndex: 'days_requested',
     key: '4',
     align: 'center',
+    responsive: ['md'],
+  },
+  {
+    title: 'Information',
+    align: 'center',
+    className: 'hidden-mobile',
+    render: (_, record) => (
+      <>
+        <div>
+          <strong>Initial date</strong>
+        </div>
+        <span>{record.initial_date}</span>
+        <div>
+          <strong>Days requested</strong>
+        </div>
+        <span>{record.days_requested}</span>
+      </>
+    ),
   },
   {
     title: 'Actions',
