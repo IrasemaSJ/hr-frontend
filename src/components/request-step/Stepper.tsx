@@ -11,19 +11,19 @@ import { StepMid } from './StepMid';
 interface Props {
   closeModal: () => void;
 }
-
+export type RequestType = 'vacation' | 'contingecy' | '';
 export const Stepper = ({ closeModal }: Props) => {
-  const [requestType, setRequestType] = useState('');
+  const [requestType, setRequestType] = useState<RequestType>('');
 
   const { steps, items, next, prev, current } = useStepper({
     steps: [
       {
         title: 'Type',
-        content: () => <StepOne next={next} />,
+        content: () => <StepOne next={next} setType={setRequestType} />,
       },
       {
         title: 'Fill',
-        content: () => <StepMid next={next} />,
+        content: () => <StepMid next={next} requestType={requestType} />,
       },
       {
         title: 'Response',
@@ -39,7 +39,7 @@ export const Stepper = ({ closeModal }: Props) => {
 
   return (
     <>
-      <h1>Request</h1>
+      <h1>Request {requestType}</h1>
 
       <Steps
         responsive={true}

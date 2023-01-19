@@ -4,10 +4,18 @@ import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
 
 const { Title } = Typography;
-
-export const VacationForm: React.FC = () => {
+interface Foo {
+  (): void;
+}
+interface Props {
+  onSuccess?: Foo[];
+}
+export const VacationForm = ({ onSuccess }: Props) => {
   const onFinish = (values: any) => {
     console.log('Success:', values);
+    onSuccess?.forEach((fun) => {
+      fun();
+    });
   };
 
   const onFinishFailed = (errorInfo: any) => {

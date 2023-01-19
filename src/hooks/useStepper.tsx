@@ -3,18 +3,24 @@ import { useState } from 'react';
 export const useStepper = ({ steps }) => {
   const [current, setCurrent] = useState(0);
 
+  // go next step if current is minor than steps.length - 1
   const next = () => {
-    setCurrent(current + 1);
+    if (current < steps.length - 1) {
+      setCurrent(current + 1);
+    }
   };
 
+  // go prev step if current is greater than 0
   const prev = () => {
-    setCurrent(current - 1);
+    if (current > 0) {
+      setCurrent(current - 1);
+    }
   };
   const items = steps.map((item) => ({
     key: item.title,
     title: item.title,
   }));
-  steps.map;
+
   return {
     next,
     prev,
