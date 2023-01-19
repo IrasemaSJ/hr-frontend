@@ -1,16 +1,17 @@
-import './Login.css';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from '../../navigation/Navigation';
 import { ReactComponent as ImprovingLogo } from '../../assets/logo_improving.svg';
 import { ReactComponent as SignIn } from '../../assets/sign_in_ms.svg';
-import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 export const Login = () => {
-  const navigate = useNavigate();
+  const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
   return (
     <div className="login-general">
       <div className="login-container">
         <ImprovingLogo className="login-logotype" />
         <p className="login-text">Welcome to HR System</p>
-        <button className="login-button" onClick={() => navigate('/employees')}>
+        <button className="login-button" onClick={() => navigate('/request')}>
           <SignIn />
         </button>
       </div>
