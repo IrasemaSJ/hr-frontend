@@ -54,6 +54,7 @@ export const MenuRouter = () => {
           onClick: () => navigate('/vacations_seniority'),
         },
       ]}
+      style={{ border: 'none' }}
     />
   );
 };
