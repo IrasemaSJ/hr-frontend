@@ -67,14 +67,16 @@ export const VacationForm = ({ onSuccess, prev }: Props) => {
       </Form.Item>
 
       <Form.Item>
-        {prev && (
-          <Button type="primary" onClick={prev}>
-            Previous
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {prev && (
+            <Button type="default" onClick={prev}>
+              Previous
+            </Button>
+          )}
+          <Button type="primary" htmlType="submit">
+            Submit
           </Button>
-        )}
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        </div>
       </Form.Item>
     </Form>
   );
