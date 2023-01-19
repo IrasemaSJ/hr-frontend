@@ -41,7 +41,7 @@ export const Stepper = ({ closeModal }: Props) => {
 
   return (
     <>
-      <h1>Request 🗓️</h1>
+      <h1>🗓️ Request</h1>
 
       <Steps
         responsive={true}
