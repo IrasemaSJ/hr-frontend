@@ -7,6 +7,7 @@ import { MenuRouter } from '../menu-router/MenuRouter';
 import './MainLayout.css';
 import { useLocation } from 'react-router-dom';
 import { Login } from '../../pages';
+import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
 
 type Props = {
   children: JSX.Element;
@@ -20,8 +21,16 @@ export const MainLayout = ({ children }: Props) => {
 
   return (
     <Layout style={{ height: '100vh' }}>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="mainlayout-logo" />
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={collapsed}
+        theme="light"
+        width="250"
+      >
+        <div className="mainlayout-logo">
+          <Logo width="100%" />
+        </div>
         <MenuRouter />
       </Sider>
       <Layout className="mainlayout-site-layout">
