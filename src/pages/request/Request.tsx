@@ -37,7 +37,7 @@ const columns: ColumnsType<DataType> = [
   {
     title: 'Information',
     align: 'center',
-    className: 'hidden-mobile',
+    className: 'table-hidden-table-column',
     render: (_, record) => (
       <>
         <div>
