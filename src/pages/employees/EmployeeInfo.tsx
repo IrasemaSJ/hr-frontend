@@ -125,7 +125,7 @@ const data: DataType[] = [
 /**------------------   datos tabla ------------------------------*/
 
 export const EmployeeInfo = () => {
-  const { UseModal, showModal, handleCancel } = useModal();
+  const { ModalWrapper, openModal, closeModal } = useModal();
 
   return (
     <>
@@ -145,12 +145,12 @@ export const EmployeeInfo = () => {
         marriage={0}
         pregnancy={0}
         no_paid={0}
-        onClick={showModal}
+        onClick={openModal}
       />
       {/* Modal that does vacation request! */}
-      <UseModal>
-        <Stepper closeModal={handleCancel} />
-      </UseModal>
+      <ModalWrapper>
+        <Stepper closeModal={closeModal} />
+      </ModalWrapper>
       <Tabs
         defaultActiveKey="1"
         tabPosition={'top'}
