@@ -2,8 +2,9 @@ import React, { useRef } from 'react';
 import { Menu } from 'antd';
 import {
   UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
+  UnorderedListOutlined,
+  ReadOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../navigation/Navigation';
@@ -20,41 +21,40 @@ export const MenuRouter = () => {
 
   return (
     <Menu
-      theme="dark"
-      mode="inline"
       defaultSelectedKeys={[pathnameFirstLine]}
       items={[
         {
           key: 'request',
-          icon: <UserOutlined />,
-          label: 'request',
+          icon: <UnorderedListOutlined />,
+          label: 'Requests',
           onClick: () => navigate('/request'),
         },
         {
           key: 'employees',
-          icon: <VideoCameraOutlined />,
-          label: 'employees',
+          icon: <UserOutlined />,
+          label: 'Employees',
           onClick: () => navigate(`/employees`),
         },
         {
           key: 'history',
-          icon: <UploadOutlined />,
-          label: 'history',
+          icon: <ReadOutlined />,
+          label: 'History',
           onClick: () => navigate('/history'),
         },
         {
           key: 'holidays',
-          icon: <UploadOutlined />,
-          label: 'holidays',
+          icon: <CalendarOutlined />,
+          label: 'Holidays',
           onClick: () => navigate('/holidays'),
         },
         {
           key: 'vacations_seniority',
-          icon: <UploadOutlined />,
-          label: 'Vacation Seniority',
+          icon: <CalendarOutlined />,
+          label: 'Vacation',
           onClick: () => navigate('/vacations_seniority'),
         },
       ]}
+      style={{ border: 'none' }}
     />
   );
 };
