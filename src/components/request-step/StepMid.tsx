@@ -13,7 +13,7 @@ export const StepMid = ({ next, requestType, prev }: Props) => {
     case 'contingecy':
       return <ContingencyForm onSuccess={[next]} prev={prev} />;
     case 'vacation':
-      return <VacationForm onSuccess={[next]} prev={prev} />;
+      return <VacationForm title="Vacation" onSuccess={[next]} prev={prev} />;
     default:
       return <p>Form not found</p>;
   }

@@ -34,9 +34,9 @@ export const VacationForm = ({ onSuccess, prev, title }: Props) => {
     >
       <Title level={4}>{title}</Title>
 
-      <InputDate multiple/>
+      <InputDate />
 
-      <InputMessage />
+      {/* <InputMessage /> */}
 
       <Form.Item>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
