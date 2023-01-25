@@ -36,7 +36,7 @@ export const VacationForm = ({ onSuccess, prev, title }: Props) => {
 
       <InputDate />
 
-      {/* <InputMessage /> */}
+      <InputMessage />
 
       <Form.Item>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>

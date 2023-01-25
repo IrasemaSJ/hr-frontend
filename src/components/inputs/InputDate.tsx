@@ -36,53 +36,54 @@ export const InputDate = () => {
   const onOk = (value: RangePickerProps['value']) => {
     console.log('onOk: ', value);
   };
-  const handleChange = (
-    dates: RangePickerProps['value'],
-    _dateStrings: [string, string],
-  ) => {
+  const handleChange = (dates: RangePickerProps['value']) => {
     // verify dates is an dayjs array & is not empty
     if (dates && dayjs.isDayjs(dates[1]) && dayjs.isDayjs(dates[0])) {
       // how many days are between, including sun and satur
       const daysDiff = dates[1].diff(dates[0], 'days', true);
 
-      console.log(dates);
       // list selected days without sun and satur
       const rangeDates: dayjs.Dayjs[] = [dates[0]];
       let nextDay: dayjs.Dayjs = dates[0];
       for (let i = 0; i < daysDiff; i++) {
         nextDay = nextDay.add(1, 'day');
-        // if (nextDay.day() !== 6 && nextDay.day() !== 5) {
-        rangeDates.push(nextDay);
-        // }
+        // exclude sun & satur
+        if (nextDay.day() !== 6 && nextDay.day() !== 0) {
+          rangeDates.push(nextDay);
+        }
       }
-      console.log(daysDiff);
-      // execute in state
-      return setPickerDates([...rangeDates]);
+
+      // set list in component state
+      setPickerDates([...rangeDates]);
+      return;
     }
     setPickerDates([]);
   };
   return (
     <>
-      <>
-        <Form.Item label="Date" name="date" style={{ width: '100%' }}>
-          <Input.Group compact>
-            <RangePicker
-              // format="YYYY-MM-DD"
-              style={{ width: '90%' }}
-              // onChange={handleChange}
-              onOk={onOk}
-              disabledDate={disableWeekEnds}
-            />
-
-            <Tooltip title="Add days">
-              <Button style={{ width: '10%' }}>Add Days</Button>
-            </Tooltip>
-          </Input.Group>
-        </Form.Item>
-        {pickerDates?.map((date, index) => (
-          <p key={index}>{date.toString()}</p>
-        ))}
-      </>
+      <Form.Item label="Date" name="date">
+        {/* <div className="contingency-form-row" style={{ width: '100%' }}> */}
+        <Input.Group compact style={{ display: 'flex' }}>
+          <RangePicker
+            format="YYYY-MM-DD"
+            style={{ flex: '1' }}
+            onChange={handleChange}
+            onOk={() => console.log('ok')}
+            disabledDate={disableWeekEnds}
+            onOpenChange={() => console.log('se abrio')}
+            onCalendarChange={(val) => console.log(val)}
+          />
+          <Tooltip title="Add days">
+            <Button>
+              Add{!pickerDates.length ? ' ' : ` ${pickerDates.length}`} Days
+            </Button>
+          </Tooltip>
+        </Input.Group>
+        {/* </div> */}
+      </Form.Item>
+      {pickerDates?.map((date, index) => (
+        <p key={index}>{date.toDate().toString()}</p>
+      ))}
     </>
   );
 };
