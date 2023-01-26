@@ -19,6 +19,7 @@ export const useStepper = ({ steps }) => {
   const items = steps.map((item) => ({
     key: item.title,
     title: item.title,
+    description: item.description || '',
   }));
 
   return {

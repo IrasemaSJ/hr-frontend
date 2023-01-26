@@ -10,10 +10,12 @@ import {
   List,
   Typography,
   Switch,
+  Card,
 } from 'antd';
 import { RangePickerProps } from 'antd/es/date-picker';
 import * as dayjs from 'dayjs';
 import { useState } from 'react';
+import './InputDate.css';
 const { RangePicker } = DatePicker;
 
 import * as weekday from 'dayjs/plugin/weekday';
@@ -108,26 +110,22 @@ export const InputDate = () => {
   return (
     <>
       <Form.Item label="Date" name="date">
-        <Input.Group compact style={{ display: 'flex' }}>
+        <Input.Group compact>
           <RangePicker
             format="YYYY-MM-DD"
             style={{ flex: '1' }}
             onChange={handleChange}
             disabledDate={disableDates}
-            // disabledDate={disableWeekEnds}
-            // onOpenChange={(open) => {
-            //   if (open) console.log('se abrio');
-            // }}
             onCalendarChange={setClickedDates}
-            // disabledDate // deshabilitar fechas que ya son parte del calendario
           />
-          <Tooltip title="Add days">
-            <Button>{pickedDates.length} Days</Button>
-          </Tooltip>
+          <Button className="input-date-select-button">
+            {pickedDates.length} Days
+          </Button>
         </Input.Group>
       </Form.Item>
       {!!pickedDates.length && (
         <List
+          style={{ marginBottom: '1rem' }}
           bordered
           size="small"
           dataSource={pickedDates}
@@ -136,10 +134,12 @@ export const InputDate = () => {
               <>
                 {item.format('YYYY-MM-DD')}{' '}
                 {item.localeData().weekdays()[item.day()]}
-                <Switch
-                  checkedChildren="Half Day"
-                  unCheckedChildren="Hole Day"
-                />
+                <div style={{ width: '12  0px' }}>
+                  <Typography.Text style={{ paddingRight: '1rem' }}>
+                    Half Day
+                  </Typography.Text>
+                  <Switch />
+                </div>
               </>
             </List.Item>
           )}

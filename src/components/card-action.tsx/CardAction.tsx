@@ -13,7 +13,7 @@ export const CardAction = ({ urlAvatar, title, text, onClick }: Props) => {
   return (
     <Card
       bordered={false}
-      style={{ minWidth: '200px' }}
+      // style={{ minWidth: '300px' }}
       hoverable={true}
       onClick={onClick}
     >

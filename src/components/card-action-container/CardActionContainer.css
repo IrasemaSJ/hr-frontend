@@ -1,9 +1,9 @@
 .card-action-container-container{
-    display: flex;
+    /* display: flex; */
     gap: 10px;
-    overflow-x: scroll;
+    /* overflow-x: scroll; */
     padding-top: 5px;
     padding-bottom: 5px;
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(200px,1fr));
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
 }
