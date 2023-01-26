@@ -1,3 +1,4 @@
+export { Loader } from './loader/Loader';
 export { HeaderEmployeeInfo } from './header-employee-info/HeaderEmployeeInfo';
 export { CardActionContainer } from './card-action-container/CardActionContainer';
 export { CardAction } from './card-action.tsx/CardAction';
