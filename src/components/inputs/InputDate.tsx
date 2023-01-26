@@ -9,13 +9,33 @@ import {
   Tooltip,
   List,
   Typography,
+  Switch,
 } from 'antd';
 import { RangePickerProps } from 'antd/es/date-picker';
 import * as dayjs from 'dayjs';
 import { useState } from 'react';
-
 const { RangePicker } = DatePicker;
 
+import * as weekday from 'dayjs/plugin/weekday';
+// import * as updateLocale from 'dayjs/plugin/updateLocale';
+import * as localeData from 'dayjs/plugin/localeData';
+// import * as updateLocale from 'dayjs/plugin/updateLocale';
+// dayjs.extend(locale_de);
+dayjs.extend(localeData);
+dayjs.extend(weekday);
+// dayjs.extend(updateLocale);
+// dayjs.extend(updateLocale);
+// dayjs.updateLocale('en', {
+//   weekdays: [
+//     'Sunday',
+//     'Monday',
+//     'Tuesday',
+//     'Wednesday',
+//     'Thursday',
+//     'Friday',
+//     'Saturday',
+//   ],
+// });
 interface DateState {
   date: dayjs.Dayjs;
   halfday: boolean;
@@ -102,13 +122,11 @@ export const InputDate = () => {
             // disabledDate // deshabilitar fechas que ya son parte del calendario
           />
           <Tooltip title="Add days">
-            <Button>
-              Add{!pickedDates.length ? ' ' : ` ${pickedDates.length}`} Days
-            </Button>
+            <Button>{pickedDates.length} Days</Button>
           </Tooltip>
         </Input.Group>
       </Form.Item>
-      {pickedDates.length && (
+      {!!pickedDates.length && (
         <List
           bordered
           size="small"
@@ -117,7 +135,11 @@ export const InputDate = () => {
             <List.Item>
               <>
                 {item.format('YYYY-MM-DD')}{' '}
-                <Typography.Text mark>[ITEM]</Typography.Text>
+                {item.localeData().weekdays()[item.day()]}
+                <Switch
+                  checkedChildren="Half Day"
+                  unCheckedChildren="Hole Day"
+                />
               </>
             </List.Item>
           )}
