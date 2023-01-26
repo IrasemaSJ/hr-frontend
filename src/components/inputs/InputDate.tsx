@@ -19,25 +19,9 @@ import './InputDate.css';
 const { RangePicker } = DatePicker;
 
 import * as weekday from 'dayjs/plugin/weekday';
-// import * as updateLocale from 'dayjs/plugin/updateLocale';
 import * as localeData from 'dayjs/plugin/localeData';
-// import * as updateLocale from 'dayjs/plugin/updateLocale';
-// dayjs.extend(locale_de);
 dayjs.extend(localeData);
 dayjs.extend(weekday);
-// dayjs.extend(updateLocale);
-// dayjs.extend(updateLocale);
-// dayjs.updateLocale('en', {
-//   weekdays: [
-//     'Sunday',
-//     'Monday',
-//     'Tuesday',
-//     'Wednesday',
-//     'Thursday',
-//     'Friday',
-//     'Saturday',
-//   ],
-// });
 interface DateState {
   date: dayjs.Dayjs;
   halfday: boolean;
@@ -104,9 +88,6 @@ export const InputDate = () => {
     setPickedDates([]);
   };
 
-  // const handleClickDate = (dates: RangePickerProps['value']) => {
-  //   setClickedDates(dates);
-  // };
   return (
     <>
       <Form.Item label="Date" name="date">

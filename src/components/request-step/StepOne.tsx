@@ -22,16 +22,14 @@ export const StepOne = ({ next, setType }: Props) => {
           title="Vacations"
           text="7 days"
           onClick={() => handleClick('vacation')}
-          // onClick={() => action('vacation')}
         />
         <CardAction
           urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"
           title="Contingency"
           text="7 days"
           onClick={() => handleClick('contingecy')}
-          // onClick={() => action('contingency')}
         />
-        <CardAction
+        {/* <CardAction
           urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"
           title="Incapacity"
           text="7 days"
@@ -72,7 +70,7 @@ export const StepOne = ({ next, setType }: Props) => {
           title="Non paid"
           text="7 days"
           onClick={() => console.log('hola')}
-        />
+        /> */}
       </CardActionContainer>
     </>
   );
