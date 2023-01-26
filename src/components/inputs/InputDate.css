@@ -1,0 +1,6 @@
+.input-date-select-button {
+  cursor: default;
+  pointer-events: none;
+  left: 1px;
+  border-left: none;
+}

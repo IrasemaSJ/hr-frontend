@@ -11,12 +11,7 @@ interface Props {
 
 export const CardAction = ({ urlAvatar, title, text, onClick }: Props) => {
   return (
-    <Card
-      bordered={false}
-      style={{ minWidth: '200px' }}
-      hoverable={true}
-      onClick={onClick}
-    >
+    <Card bordered={false} hoverable={true} onClick={onClick}>
       <Meta avatar={<Avatar src={urlAvatar} />} title={title} />
       <div style={{ marginTop: '10px' }}>
         <strong>Avaliable</strong>

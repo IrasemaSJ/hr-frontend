@@ -9,8 +9,8 @@ export const LastStep = ({ closeModal }: Props) => {
   return (
     <Result
       status="success"
-      title="Successfully Purchased Cloud Server ECS!"
-      subTitle="Order number: 2017182818828182881 Cloud server configuration takes 1-5 minutes, please wait."
+      title="Request Created Successfully"
+      subTitle="Your request folio ID: VAC-230126-02."
       extra={[
         <Button type="primary" key="Close" onClick={closeModal}>
           Close

@@ -9,13 +9,19 @@ import {
   Tooltip,
   List,
   Typography,
+  Switch,
+  Card,
 } from 'antd';
 import { RangePickerProps } from 'antd/es/date-picker';
 import * as dayjs from 'dayjs';
 import { useState } from 'react';
-
+import './InputDate.css';
 const { RangePicker } = DatePicker;
 
+import * as weekday from 'dayjs/plugin/weekday';
+import * as localeData from 'dayjs/plugin/localeData';
+dayjs.extend(localeData);
+dayjs.extend(weekday);
 interface DateState {
   date: dayjs.Dayjs;
   halfday: boolean;
@@ -82,34 +88,25 @@ export const InputDate = () => {
     setPickedDates([]);
   };
 
-  // const handleClickDate = (dates: RangePickerProps['value']) => {
-  //   setClickedDates(dates);
-  // };
   return (
     <>
       <Form.Item label="Date" name="date">
-        <Input.Group compact style={{ display: 'flex' }}>
+        <Input.Group compact>
           <RangePicker
             format="YYYY-MM-DD"
             style={{ flex: '1' }}
             onChange={handleChange}
             disabledDate={disableDates}
-            // disabledDate={disableWeekEnds}
-            // onOpenChange={(open) => {
-            //   if (open) console.log('se abrio');
-            // }}
             onCalendarChange={setClickedDates}
-            // disabledDate // deshabilitar fechas que ya son parte del calendario
           />
-          <Tooltip title="Add days">
-            <Button>
-              Add{!pickedDates.length ? ' ' : ` ${pickedDates.length}`} Days
-            </Button>
-          </Tooltip>
+          <Button className="input-date-select-button">
+            {pickedDates.length} Days
+          </Button>
         </Input.Group>
       </Form.Item>
-      {pickedDates.length && (
+      {!!pickedDates.length && (
         <List
+          style={{ marginBottom: '1rem' }}
           bordered
           size="small"
           dataSource={pickedDates}
@@ -117,7 +114,13 @@ export const InputDate = () => {
             <List.Item>
               <>
                 {item.format('YYYY-MM-DD')}{' '}
-                <Typography.Text mark>[ITEM]</Typography.Text>
+                {item.localeData().weekdays()[item.day()]}
+                <div style={{ width: '12  0px' }}>
+                  <Typography.Text style={{ paddingRight: '1rem' }}>
+                    Half Day
+                  </Typography.Text>
+                  <Switch />
+                </div>
               </>
             </List.Item>
           )}
