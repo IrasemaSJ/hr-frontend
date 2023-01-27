@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { Layout, theme } from 'antd';
+import { Button, Layout, theme } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import { MenuRouter } from '../menu-router/MenuRouter';
@@ -8,12 +8,14 @@ import './MainLayout.css';
 import { useLocation } from 'react-router-dom';
 import { Login } from '../../pages';
 import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
+import { AuthContext } from '../../contexts/AuthContext';
 
 type Props = {
   children: JSX.Element;
 };
 
 export const MainLayout = ({ children }: Props) => {
+  const { user, logOut } = useContext(AuthContext);
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
@@ -34,14 +36,26 @@ export const MainLayout = ({ children }: Props) => {
         <MenuRouter />
       </Sider>
       <Layout className="mainlayout-site-layout">
-        <Header style={{ padding: 0, background: colorBgContainer }}>
-          {React.createElement(
-            collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-            {
-              className: 'mainlayout-trigger',
-              onClick: () => setCollapsed(!collapsed),
-            },
-          )}
+        <Header
+          style={{
+            padding: '0 5',
+            background: colorBgContainer,
+            justifyContent: 'space-between',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+        >
+          <span>
+            {React.createElement(
+              collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: 'mainlayout-trigger',
+                onClick: () => setCollapsed(!collapsed),
+              },
+            )}
+            Welcome {user.name}
+          </span>
+          <Button onClick={logOut}>Logout</Button>
         </Header>
         <Content
           style={{

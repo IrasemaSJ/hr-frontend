@@ -5,72 +5,16 @@ import { Alert, Input } from 'antd';
 import { AuthContext } from '../../contexts/AuthContext';
 import './Login.css';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Routes } from '../../navigation/Navigation';
-import { useNavigate } from 'react-router-dom';
-import ApiHR from '../../api/ApiHR';
+// import { Routes } from '../../navigation/Navigation';
+// import { useNavigate } from 'react-router-dom';
+// import ApiHR from '../../api/ApiHR';
 import { Loader } from '../../components';
 
-export interface Credentials {
-  email: string;
-  password: string;
-}
-
-const initialCredential: Credentials = {
-  email: '',
-  password: '',
-};
-
-const initialError: Credentials = {
-  email: '',
-  password: '',
-};
-
 export const Login = () => {
-  const { setUser } = useContext(AuthContext);
-  const [credentials, setCredentials] = useState(initialCredential);
-  const [error, setError] = useState(initialError);
-  const [errorServer, setErrorServer] = useState<string[] | string>('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { credentials, error, errorServer, isLoading, logIn, setCredentials } =
+    useContext(AuthContext);
 
-  const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
-
-  const login = async () => {
-    try {
-      /**---------------------Validations for form -------------------------*/
-      let errorCredentials: Credentials = {
-        email: '',
-        password: '',
-      };
-
-      if (credentials.email === '') {
-        errorCredentials = {
-          ...errorCredentials,
-          email: 'Email must not be empty',
-        };
-      }
-
-      if (credentials.password === '') {
-        errorCredentials = {
-          ...errorCredentials,
-          password: 'Password must not be empty',
-        };
-      }
-
-      if (errorCredentials.email !== '' || errorCredentials.password !== '') {
-        return setError(errorCredentials);
-      }
-      //active the loader
-      setIsLoading(true);
-      /**---------------------Validations for form -------------------------*/
-
-      const res = await ApiHR.post('users/login', credentials);
-      setUser(res.data);
-      navigate('/request');
-    } catch (error: any) {
-      setErrorServer(error.response.data.message);
-      setIsLoading(false);
-    }
-  };
+  // const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
 
   const changeCredentials = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -122,7 +66,7 @@ export const Login = () => {
           />
           <span style={{ color: 'red' }}>{error.password}</span>
         </div>
-        <button className="login-button" onClick={login}>
+        <button className="login-button" onClick={logIn}>
           <SignIn />
         </button>
       </div>
