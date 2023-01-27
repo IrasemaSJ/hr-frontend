@@ -64,8 +64,15 @@ export const Login = () => {
       /**---------------------Validations for form -------------------------*/
 
       const res = await ApiHR.post('users/login', credentials);
+      //set global user
       setUser(res.data);
-      navigate('/request');
+      //set the global user to the local storage
+      localStorage.setItem('user', JSON.stringify(res.data));
+      if (res.data.role === 'admin') {
+        navigate('/request');
+      } else {
+        navigate('/employeeinfo');
+      }
     } catch (error: any) {
       setErrorServer(error.response.data.message);
       setIsLoading(false);

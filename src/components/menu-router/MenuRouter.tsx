@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Menu } from 'antd';
 import {
   UserOutlined,
@@ -8,9 +8,11 @@ import {
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../navigation/Navigation';
+import { AuthContext } from '../../contexts/AuthContext';
 // import { ParamRoutes } from '../../navigation/Navigation';
 
 export const MenuRouter = () => {
+  const { user } = useContext(AuthContext);
   // const navigate:(url:ParamRoutes) => void = useNavigate()
   //TODO: search a way to set the type to the router
   const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
@@ -19,7 +21,7 @@ export const MenuRouter = () => {
   const { pathname } = useLocation();
   const pathnameFirstLine = useRef(pathname).current.split('/')[1];
 
-  return (
+  return user.role === 'admin' ? (
     <Menu
       defaultSelectedKeys={[pathnameFirstLine]}
       items={[
@@ -34,6 +36,43 @@ export const MenuRouter = () => {
           icon: <UserOutlined />,
           label: 'Employees',
           onClick: () => navigate(`/employees`),
+        },
+        {
+          key: 'history',
+          icon: <ReadOutlined />,
+          label: 'History',
+          onClick: () => navigate('/history'),
+        },
+        {
+          key: 'holidays',
+          icon: <CalendarOutlined />,
+          label: 'Holidays',
+          onClick: () => navigate('/holidays'),
+        },
+        {
+          key: 'vacations_seniority',
+          icon: <CalendarOutlined />,
+          label: 'Vacation',
+          onClick: () => navigate('/vacations_seniority'),
+        },
+        {
+          key: 'employeeinfo',
+          icon: <UnorderedListOutlined />,
+          label: 'My Requests',
+          onClick: () => navigate('/employeeinfo'),
+        },
+      ]}
+      style={{ border: 'none' }}
+    />
+  ) : (
+    <Menu
+      defaultSelectedKeys={[pathnameFirstLine]}
+      items={[
+        {
+          key: 'employeeinfo',
+          icon: <UnorderedListOutlined />,
+          label: 'My Requests',
+          onClick: () => navigate('/employeeinfo'),
         },
         {
           key: 'history',

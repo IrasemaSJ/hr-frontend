@@ -6,7 +6,7 @@ export interface Roles {
 
 export interface UserInformation {
   name: string;
-  role: Roles | '';
+  role: Roles[keyof Roles] | '';
   token: '';
 }
 

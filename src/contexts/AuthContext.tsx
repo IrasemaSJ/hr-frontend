@@ -1,7 +1,4 @@
-import React, { createContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ApiHR from '../api/ApiHR';
-import { Routes } from '../navigation/Navigation';
+import React, { createContext, useEffect, useState } from 'react';
 import { ContextProps, UserInformation } from './AuthContext.interfaces';
 
 const initialUser: UserInformation = {
@@ -13,7 +10,13 @@ const initialUser: UserInformation = {
 export const AuthContext = createContext({} as ContextProps);
 
 export const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState(initialUser);
+  useEffect(() => {
+    const userStorage = localStorage.getItem('user');
+    console.log(userStorage)
+    if (userStorage) setUser(JSON.parse(userStorage));
+  }, []);
+
+  const [user, setUser] = useState<UserInformation>(initialUser);
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
