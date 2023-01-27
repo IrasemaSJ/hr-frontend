@@ -7,10 +7,20 @@ export interface Roles {
 export interface UserInformation {
   name: string;
   role: Roles[keyof Roles] | '';
-  token: '';
 }
 
+export interface Credentials {
+  email: string;
+  password: string;
+}
 export interface ContextProps {
   user: UserInformation;
   setUser: (user: UserInformation) => void;
+  logIn: () => void;
+  logOut: () => void;
+  credentials: Credentials;
+  error: Credentials;
+  errorServer: string | string[];
+  isLoading: boolean;
+  setCredentials: (credentials: Credentials) => void;
 }

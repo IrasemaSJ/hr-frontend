@@ -31,7 +31,7 @@ export const Navigation = () => {
       <Route
         path="/"
         element={
-          user.token ? (
+          user.role !== '' ? (
             user.role === 'admin' ? (
               <Navigate to="/request" />
             ) : (
