@@ -103,7 +103,14 @@ export const Navigation = () => {
           </Auth>
         }
       />
-      <Route path="*" element={<Error404 />} />
+      <Route
+        path="*"
+        element={
+          <Auth>
+            <Error404 />
+          </Auth>
+        }
+      />
     </Routes>
   );
 };

@@ -8,8 +8,9 @@ import { useNavigate } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import { Routes } from '../navigation/Navigation';
 import ApiHR from '../api/ApiHR';
+import { getToken } from '../helpers/getToken';
 
-const initialUser: UserInformation = {
+export const initialUser: UserInformation = {
   name: '',
   role: '',
 };
@@ -25,23 +26,17 @@ const initialError: Credentials = {
 export const AuthContext = createContext({} as ContextProps);
 
 export const AuthProvider = ({ children }: any) => {
+  const [user, setUser] = useState<UserInformation>(initialUser);
   const [credentials, setCredentials] = useState(initialCredential);
   const [error, setError] = useState(initialError);
   const [errorServer, setErrorServer] = useState<string[] | string>('');
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
-  // check current token
+  // check if token exists in local storage
   useEffect(() => {
-    const tokenStorage = localStorage.getItem('token');
-    if (tokenStorage !== null) {
-      const payload: UserInformation = jwt_decode(tokenStorage);
-      setUser(payload);
-      if (tokenStorage) setUser(payload);
-    }
+    getToken({ setUser, navigate });
   }, []);
-
-  const [user, setUser] = useState<UserInformation>(initialUser);
 
   const logIn = async () => {
     try {
@@ -73,17 +68,24 @@ export const AuthProvider = ({ children }: any) => {
 
       const res = await ApiHR.post('users/login', credentials);
 
-      //set global token
+      //decode payload token
       const payload: UserInformation = jwt_decode(res.data.token);
-      console.log(payload);
+      //set global user payload
       setUser(payload);
-      setCredentials(initialCredential); //);
+      // get credential to initial
+      setCredentials(initialCredential);
       //set the global user to the local storage
       localStorage.setItem('token', res.data.token);
-      if (res.data.role === 'admin') {
+      if (payload.role === 'admin') {
         navigate('/request');
+        setIsLoading(false);
+        setError(initialError);
+        setErrorServer('');
       } else {
         navigate('/employeeinfo');
+        setIsLoading(false);
+        setError(initialError);
+        setErrorServer('');
       }
     } catch (error: any) {
       setErrorServer(error.response.data.message);
