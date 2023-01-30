@@ -23,7 +23,6 @@ export const Stepper = ({ closeModal }: Props) => {
         description: 'Select your request',
       },
       {
-        // title: 'Fill Out',
         title: 'Information',
         content: () => (
           <StepMid next={next} requestType={requestType} prev={prev} />

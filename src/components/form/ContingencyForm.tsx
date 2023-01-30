@@ -1,7 +1,19 @@
-import React from 'react';
-import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
+import React, { useContext } from 'react';
+import {
+  Button,
+  Checkbox,
+  DatePicker,
+  Form,
+  notification,
+  Typography,
+} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
+import * as dayjs from 'dayjs';
+import ApiHR from '../../api/ApiHR';
+import { Auth } from '../auth/Auth';
+import { AuthContext } from '../../contexts/AuthContext';
+import { NotificationPlacement } from 'antd/es/notification/interface';
 
 const { Title } = Typography;
 interface Foo {
@@ -11,33 +23,85 @@ interface Props {
   onSuccess?: Foo[];
   prev?: () => void;
 }
+
+interface SubmitValues {
+  date: dayjs.Dayjs;
+  half_day?: boolean;
+  comments?: string;
+}
 export const ContingencyForm = ({ onSuccess, prev }: Props) => {
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-    onSuccess?.forEach((fun) => {
-      fun();
+  const { logOut } = useContext(AuthContext);
+
+  //// notification
+  const [api, contextHolder] = notification.useNotification();
+  const openNotification = (
+    placement: NotificationPlacement,
+    messages: string | string[],
+  ) => {
+    api.error({
+      message: `Oops! Something went wrong!`,
+      description: (
+        <ul>
+          {Array.isArray(messages) ? (
+            messages.map((msg) => <li key={msg}>{msg}</li>)
+          ) : (
+            <li>{messages}</li>
+          )}
+        </ul>
+      ),
+      placement,
     });
+  };
+  //// notification
+
+  const onSubmit = async ({ date, half_day, comments }: SubmitValues) => {
+    try {
+      const submitValues = {
+        half_day,
+        comments,
+        date: date.format('YYYY-MM-DD'),
+      };
+      // console.log('Success:', submitValues);
+
+      const res = await ApiHR.post('/contingencies', submitValues);
+      console.log(res.data.folio);
+      // onSuccess?.forEach((fun) => {
+      //   fun();
+      // });
+    } catch (err: any) {
+      //aasdfasd
+      if (err.response.status === 401) {
+        return logOut();
+      }
+      if (err.response.status === 400) {
+        return openNotification('top', err.response.data.message);
+      }
+      if (err.response.status === 500) {
+        return openNotification('top', err.response.data.message);
+      }
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
   };
 
-  const disableWeekEnds = (current) => {
+  const disableWeekEnds = (current: dayjs.Dayjs) => {
     return (
-      new Date(current).getDay() === 0 || // sundays
-      new Date(current).getDay() === 6 // saturdays
+      new Date(current.toString()).getDay() === 0 || // sundays
+      new Date(current.toString()).getDay() === 6 // saturdays
     );
   };
 
   return (
     <Form
       name="basic"
-      onFinish={onFinish}
+      onFinish={onSubmit}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
       layout="vertical"
     >
+      {contextHolder}
       <Title level={4}>Contingency</Title>
 
       <div className="contingency-form-row">
@@ -53,12 +117,12 @@ export const ContingencyForm = ({ onSuccess, prev }: Props) => {
           />
         </Form.Item>
 
-        <Form.Item label="Half Day" name="halfday" valuePropName="checked">
+        <Form.Item label="Half Day" name="half_day" valuePropName="checked">
           <Checkbox />
         </Form.Item>
       </div>
 
-      <Form.Item label="Message" name="message">
+      <Form.Item label="Comments" name="comments">
         <TextArea
           autoSize={{ minRows: 4, maxRows: 4 }}
           rows={4}
