@@ -2,7 +2,11 @@ import { CheckOutlined } from '@ant-design/icons';
 import { Button, Tabs, Tag } from 'antd';
 import Table, { ColumnsType } from 'antd/es/table';
 import Link from 'antd/es/typography/Link';
-import { HeaderEmployeeInfo, Stepper } from '../../components';
+import {
+  HeaderEmployeeInfo,
+  RejectActionButton,
+  Stepper,
+} from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
 import { useModal } from '../../hooks';
 import './EmployeeInfo.css';
@@ -63,12 +67,7 @@ const columns: ColumnsType<DataType> = [
             icon={<CheckOutlined />}
             style={{ background: 'green', margin: '2px' }}
           />
-          <Button
-            type="primary"
-            shape="circle"
-            icon={'X'}
-            style={{ background: 'red', margin: '2px' }}
-          />
+          <RejectActionButton />
         </>
       ) : record.status === 'approved' ? (
         <Button

@@ -15,7 +15,7 @@ export const useModal = () => {
   };
 
   const ModalWrapper = ({ children }: Props) => (
-    <Modal width={1000} open={isModalOpen} onCancel={closeModal} footer={[]}>
+    <Modal open={isModalOpen} onCancel={closeModal} footer={[]}>
       {children}
     </Modal>
   );
