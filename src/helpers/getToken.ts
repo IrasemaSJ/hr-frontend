@@ -14,11 +14,17 @@ export const getToken = async ({ setUser, navigate }: Props) => {
   try {
     const tokenStorage = localStorage.getItem('token');
     if (tokenStorage) {
+      //get the header
+      const header = jwt_decode(tokenStorage, {
+        header: true,
+      });
+      //get the payload
       const payload: UserInformation = jwt_decode(tokenStorage);
       setUser(payload);
+      //TODO: check if there is a way to verify blue part of JWT (header and payload are already verified)
     }
   } catch (error) {
-    localStorage.removeItem('token');
     navigate('/');
+    localStorage.removeItem('token');
   }
 };

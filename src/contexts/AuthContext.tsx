@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }: any) => {
   const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
   // check if token exists in local storage
   useEffect(() => {
+    //helper
     getToken({ setUser, navigate });
   }, []);
 
