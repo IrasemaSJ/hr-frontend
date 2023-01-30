@@ -38,7 +38,8 @@ export const MainLayout = ({ children }: Props) => {
       <Layout className="mainlayout-site-layout">
         <Header
           style={{
-            padding: '0 5',
+            padding: '0',
+            paddingRight: '20px',
             background: colorBgContainer,
             justifyContent: 'space-between',
             display: 'flex',
@@ -53,7 +54,10 @@ export const MainLayout = ({ children }: Props) => {
                 onClick: () => setCollapsed(!collapsed),
               },
             )}
-            Welcome {user.name}
+            Welcome:&nbsp;
+            <i>
+              <strong>{user.name}</strong>
+            </i>
           </span>
           <Button onClick={logOut}>Logout</Button>
         </Header>
