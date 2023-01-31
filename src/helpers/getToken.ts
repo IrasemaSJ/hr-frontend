@@ -5,12 +5,12 @@ import {
 import jwt_decode from 'jwt-decode';
 import { Routes } from '../navigation/Navigation';
 
-interface Props {
+interface Params {
   setUser: ContextProps['setUser'];
   navigate: (url: Routes[keyof Routes]) => void;
 }
 
-export const getToken = async ({ setUser, navigate }: Props) => {
+export const getToken = async ({ setUser, navigate }: Params) => {
   try {
     const tokenStorage = localStorage.getItem('token');
     if (tokenStorage) {

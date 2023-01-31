@@ -7,11 +7,14 @@ interface Props {
   next: () => void;
   prev: () => void;
   requestType: RequestType;
+  setFolio: React.Dispatch<React.SetStateAction<string>>;
 }
-export const StepMid = ({ next, requestType, prev }: Props) => {
+export const StepMid = ({ next, requestType, prev, setFolio }: Props) => {
   switch (requestType) {
     case 'contingecy':
-      return <ContingencyForm onSuccess={[next]} prev={prev} />;
+      return (
+        <ContingencyForm onSuccess={[next]} prev={prev} setFolio={setFolio} />
+      );
     case 'vacation':
       return <VacationForm title="Vacation" onSuccess={[next]} prev={prev} />;
     default:

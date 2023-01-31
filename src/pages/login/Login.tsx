@@ -14,8 +14,6 @@ export const Login = () => {
   const { credentials, error, errorServer, isLoading, logIn, setCredentials } =
     useContext(AuthContext);
 
-  // const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
-
   const changeCredentials = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
@@ -24,7 +22,7 @@ export const Login = () => {
     <div className="login-general">
       <div className="login-container">
         <ImprovingLogo className="login-logotype" />
-        <Loader show={isLoading} tip="Loading" size="large" />
+        <Loader show={isLoading} />
         <div
           style={{
             width: '400px',
