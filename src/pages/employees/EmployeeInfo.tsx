@@ -164,7 +164,7 @@ export const EmployeeInfo = () => {
           {
             label: `Contingency`,
             key: '2',
-            children: <TableContingency columns={columns} />,
+            children: <TableContingency />,
           },
           {
             label: `Time by Time`,
