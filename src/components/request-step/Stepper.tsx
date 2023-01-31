@@ -13,8 +13,11 @@ interface Props {
 }
 export type RequestType = 'vacation' | 'contingecy' | '';
 export const Stepper = ({ closeModal }: Props) => {
+  // state of the request
   const [requestType, setRequestType] = useState<RequestType>('');
+  const [folio, setFolio] = useState<string>('');
 
+  // stepper context
   const { steps, items, next, prev, current } = useStepper({
     steps: [
       {
@@ -23,16 +26,20 @@ export const Stepper = ({ closeModal }: Props) => {
         description: 'Select your request',
       },
       {
-        // title: 'Fill Out',
         title: 'Information',
         content: () => (
-          <StepMid next={next} requestType={requestType} prev={prev} />
+          <StepMid
+            next={next}
+            requestType={requestType}
+            prev={prev}
+            setFolio={setFolio}
+          />
         ),
         description: 'Fill out your info',
       },
       {
         title: 'Done',
-        content: () => <LastStep closeModal={closeModal} />,
+        content: () => <LastStep closeModal={closeModal} folio={folio} />,
         description: 'You are ready',
       },
     ],

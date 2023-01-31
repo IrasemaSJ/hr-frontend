@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 interface Props {
   children: JSX.Element;
+  width?: number;
 }
 export const useModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,8 +15,8 @@ export const useModal = () => {
     setIsModalOpen(false);
   };
 
-  const ModalWrapper = ({ children }: Props) => (
-    <Modal open={isModalOpen} onCancel={closeModal} footer={[]}>
+  const ModalWrapper = ({ children, width }: Props) => (
+    <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
       {children}
     </Modal>
   );

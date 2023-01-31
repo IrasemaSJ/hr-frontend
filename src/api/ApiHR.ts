@@ -8,4 +8,21 @@ const ApiHR = axios.create({
   },
 });
 
+// middleware que intercepta el token
+ApiHR.interceptors.request.use(async (config) => {
+  // busca el token, si hay agregalo en la request
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    config.headers!['Authorization'] = `Bearer ${token}`;
+    // if (config && config.headers) {
+    //   config.headers = {
+    //     ...config.headers,
+    //     token: token,
+    //   };
+    // }
+  }
+  return config;
+});
+
 export default ApiHR;

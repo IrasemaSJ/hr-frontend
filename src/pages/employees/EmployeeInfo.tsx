@@ -147,7 +147,7 @@ export const EmployeeInfo = () => {
         onClick={openModal}
       />
       {/* Modal that does vacation request! */}
-      <ModalWrapper>
+      <ModalWrapper width={1000}>
         <Stepper closeModal={closeModal} />
       </ModalWrapper>
       <Tabs
