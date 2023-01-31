@@ -11,7 +11,7 @@ export const LastStep = ({ closeModal, folio }: Props) => {
     <Result
       status="success"
       title="Request Created Successfully"
-      subTitle={`Your request folio ID: ${folio}.`}
+      subTitle={`Your request folio is: ${folio}.`}
       extra={[
         <Button type="primary" key="Close" onClick={closeModal}>
           Close
