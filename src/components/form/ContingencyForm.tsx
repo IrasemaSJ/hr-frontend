@@ -13,7 +13,7 @@ import * as dayjs from 'dayjs';
 import ApiHR from '../../api/ApiHR';
 import { AuthContext } from '../../contexts/AuthContext';
 import { NotificationPlacement } from 'antd/es/notification/interface';
-import { handleErrorHttp } from '../../helpers';
+import { format, handleErrorHttp } from '../../helpers';
 import { Loader } from '../loader/Loader';
 
 const { Title } = Typography;
@@ -62,9 +62,10 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
       const submitValues = {
         half_day,
         comments,
-        date: date.format('YYYY-MM-DD').toString(),
+        date: date.format(format.post),
       };
 
+      console.log(submitValues);
       setIsLoading(true);
       const res = await ApiHR.post('/contingencies', submitValues);
       if (setFolio !== undefined) {
@@ -76,7 +77,6 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
       });
     } catch (err: any) {
       setIsLoading(false);
-      console.log(err)
       handleErrorHttp({ error: err, openNotification, logOut });
     }
   };
@@ -114,7 +114,7 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
           >
             <DatePicker
               style={{ width: '100%' }}
-              format="DD/MM/YYYY"
+              format={format.input}
               disabledDate={disableWeekEnds}
             />
           </Form.Item>

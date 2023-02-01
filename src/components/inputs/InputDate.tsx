@@ -1,31 +1,19 @@
 import {
-  Checkbox,
   DatePicker,
   Form,
   Input,
-  Row,
   Button,
-  DatePickerProps,
-  Tooltip,
   List,
   Typography,
   Switch,
-  Card,
 } from 'antd';
 import { RangePickerProps } from 'antd/es/date-picker';
 import * as dayjs from 'dayjs';
 import { useState } from 'react';
+import { format } from '../../helpers';
 import './InputDate.css';
 const { RangePicker } = DatePicker;
 
-import * as weekday from 'dayjs/plugin/weekday';
-import * as localeData from 'dayjs/plugin/localeData';
-dayjs.extend(localeData);
-dayjs.extend(weekday);
-interface DateState {
-  date: dayjs.Dayjs;
-  halfday: boolean;
-}
 const useRangePicker = () => {
   const [pickedDates, setPickedDates] = useState<dayjs.Dayjs[]>([]);
   const [clickedDates, setClickedDates] =
@@ -93,7 +81,7 @@ export const InputDate = () => {
       <Form.Item label="Date" name="date">
         <Input.Group compact>
           <RangePicker
-            format="YYYY-MM-DD"
+            format={format.input}
             style={{ flex: '1' }}
             onChange={handleChange}
             disabledDate={disableDates}
@@ -113,8 +101,7 @@ export const InputDate = () => {
           renderItem={(item) => (
             <List.Item>
               <>
-                {item.format('YYYY-MM-DD')}{' '}
-                {item.localeData().weekdays()[item.day()]}
+                {item.format(format.table)}
                 <div style={{ width: '12  0px' }}>
                   <Typography.Text style={{ paddingRight: '1rem' }}>
                     Half Day

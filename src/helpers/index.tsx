@@ -1,3 +1,3 @@
 export { handleErrorHttp } from './handleErrorHttp';
 export { getToken } from './getToken';
-export { formatTableDate } from './formatDate';
+export { format, formatTableDate } from './formatDate';
