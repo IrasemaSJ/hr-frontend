@@ -5,6 +5,7 @@ import ApiHR from '../../api/ApiHR';
 import { RejectActionButton } from '../../components';
 import { ColumnsType } from 'antd/es/table';
 import * as dayjs from 'dayjs';
+import { formatTableDate } from '../../helpers';
 
 const { Link } = Typography;
 interface DataType {
@@ -12,7 +13,7 @@ interface DataType {
   folio: string;
   status: string;
   date: string;
-  days_requested: string;
+  half_day: boolean;
 }
 
 const columns: ColumnsType<DataType> = [
@@ -41,20 +42,22 @@ const columns: ColumnsType<DataType> = [
   },
   {
     title: 'Date',
-    dataIndex: ['date', 'half_day'],
+    dataIndex: ['date'],
     key: '3',
+    render: (date, record) => {
+      // console.log(half_day);
+      // return <>{`${JSON.stringify(date)}${ob.half_day ? ' (Half Day)' : ''}`}</>;
+      return (
+        <>{`${formatTableDate(date)}${record.half_day ? ' (Half Day)' : ''}`}</>
+      );
+    },
     align: 'center',
-    render: (date, half_day) => (
-      <>{`${dayjs(date).format('DD MM YYYY')}${
-        half_day ? ' (Half Day)' : ''
-      }`}</>
-    ),
   },
   {
     title: 'Updated At',
     dataIndex: 'updatedAt',
     key: '4',
-    render: (updatedAt) => <>{`${dayjs(updatedAt).format('DD MM YYYY')}`}</>,
+    render: (updatedAt) => <>{`${formatTableDate(updatedAt)}`}</>,
     align: 'center',
   },
   {
@@ -89,12 +92,12 @@ export const TableContingency = () => {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
-  
 
   const getRegistersByPage = async (page?: number) => {
     setIsLoading(true);
     const { data } = await ApiHR(`/contingencies?page=${page || 1}`);
     setRows(data.docs);
+    console.log(data.docs);
     setTotal(data.totalDocs);
     setIsLoading(false);
   };
