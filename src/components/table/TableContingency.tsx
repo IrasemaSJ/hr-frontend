@@ -1,10 +1,9 @@
-import { Table, Typography, Tag, Button, Modal } from 'antd';
+import { Table, Typography, Tag, Button } from 'antd';
 import { CheckOutlined } from '@ant-design/icons';
 import { useState, useEffect } from 'react';
 import ApiHR from '../../api/ApiHR';
 import { RejectActionButton } from '../../components';
 import { ColumnsType } from 'antd/es/table';
-import * as dayjs from 'dayjs';
 import { formatTableDate } from '../../helpers';
 
 const { Link } = Typography;
@@ -119,6 +118,7 @@ export const TableContingency = () => {
           onChange(page) {
             getRegistersByPage(page);
           },
+          hideOnSinglePage: true,
         }}
       />
     </div>
