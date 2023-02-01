@@ -62,7 +62,7 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
       const submitValues = {
         half_day,
         comments,
-        date: date.format('YYYY-MM-DD'),
+        date: date.format('YYYY-MM-DD').toString(),
       };
 
       setIsLoading(true);
@@ -76,6 +76,7 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
       });
     } catch (err: any) {
       setIsLoading(false);
+      console.log(err)
       handleErrorHttp({ error: err, openNotification, logOut });
     }
   };

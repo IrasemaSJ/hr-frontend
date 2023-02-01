@@ -10,6 +10,7 @@ import {
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
 import { useModal } from '../../hooks';
 import './EmployeeInfo.css';
+import { TableContingency } from '../../components/table/TableContingency';
 /**------------------   datos tabla ------------------------------*/
 interface DataType {
   key: string;
@@ -163,7 +164,7 @@ export const EmployeeInfo = () => {
           {
             label: `Contingency`,
             key: '2',
-            children: '',
+            children: <TableContingency />,
           },
           {
             label: `Time by Time`,

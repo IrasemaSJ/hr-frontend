@@ -9,3 +9,4 @@ export { MenuRouter } from './menu-router/MenuRouter';
 export { ContingencyForm } from './form/ContingencyForm';
 export { Stepper } from './request-step/Stepper';
 export { RejectActionButton } from './table-actions/RejectActionButton';
+export { TableContingency } from './table/TableContingency';
