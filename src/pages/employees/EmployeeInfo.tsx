@@ -5,6 +5,7 @@ import Link from 'antd/es/typography/Link';
 import {
   HeaderEmployeeInfo,
   RejectActionButton,
+  Status,
   Stepper,
 } from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
@@ -32,16 +33,7 @@ const columns: ColumnsType<DataType> = [
     title: 'Status',
     dataIndex: 'status',
     key: '2',
-    render: (status) =>
-      status === 'approved' ? (
-        <Tag color="green"> {status} </Tag>
-      ) : status === 'rejected' ? (
-        <Tag color="red"> {status} </Tag>
-      ) : status === 'pending' ? (
-        <Tag color="yellow"> {status} </Tag>
-      ) : (
-        <Tag color="black"> {status} </Tag>
-      ),
+    render: (status) => <Status status={status} />,
     align: 'center',
   },
   {
