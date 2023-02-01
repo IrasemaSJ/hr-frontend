@@ -1,113 +1,6 @@
-import { CheckOutlined } from '@ant-design/icons';
-import { Badge, Button, Table, Tabs } from 'antd';
-import { ColumnsType } from 'antd/es/table';
-import Link from 'antd/es/typography/Link';
-import '../../styles/Table.css';
-
-/*--------------------------Table information------------------------- */
-interface DataType {
-  key: string;
-  folio: string;
-  initial_date: string;
-  days_requested: string;
-}
-
-const columns: ColumnsType<DataType> = [
-  {
-    title: 'Folio',
-    dataIndex: 'folio',
-    key: '1',
-    render: (folio) => <Link onClick={() => console.log(folio)}>{folio}</Link>,
-    align: 'center',
-  },
-  {
-    title: 'Initial date',
-    dataIndex: 'initial_date',
-    key: '3',
-    align: 'center',
-    responsive: ['md'],
-  },
-  {
-    title: 'Days requested',
-    dataIndex: 'days_requested',
-    key: '4',
-    align: 'center',
-    responsive: ['md'],
-  },
-  {
-    title: 'Information',
-    align: 'center',
-    className: 'table-hidden-table-column',
-    render: (_, record) => (
-      <>
-        <div>
-          <strong>Initial date</strong>
-        </div>
-        <span>{record.initial_date}</span>
-        <div>
-          <strong>Days requested</strong>
-        </div>
-        <span>{record.days_requested}</span>
-      </>
-    ),
-  },
-  {
-    title: 'Actions',
-    dataIndex: ['key', 'status'],
-    render: () => (
-      <>
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<CheckOutlined />}
-          style={{ background: 'green', margin: '2px' }}
-        />
-        <Button
-          type="primary"
-          shape="circle"
-          icon={'X'}
-          style={{ background: 'red', margin: '2px' }}
-        />
-      </>
-    ),
-
-    align: 'center',
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: '1',
-    folio: 'VAC-2023117-01',
-    initial_date: '25 jul 2022',
-    days_requested: '2 days',
-  },
-  {
-    key: '2',
-    folio: 'VAC-2023117-02',
-    initial_date: '25 jul 2022',
-    days_requested: '2 days',
-  },
-  {
-    key: '3',
-    folio: 'VAC-2023117-03',
-    initial_date: '25 jul 2022',
-    days_requested: '2 days',
-  },
-  {
-    key: '4',
-    folio: 'VAC-2023117-04',
-    initial_date: '25 jul 2022',
-    days_requested: '2 days',
-  },
-  {
-    key: '5',
-    folio: 'VAC-2023117-05',
-    initial_date: '25 jul 2022',
-    days_requested: '2 days',
-  },
-];
-/*--------------------------Table information------------------------- */
+import { Badge, Tabs } from 'antd';
+import { TableContingency } from '../../components';
+import { columnsContigencyRequestInfo } from './table-design/contingency-request';
 
 export const Request = () => {
   return (
@@ -120,12 +13,12 @@ export const Request = () => {
         items={[
           {
             label: (
-              <Badge status="processing" count={data.length}>
+              <Badge status="processing">
                 <div style={{ padding: '5px' }}>Vacations</div>
               </Badge>
             ),
             key: '1',
-            children: <Table columns={columns} dataSource={data} />,
+            children: '',
           },
           {
             label: (
@@ -134,7 +27,12 @@ export const Request = () => {
               </Badge>
             ),
             key: '2',
-            children: '',
+            children: (
+              <TableContingency
+                designTable={columnsContigencyRequestInfo}
+                url="/contingencies-tm/requests"
+              />
+            ),
           },
           {
             label: (
