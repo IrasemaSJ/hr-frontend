@@ -1,20 +1,12 @@
-import React, { useContext, useState } from 'react';
-import {
-  Button,
-  Checkbox,
-  DatePicker,
-  Form,
-  notification,
-  Typography,
-} from 'antd';
+import React, { useState } from 'react';
+import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
 import * as dayjs from 'dayjs';
 import ApiHR from '../../api/ApiHR';
-import { AuthContext } from '../../contexts/AuthContext';
-import { NotificationPlacement } from 'antd/es/notification/interface';
-import { format, handleErrorHttp } from '../../helpers';
+import { format } from '../../helpers';
 import { Loader } from '../loader/Loader';
+import { useHandleError } from '../../hooks/useHandleError';
 
 const { Title } = Typography;
 interface Foo {
@@ -32,31 +24,10 @@ interface SubmitValues {
   comments?: string;
 }
 export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
-  const { logOut } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { contextHolder, setServerError } = useHandleError();
 
   // notification
-  const [api, contextHolder] = notification.useNotification();
-  const openNotification = (
-    placement: NotificationPlacement,
-    messages: string | string[],
-  ) => {
-    api.error({
-      message: `Oops! Something went wrong!`,
-      description: (
-        <ul>
-          {Array.isArray(messages) ? (
-            messages.map((msg) => <li key={msg}>{msg}</li>)
-          ) : (
-            <li>{messages}</li>
-          )}
-        </ul>
-      ),
-      placement,
-    });
-  };
-  // notification
-
   const onSubmit = async ({ date, half_day, comments }: SubmitValues) => {
     try {
       const submitValues = {
@@ -75,9 +46,9 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
       onSuccess?.forEach((fun) => {
         fun();
       });
-    } catch (err: any) {
+    } catch (error: any) {
       setIsLoading(false);
-      handleErrorHttp({ error: err, openNotification, logOut });
+      setServerError(error);
     }
   };
 
@@ -95,7 +66,8 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
   return (
     <>
       <Loader show={isLoading} />
-
+      {/* feedback from server */}
+      {contextHolder}
       <Form
         name="basic"
         onFinish={onSubmit}
@@ -103,7 +75,6 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
         autoComplete="off"
         layout="vertical"
       >
-        {contextHolder}
         <Title level={4}>Contingency</Title>
 
         <div className="contingency-form-row">
