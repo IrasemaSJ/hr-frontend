@@ -1,145 +1,61 @@
 import Table, { ColumnsType } from 'antd/es/table';
+import { useEffect, useState } from 'react';
+import ApiHR from '../../api/ApiHR';
 
 interface DataType {
   key: string;
-  seniorityyears: string;
-  daysbylaw: number;
-  daysbyimproving: number;
+  seniority: string;
+  days_by_law: number;
+  days_by_improving: number;
   total: number;
 }
 
 const columns: ColumnsType<DataType> = [
   {
     title: 'Seniority (years)',
-    dataIndex: 'seniorityyears',
+    dataIndex: 'seniority',
     align: 'center',
   },
   {
     title: 'Days by law',
-    dataIndex: 'daysbylaw',
+    dataIndex: 'days_by_law',
     align: 'center',
   },
   {
     title: 'Days by Improving',
-    dataIndex: 'daysbyimproving',
+    dataIndex: 'days_by_improving',
     align: 'center',
   },
   {
     title: 'Total',
     dataIndex: 'total',
+    render: (_, record) => <>{record.days_by_improving + record.days_by_law}</>,
     align: 'center',
   },
 ];
 
-const data: DataType[] = [
-  {
-    key: '1',
-    seniorityyears: '1',
-    daysbylaw: 12,
-    daysbyimproving: 4,
-    total: 16,
-  },
-  {
-    key: '2',
-    seniorityyears: '2',
-    daysbylaw: 14,
-    daysbyimproving: 2,
-    total: 16,
-  },
-  {
-    key: '3',
-    seniorityyears: '3',
-    daysbylaw: 16,
-    daysbyimproving: 0,
-    total: 16,
-  },
-  {
-    key: '4',
-    seniorityyears: '4',
-    daysbylaw: 18,
-    daysbyimproving: 0,
-    total: 18,
-  },
-  {
-    key: '5',
-    seniorityyears: '5',
-    daysbylaw: 20,
-    daysbyimproving: 0,
-    total: 20,
-  },
-  {
-    key: '6',
-    seniorityyears: '6',
-    daysbylaw: 22,
-    daysbyimproving: 2,
-    total: 24,
-  },
-  {
-    key: '7',
-    seniorityyears: '7',
-    daysbylaw: 22,
-    daysbyimproving: 2,
-    total: 24,
-  },
-  {
-    key: '8',
-    seniorityyears: '8',
-    daysbylaw: 22,
-    daysbyimproving: 2,
-    total: 24,
-  },
-  {
-    key: '9',
-    seniorityyears: '9',
-    daysbylaw: 22,
-    daysbyimproving: 2,
-    total: 24,
-  },
-  {
-    key: '10',
-    seniorityyears: '10',
-    daysbylaw: 22,
-    daysbyimproving: 0,
-    total: 22,
-  },
-  {
-    key: '11',
-    seniorityyears: '11',
-    daysbylaw: 24,
-    daysbyimproving: 0,
-    total: 24,
-  },
-  {
-    key: '12',
-    seniorityyears: '12',
-    daysbylaw: 24,
-    daysbyimproving: 0,
-    total: 24,
-  },
-  {
-    key: '13',
-    seniorityyears: '13',
-    daysbylaw: 24,
-    daysbyimproving: 1,
-    total: 25,
-  },
-  {
-    key: '14',
-    seniorityyears: '14',
-    daysbylaw: 24,
-    daysbyimproving: 2,
-    total: 26,
-  },
-];
-
 export const VacationSeniority = () => {
+  const [data, setData] = useState([]);
+
+  const getVacationRegisters = async () => {
+    const { data } = await ApiHR(`/seniorities`);
+    setData(data);
+  };
+
+  useEffect(() => {
+    getVacationRegisters();
+  }, []);
+
   return (
     <>
       <h1>Vacation Seniority</h1>
       <Table
         columns={columns}
+        rowKey={'_id'}
         dataSource={data}
         style={{ marginTop: '20px' }}
+        pagination={{ hideOnSinglePage: true, pageSize: 20 }}
+        size="small"
       />
     </>
   );
