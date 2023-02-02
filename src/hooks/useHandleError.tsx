@@ -37,5 +37,6 @@ export const useHandleError = () => {
   return {
     setServerError,
     contextHolder,
+    api,
   };
 };

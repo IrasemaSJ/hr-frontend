@@ -5,8 +5,6 @@ import { Content, Header } from 'antd/es/layout/layout';
 import Sider from 'antd/es/layout/Sider';
 import { MenuRouter } from '../menu-router/MenuRouter';
 import './MainLayout.css';
-import { useLocation } from 'react-router-dom';
-import { Login } from '../../pages';
 import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
 import { AuthContext } from '../../contexts/AuthContext';
 
