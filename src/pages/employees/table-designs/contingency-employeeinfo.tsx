@@ -1,7 +1,7 @@
 import { Button, Tag, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { formatTableDate } from '../../../helpers';
-import { RejectActionButton } from '../../../components';
+import { BtnTable, RejectActionButton } from '../../../components';
 import { CheckOutlined } from '@ant-design/icons';
 
 const { Link } = Typography;
@@ -56,21 +56,11 @@ export const columnsContigencyEmployeeInfo: ColumnsType<DataType> = [
     render: (_, record) =>
       record.status === 'pending' ? (
         <>
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<CheckOutlined />}
-            style={{ background: 'green', margin: '2px' }}
-          />
+          <BtnTable action="accept" />
           <RejectActionButton />
         </>
       ) : record.status === 'approved' ? (
-        <Button
-          type="primary"
-          shape="circle"
-          icon="🗑"
-          style={{ background: 'orange', margin: '2px' }}
-        />
+        <BtnTable action='edit' />
       ) : (
         <></>
       ),
