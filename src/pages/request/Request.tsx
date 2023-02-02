@@ -132,7 +132,8 @@ export const Request = () => {
           },
           {
             label: (
-              <Badge status="warning" count={total}>
+              //set the count in that way to avoid console warning
+              <Badge status="warning" count={total > 0 && total}>
                 <div style={{ padding: '5px' }}>Contingency</div>
               </Badge>
             ),
