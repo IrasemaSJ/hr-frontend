@@ -1,5 +1,4 @@
 import { ColumnsType } from 'antd/es/table';
-import Link from 'antd/es/typography/Link';
 import '../../../styles/Table.css';
 import * as dayjs from 'dayjs';
 import { format } from '../../../helpers';
@@ -8,11 +7,6 @@ import { RejectActionButton } from '../../../components';
 
 //design table columns to requests pendings for tm-users
 export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
-  {
-    title: 'Folio',
-    dataIndex: 'folio',
-    render: (folio) => <Link onClick={() => console.log(folio)}>{folio}</Link>,
-  },
   {
     title: 'Name',
     dataIndex: 'name_employee',
@@ -28,7 +22,7 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
     title: 'Days requested',
     dataIndex: 'half_date',
     responsive: ['md'],
-    render: (half_date) => (half_date ? '1' : '0.5'),
+    render: (_, record) => (record.half_day ? '0.5' : '1'),
   },
   {
     title: 'Information',

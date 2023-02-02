@@ -1,4 +1,4 @@
-import { Badge, Button, Form, Table, Tabs } from 'antd';
+import { Badge, Button, notification, Table, Tabs } from 'antd';
 import { useEffect, useState } from 'react';
 import ApiHR from '../../api/ApiHR';
 import { useHandleError } from '../../hooks/useHandleError';
@@ -6,6 +6,11 @@ import { columnsContigencyRequestInfo } from './table-design/contingency-request
 import { ContingenciesTmHttp, ContingencyHttp } from '../../api/interfaces';
 import { ModalReject } from '../../components/modals/ModalReject';
 import { Loader } from '../../components';
+import { NotificationPlacement } from 'antd/es/notification/interface';
+import { CheckOutlined } from '@ant-design/icons';
+import { ModalAprove } from '../../components/modals/ModalAprove';
+import { ModalInfo } from '../../components/modals/ModalInfo';
+import Link from 'antd/es/typography/Link';
 
 export const Request = () => {
   //table variables
@@ -15,10 +20,39 @@ export const Request = () => {
 
   //modal variables
   const [isShowing, setIsShowing] = useState(false); // show reject or aprove loader
-  const { contextHolder, setServerError } = useHandleError();
-  const [modalContingency, setModalContingency] = useState(false);
+  const { contextHolder: errorNotificacion, setServerError } = useHandleError();
+  const [modalReject, setModalReject] = useState(false);
+  const [modalAprove, setModalAprove] = useState(false);
+  const [modalInfo, setModalInfo] = useState(false);
   //data to set folio and id to aprove or reject
-  const [contingency, setContingency] = useState({ folio: '', id: '' });
+  const [contingency, setContingency] = useState<ContingencyHttp>({
+    _id: '',
+    folio: '',
+    id_employee: 0,
+    name_employee: '',
+    date: '',
+    half_day: false,
+    status: '',
+    comments: '',
+    observations: '',
+    id_tm: 0,
+    createdAt: '',
+    updatedAt: '',
+    __v: 0,
+  });
+  //todo change contextHolder
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (
+    placement: NotificationPlacement,
+    messages: string | string[],
+  ) => {
+    api.success({
+      message: 'Successful Operation',
+      description: messages,
+      placement,
+    });
+  };
 
   const getContingenciesByPage = async (page?: number) => {
     try {
@@ -35,28 +69,41 @@ export const Request = () => {
     }
   };
 
-  const updateContingencyStatus = async (data: { observations: string }) => {
+  const updateContingencyStatus = async (data?: { observations: string }) => {
     try {
+      const query = data
+        ? { status: 'rejected', ...data }
+        : { status: 'approved' };
       setIsShowing(true);
       await ApiHR.patch(
-        `/contingencies-tm/requests/update-status/${contingency.id}`,
-        {
-          status: 'rejected',
-          ...data,
-        },
+        `/contingencies-tm/requests/update-status/${contingency._id}`,
+        query,
       );
       setIsShowing(false); //show the loader
       getContingenciesByPage(); // refresh the table
-      setModalContingency(false); // close modal
+      // close modal and show notification
+      if (data) {
+        setModalReject(false);
+        openNotification('top', 'Contingency rejected');
+      } else {
+        setModalAprove(false);
+        openNotification('top', 'Contingency aproved');
+      }
     } catch (error: any) {
       setIsShowing(false);
       setServerError(error);
     }
   };
 
-  const setParams = async ({ _id, folio }: { _id: string; folio: string }) => {
-    setContingency({ id: _id, folio });
-    setModalContingency(true);
+  const setParams = async ({
+    record,
+    openModal,
+  }: {
+    record: ContingencyHttp;
+    openModal: (param: boolean) => void;
+  }) => {
+    setContingency(record);
+    openModal(true);
   };
 
   useEffect(() => {
@@ -67,6 +114,8 @@ export const Request = () => {
     <>
       <h1>Pending Request</h1>
       <Loader show={isShowing} />
+      {errorNotificacion}
+      {contextHolder}
       <Tabs
         defaultActiveKey="1"
         tabPosition={'top'}
@@ -94,17 +143,50 @@ export const Request = () => {
                 <Table
                   loading={isLoading}
                   columns={[
+                    {
+                      title: 'Folio',
+                      dataIndex: 'folio',
+                      render: (_, record) => (
+                        <Link
+                          onClick={() =>
+                            setParams({ record, openModal: setModalInfo })
+                          }
+                        >
+                          {record.folio}
+                        </Link>
+                      ),
+                    },
                     ...columnsContigencyRequestInfo,
                     {
                       title: 'Actions',
-                      render: (_, { folio, _id }) => (
-                        <Button
-                          type="primary"
-                          shape="circle"
-                          icon={'X'}
-                          style={{ background: 'red', margin: '2px' }}
-                          onClick={() => setParams({ folio, _id })}
-                        />
+                      dataIndex: 'actions',
+                      render: (_, record) => (
+                        <>
+                          <Button
+                            type="primary"
+                            shape="circle"
+                            icon={<CheckOutlined />}
+                            style={{ background: 'green', margin: '2px' }}
+                            onClick={() =>
+                              setParams({
+                                record,
+                                openModal: setModalAprove,
+                              })
+                            }
+                          />
+                          <Button
+                            type="primary"
+                            shape="circle"
+                            icon={'X'}
+                            style={{ background: 'red', margin: '2px' }}
+                            onClick={() =>
+                              setParams({
+                                record,
+                                openModal: setModalReject,
+                              })
+                            }
+                          />
+                        </>
                       ),
                       align: 'center',
                     },
@@ -140,11 +222,23 @@ export const Request = () => {
       />
 
       {/* Modals */}
+      <ModalAprove
+        changeStatus={updateContingencyStatus}
+        folio={contingency.folio}
+        isModalOpen={modalAprove}
+        closeModal={() => setModalAprove(false)}
+      />
+
       <ModalReject
         changeStatus={updateContingencyStatus}
         folio={contingency.folio}
-        isModalOpen={modalContingency}
-        closeModal={() => setModalContingency(false)}
+        isModalOpen={modalReject}
+        closeModal={() => setModalReject(false)}
+      />
+      <ModalInfo
+        record={contingency}
+        isModalOpen={modalInfo}
+        closeModal={() => setModalInfo(false)}
       />
     </>
   );
