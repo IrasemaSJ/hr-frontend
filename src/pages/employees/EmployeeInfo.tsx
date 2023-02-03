@@ -130,7 +130,7 @@ export const EmployeeInfo = () => {
       {contextHolder}
       <HeaderEmployeeInfo
         name={user.name}
-        job="software Specialist"
+        job="Software Specialist"
         seniority="2 years, 4 months"
         admission_date="08 feb 2022"
       />
