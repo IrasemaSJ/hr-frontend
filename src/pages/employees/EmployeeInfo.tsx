@@ -104,7 +104,7 @@ export const EmployeeInfo = () => {
       setIsShowing(false); //show the loader
       getContingenciesByPage(); // refresh the table
       setModalDelete(false);
-      openNotification('top', 'Contingency delited');
+      openNotification('top', 'Contingency deleted');
     } catch (error: any) {
       setIsShowing(false);
       setServerError(error);
