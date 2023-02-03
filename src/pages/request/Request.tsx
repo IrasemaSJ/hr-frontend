@@ -20,7 +20,6 @@ export const Request = () => {
 
   //modal variables
   const [isShowing, setIsShowing] = useState(false); // show reject or aprove loader
-  const { contextHolder: errorNotificacion, setServerError } = useHandleError();
   const [modalReject, setModalReject] = useState(false);
   const [modalAprove, setModalAprove] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
@@ -40,7 +39,9 @@ export const Request = () => {
     updatedAt: '',
     __v: 0,
   });
-  //todo change contextHolder
+  //TODO: change contextHolder
+  //notifications
+  const { contextHolder: errorNotificacion, setServerError } = useHandleError();
   const [api, contextHolder] = notification.useNotification();
 
   const openNotification = (

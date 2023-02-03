@@ -18,12 +18,16 @@ interface Props {
   setFolio?: React.Dispatch<React.SetStateAction<string>>;
 }
 
-interface SubmitValues {
+export interface SubmitValues {
   date: dayjs.Dayjs;
   half_day?: boolean;
   comments?: string;
 }
-export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
+export const ContingencyForm = ({
+  onSuccess,
+  prev,
+  setFolio,
+}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { contextHolder, setServerError } = useHandleError();
 
@@ -35,8 +39,6 @@ export const ContingencyForm = ({ onSuccess, prev, setFolio }: Props) => {
         comments,
         date: date.format(format.post),
       };
-
-      console.log(submitValues);
       setIsLoading(true);
       const res = await ApiHR.post('/contingencies', submitValues);
       if (setFolio !== undefined) {

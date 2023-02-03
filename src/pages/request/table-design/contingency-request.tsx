@@ -9,16 +9,16 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
   {
     title: 'Name',
     dataIndex: 'name_employee',
-    responsive: ['md'],
+    responsive: ['lg'],
   },
   {
     title: 'Initial date',
-    responsive: ['md'],
+    responsive: ['lg'],
     render: (date) => dayjs(date).format(format.table),
   },
   {
     title: 'Days requested',
-    responsive: ['md'],
+    responsive: ['lg'],
     render: (_, record) => (record.half_day ? '0.5' : '1'),
   },
   {
