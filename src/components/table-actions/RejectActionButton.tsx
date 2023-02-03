@@ -2,18 +2,13 @@ import { Button, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import React from 'react';
 import { useModal } from '../../hooks';
+import { BtnTable } from '../buttons/Buttons';
 
 export const RejectActionButton = () => {
   const { ModalWrapper, closeModal, openModal } = useModal();
   return (
     <>
-      <Button
-        type="primary"
-        shape="circle"
-        icon={'X'}
-        style={{ background: 'red', margin: '2px' }}
-        onClick={openModal}
-      />
+      <BtnTable action="reject" onClick={openModal} />
       <ModalWrapper>
         <>
           <Typography.Title level={2}>Reject Contingency</Typography.Title>
