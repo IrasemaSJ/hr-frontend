@@ -29,7 +29,7 @@ const data: DataType[] = [
   {
     key: '1',
     publicholiday: 'MEXICAN CONSTITUTION DAY',
-    date: '16th February',
+    date: '6th February',
     allusiveimage: 'imagen',
   },
   {

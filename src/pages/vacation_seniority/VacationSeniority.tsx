@@ -36,10 +36,13 @@ const columns: ColumnsType<DataType> = [
 
 export const VacationSeniority = () => {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getVacationRegisters = async () => {
+    setIsLoading(true);
     const { data } = await ApiHR(`/seniorities`);
     setData(data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -50,6 +53,7 @@ export const VacationSeniority = () => {
     <>
       <h1>Vacation Seniority</h1>
       <Table
+        loading={isLoading}
         columns={columns}
         rowKey={'_id'}
         dataSource={data}
