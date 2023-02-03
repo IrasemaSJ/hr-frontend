@@ -133,10 +133,12 @@ export const Request = () => {
           },
           {
             label: (
-              //set the count in that way to avoid console warning
-              <Badge status="warning" count={total > 0 && total}>
-                <div style={{ padding: '5px' }}>Contingency</div>
-              </Badge>
+              <>
+                {/* set the comment in this way to avoid console warning */}
+                <Badge status="warning" count={total}>
+                  <div style={{ padding: '5px' }}>Contingency</div>
+                </Badge>
+              </>
             ),
             key: '2',
             children: (
