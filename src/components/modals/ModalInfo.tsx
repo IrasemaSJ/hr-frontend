@@ -1,4 +1,4 @@
-import {  Modal, Typography } from 'antd';
+import { Modal, Typography } from 'antd';
 import { ContingencyHttp } from '../../api/interfaces';
 import { format } from '../../helpers';
 import * as dayjs from 'dayjs';
@@ -30,12 +30,12 @@ export const ModalInfo = ({
               </li>
               {!employee && (
                 <li>
-                  <strong>Name:</strong> <span>{record.name_employee}</span>
+                  <strong>Name:</strong> <span> {record.name_employee}</span>
                 </li>
               )}
               <li>
-                <strong>Date:</strong>{' '}
-                <span>{dayjs(record.date).format(format.table)}</span>
+                <strong>Date:</strong>
+                <span> {dayjs(record.date).format(format.table)}</span>
               </li>
               <li>
                 <strong>Half day:</strong>
@@ -43,12 +43,12 @@ export const ModalInfo = ({
               </li>
               <li>
                 <strong>comments:</strong>
-                <span>{record.comments}</span>
+                <span> {record.comments}</span>
               </li>
               {record.observations !== '' && (
                 <li>
                   <strong>observations:</strong>
-                  <span>{record.observations}</span>
+                  <span style={{ color: 'red' }}> {record.observations}</span>
                 </li>
               )}
             </ul>
