@@ -1,26 +1,11 @@
-import { Button, Tag, Typography } from 'antd';
+import { Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { formatTableDate } from '../../../helpers';
-import { BtnTable, RejectActionButton } from '../../../components';
-import { CheckOutlined } from '@ant-design/icons';
+import { format, formatTableDate } from '../../../helpers';
+import { ContingencyHttp } from '../../../api/interfaces';
+import * as dayjs from 'dayjs';
+import '../../../styles/Table.css';
 
-const { Link } = Typography;
-
-interface DataType {
-  key: string;
-  folio: string;
-  status: string;
-  date: string;
-  half_day: boolean;
-}
-
-export const columnsContigencyEmployeeInfo: ColumnsType<DataType> = [
-  {
-    title: 'Folio',
-    dataIndex: 'folio',
-    key: '1',
-    render: (folio) => <Link onClick={() => console.log(folio)}>{folio}</Link>,
-  },
+export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
   {
     title: 'Status',
     dataIndex: 'status',
@@ -35,6 +20,7 @@ export const columnsContigencyEmployeeInfo: ColumnsType<DataType> = [
       ) : (
         <Tag color="black"> {status} </Tag>
       ),
+    responsive: ['lg'],
   },
   {
     title: 'Initial Date',
@@ -43,26 +29,46 @@ export const columnsContigencyEmployeeInfo: ColumnsType<DataType> = [
     render: (date) => {
       return <>{`${formatTableDate(date)}`}</>;
     },
+    responsive: ['lg'],
   },
   {
     title: 'Number of days',
-    dataIndex: 'half_date',
-    key: '4',
-    render: (half_date) => (half_date ? '1' : '0.5'),
+    dataIndex: 'half_day',
+    render: (half_day) => {
+      return half_day ? '0.5' : '1';
+    },
+    responsive: ['lg'],
   },
   {
-    title: 'Actions',
-    dataIndex: ['key', 'status'],
-    render: (_, record) =>
-      record.status === 'pending' ? (
-        <>
-          <BtnTable action="accept" />
-          <RejectActionButton />
-        </>
-      ) : record.status === 'approved' ? (
-        <BtnTable action='edit' />
-      ) : (
-        <></>
-      ),
+    title: 'Information',
+    className: 'table-hidden-table-column',
+    render: (_, record) => (
+      <>
+        <div>
+          <strong>Status</strong>
+          <div>
+            -&nbsp;
+            {record.status === 'approved' ? (
+              <Tag color="green"> {record.status} </Tag>
+            ) : record.status === 'rejected' ? (
+              <Tag color="red"> {record.status} </Tag>
+            ) : record.status === 'pending' ? (
+              <Tag color="yellow"> {record.status} </Tag>
+            ) : (
+              <Tag color="black"> {record.status} </Tag>
+            )}
+          </div>
+        </div>
+        <span> - {dayjs(record.date).format(format.table)}</span>
+        <div>
+          <strong>Initial date</strong>
+        </div>
+        <span> - {dayjs(record.date).format(format.table)}</span>
+        <div>
+          <strong>Days requested</strong>
+        </div>
+        <span>{record.half_day ? '- 0.5' : '- 1'}</span>
+      </>
+    ),
   },
 ];

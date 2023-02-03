@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button, message, Steps } from 'antd';
-import { ContingencyForm } from '../form/ContingencyForm';
+import { Steps } from 'antd';
 import { StepOne } from './StepOne';
 import { LastStep } from './LastStep';
 import { useStepper } from '../../hooks';
@@ -10,9 +9,10 @@ import { StepMid } from './StepMid';
 
 interface Props {
   closeModal: () => void;
+  refresh: () => void;
 }
 export type RequestType = 'vacation' | 'contingecy' | '';
-export const Stepper = ({ closeModal }: Props) => {
+export const Stepper = ({ closeModal, refresh }: Props) => {
   // state of the request
   const [requestType, setRequestType] = useState<RequestType>('');
   const [folio, setFolio] = useState<string>('');
@@ -39,7 +39,9 @@ export const Stepper = ({ closeModal }: Props) => {
       },
       {
         title: 'Done',
-        content: () => <LastStep closeModal={closeModal} folio={folio} />,
+        content: () => (
+          <LastStep closeModal={closeModal} folio={folio} refresh={refresh} />
+        ),
         description: 'You are ready',
       },
     ],
