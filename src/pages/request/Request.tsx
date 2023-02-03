@@ -88,7 +88,7 @@ export const Request = () => {
         openNotification('top', 'Contingency rejected');
       } else {
         setModalAprove(false);
-        openNotification('top', 'Contingency aproved');
+        openNotification('top', 'Contingency approved');
       }
     } catch (error: any) {
       setIsShowing(false);

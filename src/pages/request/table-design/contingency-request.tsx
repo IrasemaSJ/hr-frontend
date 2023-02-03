@@ -14,6 +14,7 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
   {
     title: 'Initial date',
     responsive: ['lg'],
+    dataIndex: 'date',
     render: (date) => dayjs(date).format(format.table),
   },
   {
