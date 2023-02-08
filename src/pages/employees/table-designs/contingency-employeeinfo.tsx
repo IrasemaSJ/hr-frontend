@@ -1,7 +1,7 @@
 import { Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { format, formatTableDate } from '../../../helpers';
-import { ContingencyHttp } from '../../../api/interfaces';
+import { ContingencyHttp } from '../../../api/interfaces/contingency.interfaces';
 import * as dayjs from 'dayjs';
 import '../../../styles/Table.css';
 

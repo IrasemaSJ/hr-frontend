@@ -1,8 +1,8 @@
-import { ColumnsType } from 'antd/es/table';
-import '../../../styles/Table.css';
 import * as dayjs from 'dayjs';
+import { ColumnsType } from 'antd/es/table';
 import { format } from '../../../helpers';
-import { ContingencyHttp } from '../../../api/interfaces';
+import { ContingencyHttp } from '../../../api/interfaces/contingency.interfaces';
+import '../../../styles/Table.css';
 
 //design table columns to requests pendings for tm-users
 export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [

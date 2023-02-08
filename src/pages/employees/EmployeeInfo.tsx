@@ -6,7 +6,7 @@ import './EmployeeInfo.css';
 import { columnsContigencyEmployeeInfo } from './table-designs/contingency-employeeinfo';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
-import { ContingenciesTmHttp, ContingencyHttp } from '../../api/interfaces';
+import { ContingenciesTmHttp, ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import ApiHR from '../../api/ApiHR';
 import { useHandleError } from '../../hooks/useHandleError';
 import { NotificationPlacement } from 'antd/es/notification/interface';
@@ -50,8 +50,8 @@ export const EmployeeInfo = () => {
   });
 
   //notifications
-  const { contextHolder: errorNotificacion, setServerError } = useHandleError();
   const [api, contextHolder] = notification.useNotification();
+  const { setServerError } = useHandleError(api);
 
   const openNotification = (
     placement: NotificationPlacement,
@@ -126,7 +126,6 @@ export const EmployeeInfo = () => {
   return (
     <>
       <Loader show={isShowing} />
-      {errorNotificacion}
       {contextHolder}
       <HeaderEmployeeInfo
         name={user.name}
