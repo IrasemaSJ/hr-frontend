@@ -3,7 +3,7 @@ import TextArea from 'antd/es/input/TextArea';
 import Title from 'antd/es/typography/Title';
 import { format } from '../../helpers';
 import * as dayjs from 'dayjs';
-import { ContingencyHttp } from '../../api/interfaces';
+import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import { useEffect } from 'react';
 
 const disableWeekEnds = (current: dayjs.Dayjs) => {

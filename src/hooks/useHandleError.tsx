@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { notification } from 'antd';
-import { NotificationPlacement } from 'antd/es/notification/interface';
+import {
+  NotificationInstance,
+  NotificationPlacement,
+} from 'antd/es/notification/interface';
 import { handleErrorHttp } from '../helpers';
 import { AuthContext } from '../contexts/AuthContext';
 
-export const useHandleError = () => {
+export const useHandleError = (api: NotificationInstance) => {
   const { logOut } = useContext(AuthContext);
   const [serverError, setServerError] = useState();
-  const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
     if (serverError) {
@@ -36,7 +37,5 @@ export const useHandleError = () => {
 
   return {
     setServerError,
-    contextHolder,
-    api,
   };
 };

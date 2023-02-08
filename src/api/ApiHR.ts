@@ -15,12 +15,6 @@ ApiHR.interceptors.request.use(async (config) => {
 
   if (token) {
     config.headers!['Authorization'] = `Bearer ${token}`;
-    // if (config && config.headers) {
-    //   config.headers = {
-    //     ...config.headers,
-    //     token: token,
-    //   };
-    // }
   }
   return config;
 });

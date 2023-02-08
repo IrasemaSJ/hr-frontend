@@ -1,5 +1,5 @@
 import { Modal, Typography } from 'antd';
-import { ContingencyHttp } from '../../api/interfaces';
+import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import { format } from '../../helpers';
 import * as dayjs from 'dayjs';
 
