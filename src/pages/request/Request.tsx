@@ -13,21 +13,21 @@ import { useRequestPage } from '../../hooks';
 export const Request = () => {
   //get variables from customhook
   const {
-    contingency,
-    total,
-    isLoadingTable,
-    contingencyRows,
-    isLoadingRequest,
+    contingency, // info of rows
+    total, // total of rows
+    isLoadingTable, // loading of table
+    contingencyRows, //array with all rows
+    isLoadingRequest, // loading request (reject or approve)
     modalReject,
     modalAprove,
     modalInfo,
     setModalInfo,
     setModalAprove,
     setModalReject,
-    getContingenciesByPage,
     updateContingencyStatus,
-    setParams,
-    contextHolder,
+    setParams, // set contingency info and modal to open
+    contextHolder, // show the info from the server
+    setPage,
   } = useRequestPage();
 
   return (
@@ -37,7 +37,7 @@ export const Request = () => {
       <Loader show={isLoadingRequest} />
       {contextHolder}
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey="2"
         tabPosition={'top'}
         style={{ height: 220, marginTop: '20px' }}
         items={[
@@ -49,6 +49,7 @@ export const Request = () => {
             ),
             key: '1',
             children: '',
+            disabled: true,
           },
           {
             label: (
@@ -74,12 +75,11 @@ export const Request = () => {
                 ]}
                 rowKey={'_id'}
                 dataSource={contingencyRows}
-                onChange={() => getContingenciesByPage()}
                 pagination={{
                   pageSize: 5,
                   total,
                   onChange(page) {
-                    getContingenciesByPage(page);
+                    setPage(page);
                   },
                   hideOnSinglePage: true,
                   showTotal(total, range) {
@@ -88,15 +88,6 @@ export const Request = () => {
                 }}
               />
             ),
-          },
-          {
-            label: (
-              <Badge status="warning" count={0}>
-                <div style={{ padding: '5px' }}>Time by Time</div>
-              </Badge>
-            ),
-            key: '3',
-            children: `Content of tab`,
           },
         ]}
       />
