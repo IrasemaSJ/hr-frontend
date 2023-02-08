@@ -76,10 +76,13 @@ export const useRequestPage = () => {
         query,
       );
       setIsLoadingRequest(false); //show the loader
+      // refresh the table
       if (contingencyRows.length === 1 && page > 1) {
+        // when row is 1 and is not the first page change to the previous one
+        // this is because when status is updated rows disapear∏
         setPage(page - 1);
       } else {
-        getContingenciesByPage(page); // refresh the table
+        getContingenciesByPage(page);
       }
       // close modal and show notification
       if (data) {
