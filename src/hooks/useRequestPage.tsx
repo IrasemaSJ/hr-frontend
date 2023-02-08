@@ -10,19 +10,12 @@ export interface SetParams {
   openModal: (param: boolean) => void;
 }
 
-const initContingency = {
-  _id: '',
-  folio: '',
-  date: '',
-  half_day: false,
-  comments: '',
-};
-
 export const useRequestPage = () => {
+  const [page, setPage] = useState(1);
   //load data when component redenrize
   useEffect(() => {
-    getContingenciesByPage();
-  }, []);
+    getContingenciesByPage(page);
+  }, [page]);
 
   //table variables
   const [total, setTotal] = useState(0);
@@ -34,9 +27,9 @@ export const useRequestPage = () => {
   const [modalReject, setModalReject] = useState(false);
   const [modalAprove, setModalAprove] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
-  //data to set folio and id to aprove or reject
+  //data to set params and show information in modal info
   const [contingency, setContingency] = useState(
-    initContingency as ContingencyHttp,
+    {} as unknown as ContingencyHttp,
   );
 
   //notifications
@@ -57,11 +50,11 @@ export const useRequestPage = () => {
     });
   };
 
-  const getContingenciesByPage = async (page?: number) => {
+  const getContingenciesByPage = async (page: number) => {
     try {
       setIsLoadingTable(true);
       const { data } = await ApiHR<ContingenciesTmHttp>(
-        `/contingencies-tm/requests?page=${page ?? 1}`,
+        `/contingencies-tm/requests?page=${page}`,
       );
       setContingencyRows(data.docs);
       setTotal(data.totalDocs);
@@ -83,7 +76,11 @@ export const useRequestPage = () => {
         query,
       );
       setIsLoadingRequest(false); //show the loader
-      getContingenciesByPage(); // refresh the table
+      if (contingencyRows.length === 1 && page > 1) {
+        setPage(page - 1);
+      } else {
+        getContingenciesByPage(page); // refresh the table
+      }
       // close modal and show notification
       if (data) {
         setModalReject(false);
@@ -98,6 +95,7 @@ export const useRequestPage = () => {
     }
   };
 
+  //set the modal to open and the info of contingency
   const setParams = async ({ record, openModal }: SetParams) => {
     setContingency(record);
     openModal(true);
@@ -119,5 +117,6 @@ export const useRequestPage = () => {
     updateContingencyStatus,
     setParams,
     contextHolder,
+    setPage,
   };
 };
