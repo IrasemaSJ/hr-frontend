@@ -6,7 +6,10 @@ import './EmployeeInfo.css';
 import { columnsContigencyEmployeeInfo } from './table-designs/contingency-employeeinfo';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
-import { ContingenciesTmHttp, ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
+import {
+  ContingenciesTmHttp,
+  ContingencyHttp,
+} from '../../api/interfaces/contingency.interfaces';
 import ApiHR from '../../api/ApiHR';
 import { useHandleError } from '../../hooks/useHandleError';
 import { NotificationPlacement } from 'antd/es/notification/interface';
@@ -23,11 +26,11 @@ export const EmployeeInfo = () => {
 
   //table variables
   const [total, setTotal] = useState(0);
-  const [isLoading, setIsLoading] = useState(false); // show load table
+  const [isLoadingTable, setIsLoadingTable] = useState(false); // show load table
   const [contingencyRows, setContingencyRows] = useState<ContingencyHttp[]>([]);
 
   //modal variables
-  const [isShowing, setIsShowing] = useState(false); // show reject or aprove loader
+  const [isLoadingRequest, setIsLoadingRequest] = useState(false); // show reject or aprove loader
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
@@ -70,43 +73,43 @@ export const EmployeeInfo = () => {
 
   const getContingenciesByPage = async (page?: number) => {
     try {
-      setIsLoading(true);
+      setIsLoadingTable(true);
       const { data } = await ApiHR<ContingenciesTmHttp>(
         `/contingencies?page=${page ?? 1}`,
       );
       setContingencyRows(data.docs);
       setTotal(data.totalDocs);
-      setIsLoading(false);
+      setIsLoadingTable(false);
     } catch (error: any) {
-      setIsLoading(false);
+      setIsLoadingTable(false);
       setServerError(error);
     }
   };
 
   const updateContingency = async (values: any) => {
     try {
-      setIsShowing(true);
+      setIsLoadingRequest(true);
       await ApiHR.patch(`contingencies/${contingency._id}`, values);
-      setIsShowing(false); //show the loader
+      setIsLoadingRequest(false); //show the loader
       getContingenciesByPage(); // refresh the table
       setModalEdit(false);
       openNotification('top', 'Contingency updated');
     } catch (error: any) {
-      setIsShowing(false);
+      setIsLoadingRequest(false);
       setServerError(error);
     }
   };
 
   const deleteContingency = async () => {
     try {
-      setIsShowing(true);
+      setIsLoadingRequest(true);
       await ApiHR.delete(`contingencies/${contingency._id}`);
-      setIsShowing(false); //show the loader
+      setIsLoadingRequest(false); //show the loader
       getContingenciesByPage(); // refresh the table
       setModalDelete(false);
       openNotification('top', 'Contingency deleted');
     } catch (error: any) {
-      setIsShowing(false);
+      setIsLoadingRequest(false);
       setServerError(error);
     }
   };
@@ -125,7 +128,7 @@ export const EmployeeInfo = () => {
 
   return (
     <>
-      <Loader show={isShowing} />
+      <Loader show={isLoadingRequest} />
       {contextHolder}
       <HeaderEmployeeInfo
         name={user.name}
@@ -145,10 +148,6 @@ export const EmployeeInfo = () => {
         no_paid={0}
         onClick={openModal}
       />
-      {/* Modal that does vacation request! */}
-      <ModalWrapper width={1000}>
-        <Stepper closeModal={closeModal} refresh={getContingenciesByPage} />
-      </ModalWrapper>
       <Tabs
         defaultActiveKey="1"
         tabPosition={'top'}
@@ -164,7 +163,7 @@ export const EmployeeInfo = () => {
             key: '2',
             children: (
               <Table
-                loading={isLoading}
+                loading={isLoadingTable}
                 columns={[
                   {
                     title: 'Folio',
@@ -239,6 +238,11 @@ export const EmployeeInfo = () => {
           },
         ]}
       />
+
+      {/*--------------------------------------- Modals ---------------------------------*/}
+      <ModalWrapper width={1000}>
+        <Stepper closeModal={closeModal} refresh={getContingenciesByPage} />
+      </ModalWrapper>
 
       <ModalEdit
         update={updateContingency}

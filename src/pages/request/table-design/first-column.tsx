@@ -9,7 +9,7 @@ interface Params {
   setModalInfo: Dispatch<SetStateAction<boolean>>
 }
 
-export const firstRow = ({ setParams, setModalInfo }: Params) => {
+export const firstColumn = ({ setParams, setModalInfo }: Params) => {
   const firstRow: ColumnsType<ContingencyHttp> = [
     {
       title: 'Folio',
