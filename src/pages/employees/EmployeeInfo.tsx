@@ -1,5 +1,10 @@
 import { Button, notification, Table, Tabs } from 'antd';
-import { HeaderEmployeeInfo, Loader, Stepper } from '../../components';
+import {
+  HeaderEmployeeInfo,
+  Loader,
+  ModalOpenRequest,
+  Stepper,
+} from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
 import { useModal } from '../../hooks';
 import './EmployeeInfo.css';
@@ -18,6 +23,14 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { ModalEdit } from '../../components/modals/ModalEdit';
 import { ModalDelete } from '../../components/modals/ModalDelete';
 import { ModalInfo } from '../../components/modals/ModalInfo';
+import * as dayjs from 'dayjs';
+import { formatDateApi, formatTableDate } from '../../helpers';
+
+export interface SubmitValues {
+  date: dayjs.Dayjs;
+  half_day?: boolean;
+  comments?: string;
+}
 
 export const EmployeeInfo = () => {
   const { ModalWrapper, openModal, closeModal } = useModal();
@@ -34,6 +47,8 @@ export const EmployeeInfo = () => {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
+  const [modalOpenRequest, setModalOpenRequest] = useState(false);
+  const [folio, setFolio] = useState<string>(''); // created folio
 
   //data to set folio and id to aprove or reject
   const [contingency, setContingency] = useState<ContingencyHttp>({
@@ -70,6 +85,29 @@ export const EmployeeInfo = () => {
   useEffect(() => {
     getContingenciesByPage();
   }, []);
+
+  const createContingency = async (data: SubmitValues) => {
+    try {
+      const submitValues = {
+        half_day: data.half_day,
+        comments: data.comments,
+        date: formatDateApi(data.date),
+      };
+      console.log(submitValues);
+      setIsLoadingRequest(true);
+      const res = await ApiHR.post('/contingencies', submitValues);
+      setIsLoadingRequest(false);
+      getContingenciesByPage(1);
+      setFolio(res.data.folio);
+      if (res.data.folio) {
+        return true;
+      }
+    } catch (error: any) {
+      setIsLoadingRequest(false);
+      setServerError(error);
+      return false;
+    }
+  };
 
   const getContingenciesByPage = async (page?: number) => {
     try {
@@ -146,21 +184,18 @@ export const EmployeeInfo = () => {
         marriage={0}
         pregnancy={0}
         no_paid={0}
-        onClick={openModal}
+        onClick={() => {
+          setModalOpenRequest(true);
+        }}
       />
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey="2"
         tabPosition={'top'}
         style={{ height: 220, marginTop: '20px' }}
         items={[
           {
-            label: `Vacations`,
-            key: '1',
-            children: 'Content of tab',
-          },
-          {
             label: `Contingency`,
-            key: '2',
+            key: '1',
             children: (
               <Table
                 loading={isLoadingTable}
@@ -231,18 +266,17 @@ export const EmployeeInfo = () => {
               />
             ),
           },
-          {
-            label: `Time by Time`,
-            key: '3',
-            children: `Content of tab`,
-          },
         ]}
       />
 
       {/*--------------------------------------- Modals ---------------------------------*/}
-      <ModalWrapper width={1000}>
-        <Stepper closeModal={closeModal} refresh={getContingenciesByPage} />
-      </ModalWrapper>
+      <ModalOpenRequest
+        isModalOpen={modalOpenRequest}
+        closeModal={() => setModalOpenRequest(false)}
+        width={700}
+        createContingency={createContingency}
+        folio={folio}
+      />
 
       <ModalEdit
         update={updateContingency}

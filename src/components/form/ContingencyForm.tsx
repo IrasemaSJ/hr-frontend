@@ -1,57 +1,22 @@
-import React, { useState } from 'react';
 import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
 import * as dayjs from 'dayjs';
-import ApiHR from '../../api/ApiHR';
 import { format } from '../../helpers';
-import { Loader } from '../loader/Loader';
-import { useHandleError } from '../../hooks/useHandleError';
+import { SubmitValues } from '../../pages/employees/EmployeeInfo';
 
 const { Title } = Typography;
-interface Foo {
-  (): void;
-}
 interface Props {
-  onSuccess?: Foo[];
+  next: () => void;
   prev?: () => void;
-  setFolio?: React.Dispatch<React.SetStateAction<string>>;
+  createContingency: (data: SubmitValues) => boolean;
 }
 
-export interface SubmitValues {
-  date: dayjs.Dayjs;
-  half_day?: boolean;
-  comments?: string;
-}
-export const ContingencyForm = ({
-  onSuccess,
-  prev,
-  setFolio,
-}: Props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { contextHolder, setServerError } = useHandleError();
-
+export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
   // notification
   const onSubmit = async ({ date, half_day, comments }: SubmitValues) => {
-    try {
-      const submitValues = {
-        half_day,
-        comments,
-        date: date.format(format.post),
-      };
-      setIsLoading(true);
-      const res = await ApiHR.post('/contingencies', submitValues);
-      if (setFolio !== undefined) {
-        setFolio(res.data.folio);
-      }
-      setIsLoading(false);
-      onSuccess?.forEach((fun) => {
-        fun();
-      });
-    } catch (error: any) {
-      setIsLoading(false);
-      setServerError(error);
-    }
+    const isOk = await createContingency({ date, half_day, comments });
+    if (isOk) next();
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -67,9 +32,6 @@ export const ContingencyForm = ({
 
   return (
     <>
-      <Loader show={isLoading} />
-      {/* feedback from server */}
-      {contextHolder}
       <Form
         name="basic"
         onFinish={onSubmit}
