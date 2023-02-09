@@ -2,11 +2,11 @@ import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { CheckOutlined } from '@ant-design/icons';
 import { ContingencyHttp } from '../../../api/interfaces';
-import { SetParams } from '../../../hooks/useRequestPage';
+import { SetParamsContingnecy } from '../../../hooks/useRequestPage';
 import { Dispatch, SetStateAction } from 'react';
 
 interface Params {
-  setParams: ({ record, openModal }: SetParams) => Promise<void>;
+  setParams: ({ record, openModal }: SetParamsContingnecy) => Promise<void>;
   setModalAprove: Dispatch<SetStateAction<boolean>>
   setModalReject: Dispatch<SetStateAction<boolean>>
 }
@@ -16,7 +16,7 @@ export const lastColumn = ({
   setModalAprove,
   setModalReject,
 }: Params) => {
-  const lastRow: ColumnsType<ContingencyHttp> = [
+  const lastColumn: ColumnsType<ContingencyHttp> = [
     {
       title: 'Actions',
       dataIndex: 'actions',
@@ -52,5 +52,5 @@ export const lastColumn = ({
     },
   ];
 
-  return lastRow;
+  return lastColumn;
 };
