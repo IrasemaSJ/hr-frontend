@@ -5,7 +5,7 @@ import { useHandleError } from './useHandleError';
 import { ContingenciesTmHttp, ContingencyHttp } from '../api/interfaces';
 import ApiHR from '../api/ApiHR';
 
-export interface SetParams {
+export interface SetParamsContingnecy {
   record: ContingencyHttp;
   openModal: (param: boolean) => void;
 }
@@ -99,7 +99,7 @@ export const useRequestPage = () => {
   };
 
   //set the modal to open and the info of contingency
-  const setParams = async ({ record, openModal }: SetParams) => {
+  const setParams = async ({ record, openModal }: SetParamsContingnecy) => {
     setContingency(record);
     openModal(true);
   };

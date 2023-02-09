@@ -2,15 +2,15 @@ import { ColumnsType } from 'antd/es/table';
 import Link from 'antd/es/typography/Link';
 import { Dispatch, SetStateAction } from 'react';
 import { ContingencyHttp } from '../../../api/interfaces';
-import { SetParams } from '../../../hooks/useRequestPage';
+import { SetParamsContingnecy } from '../../../hooks/useRequestPage';
 
 interface Params {
-  setParams: ({ record, openModal }: SetParams) => Promise<void>;
+  setParams: ({ record, openModal }: SetParamsContingnecy) => Promise<void>;
   setModalInfo: Dispatch<SetStateAction<boolean>>
 }
 
 export const firstColumn = ({ setParams, setModalInfo }: Params) => {
-  const firstRow: ColumnsType<ContingencyHttp> = [
+  const firstColumn: ColumnsType<ContingencyHttp> = [
     {
       title: 'Folio',
       dataIndex: 'folio',
@@ -22,5 +22,5 @@ export const firstColumn = ({ setParams, setModalInfo }: Params) => {
     },
   ];
 
-  return firstRow;
+  return firstColumn;
 };

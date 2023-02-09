@@ -43,16 +43,6 @@ export const Request = () => {
         items={[
           {
             label: (
-              <Badge status="processing">
-                <div style={{ padding: '5px' }}>Vacations</div>
-              </Badge>
-            ),
-            key: '1',
-            children: '',
-            disabled: true,
-          },
-          {
-            label: (
               <>
                 {/* TODO: warning is still appearing */}
                 <Badge status="warning" count={total}>
