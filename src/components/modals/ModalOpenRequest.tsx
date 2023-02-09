@@ -20,6 +20,7 @@ export const ModalOpenRequest = ({
       open={isModalOpen}
       onCancel={closeModal}
       footer={false}
+      destroyOnClose
     >
       <Stepper closeModal={closeModal} refresh={onSuccess} />
     </Modal>
