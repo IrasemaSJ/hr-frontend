@@ -1,8 +1,8 @@
 import { Badge, Table, Tabs } from 'antd';
 import {
-  firstRow,
+  firstColumn,
   columnsContigencyRequestInfo,
-  lastRow,
+  lastColumn,
 } from './table-design';
 import { ModalReject } from '../../components/modals/ModalReject';
 import { Loader } from '../../components';
@@ -65,9 +65,9 @@ export const Request = () => {
               <Table
                 loading={isLoadingTable}
                 columns={[
-                  ...firstRow({ setParams, setModalInfo }),
+                  ...firstColumn({ setParams, setModalInfo }),
                   ...columnsContigencyRequestInfo,
-                  ...lastRow({
+                  ...lastColumn({
                     setParams,
                     setModalAprove,
                     setModalReject,

@@ -1,3 +1,3 @@
-export { firstRow } from './first-row';
-export { lastRow } from './last-row';
-export { columnsContigencyRequestInfo } from './other-rows';
+export { firstColumn } from './first-column';
+export { lastColumn } from './last-column';
+export { columnsContigencyRequestInfo } from './other-columns';

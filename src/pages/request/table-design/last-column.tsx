@@ -11,7 +11,7 @@ interface Params {
   setModalReject: Dispatch<SetStateAction<boolean>>
 }
 
-export const lastRow = ({
+export const lastColumn = ({
   setParams,
   setModalAprove,
   setModalReject,
