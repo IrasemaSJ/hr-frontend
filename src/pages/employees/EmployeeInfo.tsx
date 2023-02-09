@@ -162,14 +162,8 @@ export const EmployeeInfo = () => {
         style={{ height: 220, marginTop: '20px' }}
         items={[
           {
-            label: `Vacations`,
-            key: '1',
-            children: 'Content of tab',
-            disabled: true,
-          },
-          {
             label: `Contingency`,
-            key: '2',
+            key: '1',
             children: (
               <Table
                 loading={isLoadingTable}
