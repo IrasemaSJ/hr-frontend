@@ -2,28 +2,27 @@ import React from 'react';
 import { ContingencyForm } from '../form/ContingencyForm';
 import { RequestType } from './Stepper';
 import { VacationForm } from '../form/VacationForm';
+import { SubmitValues } from '../../pages/employees/EmployeeInfo';
 
 interface Props {
   next: () => void;
   prev: () => void;
   requestType: RequestType;
-  setFolio: React.Dispatch<React.SetStateAction<string>>;
-  refresh: () => void;
+  createContingency: (data: SubmitValues) => void;
 }
 export const StepMid = ({
   next,
   requestType,
   prev,
-  setFolio,
-  refresh,
+  createContingency,
 }: Props) => {
   switch (requestType) {
     case 'contingecy':
       return (
         <ContingencyForm
-          onSuccess={[next, refresh]}
+          next={next}
+          createContingency={createContingency}
           prev={prev}
-          setFolio={setFolio}
         />
       );
     case 'vacation':

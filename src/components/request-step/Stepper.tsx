@@ -5,17 +5,19 @@ import { LastStep } from './LastStep';
 import { useStepper } from '../../hooks';
 import { useState } from 'react';
 import { StepMid } from './StepMid';
+import { SubmitValues } from '../../pages/employees/EmployeeInfo';
 // const description = <p>holo</p>;
 
 interface Props {
   closeModal: () => void;
-  refresh: () => void;
+  createContingency: (data: SubmitValues) => void;
+  folio: string;
 }
 export type RequestType = 'vacation' | 'contingecy' | '';
-export const Stepper = ({ closeModal, refresh }: Props) => {
+export const Stepper = ({ closeModal, createContingency, folio }: Props) => {
   // state of the request
   const [requestType, setRequestType] = useState<RequestType>('');
-  const [folio, setFolio] = useState<string>('');
+
 
   // stepper context
   const { steps, items, next, prev, current } = useStepper({
@@ -32,8 +34,7 @@ export const Stepper = ({ closeModal, refresh }: Props) => {
             next={next}
             requestType={requestType}
             prev={prev}
-            setFolio={setFolio}
-            refresh={refresh}
+            createContingency={createContingency}
           />
         ),
         description: 'Fill out your info',

@@ -23,6 +23,14 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { ModalEdit } from '../../components/modals/ModalEdit';
 import { ModalDelete } from '../../components/modals/ModalDelete';
 import { ModalInfo } from '../../components/modals/ModalInfo';
+import * as dayjs from 'dayjs';
+import { formatDateApi, formatTableDate } from '../../helpers';
+
+export interface SubmitValues {
+  date: dayjs.Dayjs;
+  half_day?: boolean;
+  comments?: string;
+}
 
 export const EmployeeInfo = () => {
   const { ModalWrapper, openModal, closeModal } = useModal();
@@ -40,6 +48,7 @@ export const EmployeeInfo = () => {
   const [modalDelete, setModalDelete] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
   const [modalOpenRequest, setModalOpenRequest] = useState(false);
+  const [folio, setFolio] = useState<string>(''); // created folio
 
   //data to set folio and id to aprove or reject
   const [contingency, setContingency] = useState<ContingencyHttp>({
@@ -76,6 +85,29 @@ export const EmployeeInfo = () => {
   useEffect(() => {
     getContingenciesByPage();
   }, []);
+
+  const createContingency = async (data: SubmitValues) => {
+    try {
+      const submitValues = {
+        half_day: data.half_day,
+        comments: data.comments,
+        date: formatDateApi(data.date),
+      };
+      console.log(submitValues);
+      setIsLoadingRequest(true);
+      const res = await ApiHR.post('/contingencies', submitValues);
+      setIsLoadingRequest(false);
+      getContingenciesByPage(1);
+      setFolio(res.data.folio);
+      if (res.data.folio) {
+        return true;
+      }
+    } catch (error: any) {
+      setIsLoadingRequest(false);
+      setServerError(error);
+      return false;
+    }
+  };
 
   const getContingenciesByPage = async (page?: number) => {
     try {
@@ -242,7 +274,8 @@ export const EmployeeInfo = () => {
         isModalOpen={modalOpenRequest}
         closeModal={() => setModalOpenRequest(false)}
         width={700}
-        onSuccess={getContingenciesByPage}
+        createContingency={createContingency}
+        folio={folio}
       />
 
       <ModalEdit

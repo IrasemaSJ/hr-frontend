@@ -12,3 +12,9 @@ export const formatTableDate = (date: string | dayjs.Dayjs) => {
   }
   return date.toString().substring(0, 16);
 };
+export const formatDateApi = (date: string | dayjs.Dayjs) => {
+  if (typeof date === 'string') {
+    date = dayjs(date);
+  }
+  return date.format(format.post);
+};

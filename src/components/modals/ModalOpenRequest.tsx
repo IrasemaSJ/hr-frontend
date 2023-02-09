@@ -1,18 +1,21 @@
 import { Modal } from 'antd';
 import React from 'react';
+import { SubmitValues } from '../../pages/employees/EmployeeInfo';
 import { Stepper } from '../request-step/Stepper';
 
 interface Props {
   closeModal: () => void;
   width?: number;
   isModalOpen: boolean;
-  onSuccess: () => void;
+  createContingency: (data: SubmitValues) => void;
+  folio: string;
 }
 export const ModalOpenRequest = ({
   closeModal,
   width,
   isModalOpen,
-  onSuccess,
+  createContingency,
+  folio,
 }: Props) => {
   return (
     <Modal
@@ -22,7 +25,11 @@ export const ModalOpenRequest = ({
       footer={false}
       destroyOnClose
     >
-      <Stepper closeModal={closeModal} refresh={onSuccess} />
+      <Stepper
+        closeModal={closeModal}
+        createContingency={createContingency}
+        folio={folio}
+      />
     </Modal>
   );
 };
