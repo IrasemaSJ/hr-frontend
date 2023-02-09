@@ -33,15 +33,14 @@ export const Stepper = ({ closeModal, refresh }: Props) => {
             requestType={requestType}
             prev={prev}
             setFolio={setFolio}
+            refresh={refresh}
           />
         ),
         description: 'Fill out your info',
       },
       {
         title: 'Done',
-        content: () => (
-          <LastStep closeModal={closeModal} folio={folio} refresh={refresh} />
-        ),
+        content: () => <LastStep closeModal={closeModal} folio={folio} />,
         description: 'You are ready',
       },
     ],

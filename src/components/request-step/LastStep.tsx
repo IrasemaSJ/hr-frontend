@@ -5,14 +5,10 @@ interface Props {
   prev?: () => void;
   closeModal?: () => void;
   folio: string;
-  refresh: () => void;
 }
-export const LastStep = ({ closeModal, folio, refresh }: Props) => {
+export const LastStep = ({ closeModal, folio }: Props) => {
   const close = () => {
     closeModal!();
-    setTimeout(() => {
-      refresh();
-    }, 100);
   };
 
   return (

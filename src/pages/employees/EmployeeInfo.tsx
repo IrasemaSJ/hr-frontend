@@ -1,5 +1,10 @@
 import { Button, notification, Table, Tabs } from 'antd';
-import { HeaderEmployeeInfo, Loader, Stepper } from '../../components';
+import {
+  HeaderEmployeeInfo,
+  Loader,
+  ModalOpenRequest,
+  Stepper,
+} from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
 import { useModal } from '../../hooks';
 import './EmployeeInfo.css';
@@ -34,6 +39,7 @@ export const EmployeeInfo = () => {
   const [modalEdit, setModalEdit] = useState(false);
   const [modalDelete, setModalDelete] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
+  const [modalOpenRequest, setModalOpenRequest] = useState(false);
 
   //data to set folio and id to aprove or reject
   const [contingency, setContingency] = useState<ContingencyHttp>({
@@ -146,10 +152,12 @@ export const EmployeeInfo = () => {
         marriage={0}
         pregnancy={0}
         no_paid={0}
-        onClick={openModal}
+        onClick={() => {
+          setModalOpenRequest(true);
+        }}
       />
       <Tabs
-        defaultActiveKey="1"
+        defaultActiveKey="2"
         tabPosition={'top'}
         style={{ height: 220, marginTop: '20px' }}
         items={[
@@ -157,6 +165,7 @@ export const EmployeeInfo = () => {
             label: `Vacations`,
             key: '1',
             children: 'Content of tab',
+            disabled: true,
           },
           {
             label: `Contingency`,
@@ -231,18 +240,16 @@ export const EmployeeInfo = () => {
               />
             ),
           },
-          {
-            label: `Time by Time`,
-            key: '3',
-            children: `Content of tab`,
-          },
         ]}
       />
 
       {/*--------------------------------------- Modals ---------------------------------*/}
-      <ModalWrapper width={1000}>
-        <Stepper closeModal={closeModal} refresh={getContingenciesByPage} />
-      </ModalWrapper>
+      <ModalOpenRequest
+        isModalOpen={modalOpenRequest}
+        closeModal={() => setModalOpenRequest(false)}
+        width={700}
+        onSuccess={getContingenciesByPage}
+      />
 
       <ModalEdit
         update={updateContingency}

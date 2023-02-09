@@ -8,12 +8,23 @@ interface Props {
   prev: () => void;
   requestType: RequestType;
   setFolio: React.Dispatch<React.SetStateAction<string>>;
+  refresh: () => void;
 }
-export const StepMid = ({ next, requestType, prev, setFolio }: Props) => {
+export const StepMid = ({
+  next,
+  requestType,
+  prev,
+  setFolio,
+  refresh,
+}: Props) => {
   switch (requestType) {
     case 'contingecy':
       return (
-        <ContingencyForm onSuccess={[next]} prev={prev} setFolio={setFolio} />
+        <ContingencyForm
+          onSuccess={[next, refresh]}
+          prev={prev}
+          setFolio={setFolio}
+        />
       );
     case 'vacation':
       return <VacationForm title="Vacation" onSuccess={[next]} prev={prev} />;
