@@ -54,6 +54,7 @@ export const Request = () => {
             children: (
               <Table
                 loading={isLoadingTable}
+                dataSource={contingencyRows}
                 columns={[
                   ...firstColumn({ setParams, setModalInfo }),
                   ...columnsContigencyRequestInfo,
@@ -64,7 +65,6 @@ export const Request = () => {
                   }),
                 ]}
                 rowKey={'_id'}
-                dataSource={contingencyRows}
                 pagination={{
                   pageSize: 5,
                   total,
@@ -96,6 +96,7 @@ export const Request = () => {
         isModalOpen={modalReject}
         closeModal={() => setModalReject(false)}
       />
+
       <ModalInfo
         record={contingency}
         isModalOpen={modalInfo}

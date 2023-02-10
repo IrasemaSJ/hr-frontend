@@ -1,13 +1,13 @@
 import { Modal } from 'antd';
 import React from 'react';
-import { SubmitValues } from '../../pages/employees/EmployeeInfo';
+import { CreateContingencyForm } from '../form/interfaces';
 import { Stepper } from '../request-step/Stepper';
 
 interface Props {
   closeModal: () => void;
   width?: number;
   isModalOpen: boolean;
-  createContingency: (data: SubmitValues) => void;
+  createContingency: (data: CreateContingencyForm) => void;
   folio: string;
 }
 export const ModalOpenRequest = ({

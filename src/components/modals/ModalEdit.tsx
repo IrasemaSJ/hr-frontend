@@ -5,6 +5,7 @@ import { format } from '../../helpers';
 import * as dayjs from 'dayjs';
 import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import { useEffect } from 'react';
+import { formatDateInput } from '../../helpers/formatDate';
 
 const disableWeekEnds = (current: dayjs.Dayjs) => {
   return (
@@ -28,11 +29,10 @@ export const ModalEdit = ({
   isModalOpen,
   closeModal,
 }: Props) => {
-  console.log(record.date);
   const [form] = Form.useForm();
   useEffect(() => {
     form.setFieldsValue({
-      date: dayjs(record.date),
+      date: formatDateInput(record.date),
       comments: record.comments,
       half_day: record.half_day,
     });

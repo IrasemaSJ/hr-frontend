@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Checkbox, DatePicker, Divider, Form, Typography } from 'antd';
+import { Button, Divider, Form, Typography } from 'antd';
 import './ContingencyForm.css';
 import { InputDate, InputMessage } from '../inputs';
 

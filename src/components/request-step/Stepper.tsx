@@ -5,19 +5,18 @@ import { LastStep } from './LastStep';
 import { useStepper } from '../../hooks';
 import { useState } from 'react';
 import { StepMid } from './StepMid';
-import { SubmitValues } from '../../pages/employees/EmployeeInfo';
+import { CreateContingencyForm } from '../form/interfaces/contingencyForm.interfaces';
 // const description = <p>holo</p>;
 
 interface Props {
   closeModal: () => void;
-  createContingency: (data: SubmitValues) => void;
+  createContingency: (data: CreateContingencyForm) => void;
   folio: string;
 }
 export type RequestType = 'vacation' | 'contingecy' | '';
 export const Stepper = ({ closeModal, createContingency, folio }: Props) => {
   // state of the request
   const [requestType, setRequestType] = useState<RequestType>('');
-
 
   // stepper context
   const { steps, items, next, prev, current } = useStepper({
