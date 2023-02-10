@@ -1,5 +1,10 @@
 import { Button, Table, Tabs } from 'antd';
-import { HeaderEmployeeInfo, Loader, ModalOpenRequest } from '../../components';
+import {
+  BtnTable,
+  HeaderEmployeeInfo,
+  Loader,
+  ModalOpenRequest,
+} from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
 import { useContingency } from '../../hooks';
 import './EmployeeInfo.css';
@@ -97,11 +102,8 @@ export const EmployeeInfo = () => {
                       record.status === 'pending' ||
                       record.status === 'rejected' ? (
                         <>
-                          <Button
-                            type="primary"
-                            shape="circle"
-                            icon={<EditOutlined />}
-                            style={{ background: 'green', margin: '2px' }}
+                          <BtnTable
+                            action="edit"
                             onClick={() =>
                               setParams({
                                 record,
@@ -109,11 +111,8 @@ export const EmployeeInfo = () => {
                               })
                             }
                           />
-                          <Button
-                            type="primary"
-                            shape="circle"
-                            icon={<DeleteOutlined />}
-                            style={{ background: 'red', margin: '2px' }}
+                          <BtnTable
+                            action="cancel"
                             onClick={() =>
                               setParams({
                                 record,

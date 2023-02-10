@@ -8,7 +8,7 @@ interface Props {
   next: () => void;
   prev: () => void;
   requestType: RequestType;
-  createContingency: (data: CreateContingencyForm) => void;
+  createContingency: (data: CreateContingencyForm) => boolean;
 }
 export const StepMid = ({
   next,

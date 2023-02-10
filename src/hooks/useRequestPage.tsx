@@ -10,6 +10,14 @@ export interface SetParamsContingnecy {
   openModal: (param: boolean) => void;
 }
 
+const initContingency = {
+  folio: '',
+  comments: '',
+  date: '',
+  half_day: false,
+  observations: '',
+  status: '',
+} as ContingencyHttp;
 export const useRequestPage = () => {
   const [page, setPage] = useState(1);
   //load data when component redenrize
@@ -28,9 +36,7 @@ export const useRequestPage = () => {
   const [modalAprove, setModalAprove] = useState(false);
   const [modalInfo, setModalInfo] = useState(false);
   //data to set params and show information in modal info
-  const [contingency, setContingency] = useState(
-    {} as unknown as ContingencyHttp,
-  );
+  const [contingency, setContingency] = useState(initContingency);
 
   //notifications
   //success messages

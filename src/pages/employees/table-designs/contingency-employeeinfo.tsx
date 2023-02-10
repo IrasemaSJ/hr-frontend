@@ -1,42 +1,28 @@
-import { Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { format, formatTableDate } from '../../../helpers';
+import { formatTableDate } from '../../../helpers';
 import { ContingencyHttp } from '../../../api/interfaces/contingency.interfaces';
-import * as dayjs from 'dayjs';
 import '../../../styles/Table.css';
+import { Status } from '../../../components';
 
 export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
   {
     title: 'Status',
     dataIndex: 'status',
     key: '2',
-    render: (status) =>
-      status === 'approved' ? (
-        <Tag color="green"> {status} </Tag>
-      ) : status === 'rejected' ? (
-        <Tag color="red"> {status} </Tag>
-      ) : status === 'pending' ? (
-        <Tag color="yellow"> {status} </Tag>
-      ) : (
-        <Tag color="black"> {status} </Tag>
-      ),
+    render: (status) => <Status status={status} />,
     responsive: ['lg'],
   },
   {
     title: 'Initial Date',
     dataIndex: ['date'],
     key: '3',
-    render: (date) => {
-      return <>{`${formatTableDate(date)}`}</>;
-    },
+    render: (date) => <>{`${formatTableDate(date)}`}</>,
     responsive: ['lg'],
   },
   {
     title: 'Number of days',
     dataIndex: 'half_day',
-    render: (half_day) => {
-      return half_day ? '0.5' : '1';
-    },
+    render: (half_day) => <>{half_day ? '0.5' : '1'}</>,
     responsive: ['lg'],
   },
   {
@@ -48,15 +34,7 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
           <strong>Status</strong>
           <div>
             -&nbsp;
-            {record.status === 'approved' ? (
-              <Tag color="green"> {record.status} </Tag>
-            ) : record.status === 'rejected' ? (
-              <Tag color="red"> {record.status} </Tag>
-            ) : record.status === 'pending' ? (
-              <Tag color="yellow"> {record.status} </Tag>
-            ) : (
-              <Tag color="black"> {record.status} </Tag>
-            )}
+            <Status status={record.status} />
           </div>
         </div>
         <span> - {formatTableDate(record.date)}</span>

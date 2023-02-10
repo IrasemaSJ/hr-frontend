@@ -54,6 +54,7 @@ export const Request = () => {
             children: (
               <Table
                 loading={isLoadingTable}
+                dataSource={contingencyRows}
                 columns={[
                   ...firstColumn({ setParams, setModalInfo }),
                   ...columnsContigencyRequestInfo,
@@ -64,18 +65,17 @@ export const Request = () => {
                   }),
                 ]}
                 rowKey={'_id'}
-                dataSource={contingencyRows}
-                // pagination={{
-                //   pageSize: 5,
-                //   total,
-                //   onChange(page) {
-                //     setPage(page);
-                //   },
-                //   hideOnSinglePage: true,
-                //   showTotal(total, range) {
-                //     return `${range[0]}-${range[1]} of ${total} items`;
-                //   },
-                // }}
+                pagination={{
+                  pageSize: 5,
+                  total,
+                  onChange(page) {
+                    setPage(page);
+                  },
+                  hideOnSinglePage: true,
+                  showTotal(total, range) {
+                    return `${range[0]}-${range[1]} of ${total} items`;
+                  },
+                }}
               />
             ),
           },
@@ -97,11 +97,11 @@ export const Request = () => {
         closeModal={() => setModalReject(false)}
       />
 
-      {/* <ModalInfo
+      <ModalInfo
         record={contingency}
         isModalOpen={modalInfo}
         closeModal={() => setModalInfo(false)}
-      /> */}
+      />
     </>
   );
 };
