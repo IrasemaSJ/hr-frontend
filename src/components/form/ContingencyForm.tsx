@@ -3,18 +3,22 @@ import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
 import * as dayjs from 'dayjs';
 import { format } from '../../helpers';
-import { SubmitValues } from '../../pages/employees/EmployeeInfo';
+import { CreateContingencyForm } from './interfaces';
 
 const { Title } = Typography;
 interface Props {
   next: () => void;
   prev?: () => void;
-  createContingency: (data: SubmitValues) => boolean;
+  createContingency: (data: CreateContingencyForm) => boolean;
 }
 
 export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
   // notification
-  const onSubmit = async ({ date, half_day, comments }: SubmitValues) => {
+  const onSubmit = async ({
+    date,
+    half_day,
+    comments,
+  }: CreateContingencyForm) => {
     const isOk = await createContingency({ date, half_day, comments });
     if (isOk) next();
   };
