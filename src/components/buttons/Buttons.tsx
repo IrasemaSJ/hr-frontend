@@ -1,10 +1,10 @@
 import { Button, theme } from 'antd';
 import {
-  CheckOutlined,
   DeleteOutlined,
+  DislikeOutlined,
   EditOutlined,
   EyeOutlined,
-  UndoOutlined,
+  LikeOutlined,
 } from '@ant-design/icons';
 
 type Props = {
@@ -23,8 +23,9 @@ export const BtnTable = ({ children, onClick, action }: Props) => {
       icon: <DeleteOutlined />,
     },
     reject: {
-      background: token.colorError,
-      icon: <UndoOutlined />,
+      // background: token.colorError,
+      background: '#F5BB41',
+      icon: <DislikeOutlined />,
     },
     info: {
       background: token.colorPrimary,
@@ -35,8 +36,9 @@ export const BtnTable = ({ children, onClick, action }: Props) => {
       icon: <EditOutlined />,
     },
     accept: {
-      background: token.colorSuccess,
-      icon: <CheckOutlined />,
+      // background: token.colorSuccess,
+      background: '#5BC2A7',
+      icon: <LikeOutlined />,
     },
   };
 

@@ -4,11 +4,12 @@ import { CheckOutlined } from '@ant-design/icons';
 import { ContingencyHttp } from '../../../api/interfaces';
 import { SetParams } from '../../../hooks/useRequestPage';
 import { Dispatch, SetStateAction } from 'react';
+import { BtnTable } from '../../../components';
 
 interface Params {
   setParams: ({ record, openModal }: SetParams) => Promise<void>;
-  setModalAprove: Dispatch<SetStateAction<boolean>>
-  setModalReject: Dispatch<SetStateAction<boolean>>
+  setModalAprove: Dispatch<SetStateAction<boolean>>;
+  setModalReject: Dispatch<SetStateAction<boolean>>;
 }
 
 export const lastColumn = ({
@@ -22,11 +23,8 @@ export const lastColumn = ({
       dataIndex: 'actions',
       render: (_, record) => (
         <>
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<CheckOutlined />}
-            style={{ background: 'green', margin: '2px' }}
+          <BtnTable
+            action="accept"
             onClick={() =>
               setParams({
                 record,
@@ -34,11 +32,8 @@ export const lastColumn = ({
               })
             }
           />
-          <Button
-            type="primary"
-            shape="circle"
-            icon={'X'}
-            style={{ background: 'red', margin: '2px' }}
+          <BtnTable
+            action="reject"
             onClick={() =>
               setParams({
                 record,
