@@ -1,3 +1,4 @@
+export { useContingency } from './useContingency';
 export { useStepper } from './useStepper';
 export { useModal } from './useModal';
 export { useHandleError } from './useHandleError';

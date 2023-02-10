@@ -1,8 +1,7 @@
-import * as dayjs from 'dayjs';
 import { ColumnsType } from 'antd/es/table';
-import { format } from '../../../helpers';
 import { ContingencyHttp } from '../../../api/interfaces/contingency.interfaces';
 import '../../../styles/Table.css';
+import { formatTableDate } from '../../../helpers';
 
 //design table columns to requests pendings for tm-users
 export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
@@ -15,7 +14,7 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
     title: 'Initial date',
     responsive: ['lg'],
     dataIndex: 'date',
-    render: (date) => dayjs(date).format(format.table),
+    render: (date) => formatTableDate(date),
   },
   {
     title: 'Days requested',
@@ -30,11 +29,11 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
         <div>
           <strong>Name</strong>
         </div>
-        <span>- {record.name_employee}</span>
+        <span> - {record.name_employee}</span>
         <div>
           <strong>Initial date</strong>
         </div>
-        <span> - {dayjs(record.date).format(format.table)}</span>
+        <span> - {formatTableDate(record.date)}</span>
         <div>
           <strong>Days requested</strong>
         </div>

@@ -59,11 +59,11 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
             )}
           </div>
         </div>
-        <span> - {dayjs(record.date).format(format.table)}</span>
+        <span> - {formatTableDate(record.date)}</span>
         <div>
           <strong>Initial date</strong>
         </div>
-        <span> - {dayjs(record.date).format(format.table)}</span>
+        <span> - {formatTableDate(record.date)}</span>
         <div>
           <strong>Days requested</strong>
         </div>

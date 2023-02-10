@@ -2,13 +2,13 @@ import React from 'react';
 import { ContingencyForm } from '../form/ContingencyForm';
 import { RequestType } from './Stepper';
 import { VacationForm } from '../form/VacationForm';
-import { SubmitValues } from '../../pages/employees/EmployeeInfo';
+import { CreateContingencyForm } from '../form/interfaces/contingencyForm.interfaces';
 
 interface Props {
   next: () => void;
   prev: () => void;
   requestType: RequestType;
-  createContingency: (data: SubmitValues) => void;
+  createContingency: (data: CreateContingencyForm) => void;
 }
 export const StepMid = ({
   next,

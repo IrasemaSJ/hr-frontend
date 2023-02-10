@@ -1,12 +1,12 @@
+import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import Link from 'antd/es/typography/Link';
 import { Dispatch, SetStateAction } from 'react';
 import { ContingencyHttp } from '../../../api/interfaces';
 import { SetParams } from '../../../hooks/useRequestPage';
 
 interface Params {
   setParams: ({ record, openModal }: SetParams) => Promise<void>;
-  setModalInfo: Dispatch<SetStateAction<boolean>>
+  setModalInfo: Dispatch<SetStateAction<boolean>>;
 }
 
 export const firstColumn = ({ setParams, setModalInfo }: Params) => {
@@ -15,9 +15,12 @@ export const firstColumn = ({ setParams, setModalInfo }: Params) => {
       title: 'Folio',
       dataIndex: 'folio',
       render: (_, record) => (
-        <Link onClick={() => setParams({ record, openModal: setModalInfo })}>
+        <Button
+          type="link"
+          onClick={() => setParams({ record, openModal: setModalInfo })}
+        >
           {record.folio}
-        </Link>
+        </Button>
       ),
     },
   ];
