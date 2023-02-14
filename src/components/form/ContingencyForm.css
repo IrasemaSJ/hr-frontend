@@ -1,7 +1,6 @@
 .contingency-form-row{
     display: grid;
-    justify-content: space-between;
     grid-template-columns: 200px auto;
-    gap: 2rem;
+    gap: 7rem;
     align-items: flex-end;
 }

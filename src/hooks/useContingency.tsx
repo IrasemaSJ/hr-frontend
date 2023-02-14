@@ -12,8 +12,6 @@ export const useContingency = () => {
   const [total, setTotal] = useState(0);
   const [isLoadingTable, setIsLoadingTable] = useState(false); // show load table
   const [contingencyRows, setContingencyRows] = useState<ContingencyHttp[]>([]);
-  const [disabledDates, setDisabledDates] = useState<string[]>([]);
-  const [contingenciesCount, setContingenciesCount] = useState(0);
 
   //modal variables
   const [isLoadingRequest, setIsLoadingRequest] = useState(false); // show reject or aprove loader
@@ -22,6 +20,10 @@ export const useContingency = () => {
   const [modalInfo, setModalInfo] = useState(false);
   const [modalOpenRequest, setModalOpenRequest] = useState(false);
   const [folio, setFolio] = useState<string>(''); // created folio
+
+  //request variables
+  const [disabledDates, setDisabledDates] = useState<string[]>([]);
+  const [contingenciesCount, setContingenciesCount] = useState(0);
 
   //data to set folio and id to aprove or reject
   const [contingency, setContingency] = useState<ContingencyHttp>({

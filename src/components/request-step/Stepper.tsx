@@ -24,8 +24,6 @@ export const Stepper = ({
   contingenciesCount,
   disabledDates,
 }: Props) => {
-  console.log(disabledDates);
-
   // state of the request
   const [requestType, setRequestType] = useState<RequestType>('');
 
@@ -52,6 +50,7 @@ export const Stepper = ({
             prev={prev}
             createContingency={createContingency}
             disabledDates={disabledDates}
+            contingenciesCount={contingenciesCount}
           />
         ),
         description: 'Fill out your info',

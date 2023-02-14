@@ -10,6 +10,7 @@ interface Props {
   requestType: RequestType;
   createContingency: (data: CreateContingencyForm) => boolean;
   disabledDates: string[];
+  contingenciesCount: number;
 }
 export const StepMid = ({
   next,
@@ -17,8 +18,8 @@ export const StepMid = ({
   prev,
   createContingency,
   disabledDates,
+  contingenciesCount,
 }: Props) => {
-  console.log(disabledDates);
 
   switch (requestType) {
     case 'contingecy':
@@ -28,6 +29,7 @@ export const StepMid = ({
           createContingency={createContingency}
           prev={prev}
           disabledDates={disabledDates}
+          contingenciesCount={contingenciesCount}
         />
       );
     case 'vacation':
