@@ -60,6 +60,7 @@ export const disabledDate = (
 
   // Deshabilita las fechas específicas en el array "disabledDates"
   return disabledDates.some((disableDate) => {
-    return toDateObject(disableDate).isSame(date, 'day');
+    const cuttedDate = formatDateInput(disableDate);
+    return cuttedDate.isSame(date, 'day');
   });
 };

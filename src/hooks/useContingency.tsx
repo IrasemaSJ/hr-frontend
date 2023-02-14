@@ -12,6 +12,8 @@ export const useContingency = () => {
   const [total, setTotal] = useState(0);
   const [isLoadingTable, setIsLoadingTable] = useState(false); // show load table
   const [contingencyRows, setContingencyRows] = useState<ContingencyHttp[]>([]);
+  const [disabledDates, setDisabledDates] = useState<string[]>([]);
+  const [contingenciesCount, setContingenciesCount] = useState(0);
 
   //modal variables
   const [isLoadingRequest, setIsLoadingRequest] = useState(false); // show reject or aprove loader
@@ -87,6 +89,8 @@ export const useContingency = () => {
       const { data } = await ApiHR<ContingenciesTmHttp>(
         `/contingencies?page=${page ?? 1}`,
       );
+      setDisabledDates(data.days_taken);
+      setContingenciesCount(data.total_contingencies);
       setContingencyRows(data.docs);
       setTotal(data.totalDocs);
       setIsLoadingTable(false);
@@ -155,5 +159,7 @@ export const useContingency = () => {
     modalEdit,
     modalDelete,
     modalInfo,
+    disabledDates,
+    contingenciesCount,
   };
 };

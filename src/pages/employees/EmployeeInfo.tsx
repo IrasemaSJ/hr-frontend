@@ -12,7 +12,6 @@ import { columnsContigencyEmployeeInfo } from './table-designs/contingency-emplo
 import { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import Link from 'antd/es/typography/Link';
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { ModalEdit } from '../../components/modals/ModalEdit';
 import { ModalDelete } from '../../components/modals/ModalDelete';
 import { ModalInfo } from '../../components/modals/ModalInfo';
@@ -42,6 +41,8 @@ export const EmployeeInfo = () => {
     deleteContingency,
     setParams,
     contextHolder,
+    disabledDates,
+    contingenciesCount,
   } = useContingency();
 
   return (
@@ -150,6 +151,8 @@ export const EmployeeInfo = () => {
         width={700}
         createContingency={createContingency}
         folio={folio}
+        disabledDates={disabledDates}
+        contingenciesCount={contingenciesCount}
       />
 
       <ModalEdit

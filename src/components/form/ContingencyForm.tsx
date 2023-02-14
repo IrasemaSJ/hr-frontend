@@ -9,9 +9,15 @@ interface Props {
   next: () => void;
   prev?: () => void;
   createContingency: (data: CreateContingencyForm) => boolean;
+  disabledDates: string[];
 }
 
-export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
+export const ContingencyForm = ({
+  next,
+  createContingency,
+  prev,
+  disabledDates,
+}: Props) => {
   // notification
   const onSubmit = async ({
     date,
@@ -43,10 +49,7 @@ export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
             name="date"
             rules={[{ required: true, message: 'Please enter a date!' }]}
           >
-            <InputDatePicker
-              disabledDates={['2023-02-23', '2023-02-24']}
-              disableWeekends
-            />
+            <InputDatePicker disabledDates={disabledDates} disableWeekends />
           </Form.Item>
 
           <Form.Item label="Half Day" name="half_day" valuePropName="checked">

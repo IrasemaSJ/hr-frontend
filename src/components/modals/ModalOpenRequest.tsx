@@ -9,6 +9,8 @@ interface Props {
   isModalOpen: boolean;
   createContingency: (data: CreateContingencyForm) => void;
   folio: string;
+  disabledDates: string[];
+  contingenciesCount: number;
 }
 export const ModalOpenRequest = ({
   closeModal,
@@ -16,6 +18,8 @@ export const ModalOpenRequest = ({
   isModalOpen,
   createContingency,
   folio,
+  disabledDates,
+  contingenciesCount,
 }: Props) => {
   return (
     <Modal
@@ -29,6 +33,8 @@ export const ModalOpenRequest = ({
         closeModal={closeModal}
         createContingency={createContingency}
         folio={folio}
+        disabledDates={disabledDates}
+        contingenciesCount={contingenciesCount}
       />
     </Modal>
   );
