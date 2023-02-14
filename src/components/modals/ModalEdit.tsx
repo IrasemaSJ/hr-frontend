@@ -6,6 +6,7 @@ import * as dayjs from 'dayjs';
 import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import { useEffect } from 'react';
 import { formatDateInput } from '../../helpers/formatDate';
+import { InputDatePicker } from '../inputs';
 
 const disableWeekEnds = (current: dayjs.Dayjs) => {
   return (
@@ -20,6 +21,8 @@ interface Props {
   width?: number;
   isModalOpen: boolean;
   closeModal: () => void;
+  disabledDates: string[];
+  contingenciesCount: number;
 }
 
 export const ModalEdit = ({
@@ -28,6 +31,8 @@ export const ModalEdit = ({
   width,
   isModalOpen,
   closeModal,
+  disabledDates,
+  contingenciesCount,
 }: Props) => {
   const [form] = Form.useForm();
   useEffect(() => {
@@ -38,6 +43,7 @@ export const ModalEdit = ({
     });
   }, [record, form]);
 
+  console.log(contingenciesCount);
   return (
     <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
       <Form
@@ -54,14 +60,24 @@ export const ModalEdit = ({
             name="date"
             rules={[{ required: true, message: 'Please enter a date!' }]}
           >
-            <DatePicker
-              style={{ width: '100%' }}
-              format={format.input}
-              disabledDate={disableWeekEnds}
-            />
+            <InputDatePicker disabledDates={disabledDates} disableWeekends />
           </Form.Item>
 
-          <Form.Item label="Half Day" name="half_day" valuePropName="checked">
+          <Form.Item
+            label="Half Day"
+            name="half_day"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) => {
+                  return contingenciesCount < 3 ||
+                    (contingenciesCount === 3 && !!value)
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Only half day available'));
+                },
+              },
+            ]}
+          >
             <Checkbox />
           </Form.Item>
         </div>

@@ -156,6 +156,8 @@ export const EmployeeInfo = () => {
       />
 
       <ModalEdit
+        contingenciesCount={contingenciesCount}
+        disabledDates={disabledDates}
         update={updateContingency}
         record={contingency}
         isModalOpen={modalEdit}
