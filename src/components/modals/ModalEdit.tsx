@@ -1,19 +1,10 @@
-import { Button, Checkbox, DatePicker, Form, Modal } from 'antd';
+import { Button, Checkbox, Form, Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Title from 'antd/es/typography/Title';
-import { format } from '../../helpers';
-import * as dayjs from 'dayjs';
 import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import { useEffect } from 'react';
 import { formatDateInput } from '../../helpers/formatDate';
 import { InputDatePicker } from '../inputs';
-
-const disableWeekEnds = (current: dayjs.Dayjs) => {
-  return (
-    new Date(current.toString()).getDay() === 0 || // sundays
-    new Date(current.toString()).getDay() === 6 // saturdays
-  );
-};
 
 interface Props {
   update: (values: any) => void;
