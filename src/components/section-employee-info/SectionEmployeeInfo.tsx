@@ -41,7 +41,8 @@ export const SectionEmployeeInfo = ({
         <div className="section-employee-info-information-left">
           <div>
             <strong>Vacations: </strong>
-            {vacation} days
+            {/* {vacation} days */}
+            not available
           </div>
           <div>
             <strong>Contingency: </strong>
@@ -49,27 +50,33 @@ export const SectionEmployeeInfo = ({
           </div>
           <div>
             <strong>Incapacity: </strong>
-            {incapacity} days
+            {/* {incapacity} days */}
+            not available
           </div>
           <div>
             <strong>Time by Time: </strong>
-            {time_by_time} days
+            {/* {time_by_time} days */}
+            not available
           </div>
           <div>
             <strong>Bereavement: </strong>
-            {bereavement} days
+            {/* {bereavement} days */}
+            not available
           </div>
           <div>
             <strong>Marriage: </strong>
-            {marriage} days
+            {/* {marriage} days */}
+            not available
           </div>
           <div>
             <strong>Pregnancy: </strong>
-            {pregnancy} days
+            {/* {pregnancy} days */}
+            not available
           </div>
           <div>
             <strong>No paid: </strong>
-            {no_paid} days
+            {/* {no_paid} days */}
+            not available
           </div>
         </div>
       </Card>

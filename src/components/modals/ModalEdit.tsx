@@ -47,7 +47,7 @@ export const ModalEdit = ({
         layout="vertical"
         form={form}
       >
-        <Title level={4}>Contingency</Title>
+        <Title level={4}>Edit Contingency</Title>
         <div className="contingency-form-row">
           <Form.Item
             label="Date"

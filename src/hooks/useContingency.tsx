@@ -7,7 +7,12 @@ import { formatDateApi } from '../helpers';
 import { useHandleError } from './useHandleError';
 import { CreateContingencyForm } from '../components/form/interfaces';
 
-export const useContingency = () => {
+export const useContingency = (employee_id: number) => {
+  // first request to fill table
+  useEffect(() => {
+    getContingenciesByPage();
+  }, [employee_id]);
+
   //table variables
   const [total, setTotal] = useState(0);
   const [isLoadingTable, setIsLoadingTable] = useState(false); // show load table
@@ -55,21 +60,22 @@ export const useContingency = () => {
     });
   };
 
-  // first request to fill table
-  useEffect(() => {
-    getContingenciesByPage();
-  }, []);
-
   // functions to CRUD contingencies
   const createContingency = async (data: CreateContingencyForm) => {
     try {
+      let url = '';
+      if (employee_id === 0) {
+        url = '/contingencies';
+      } else {
+        url = `/contingencies-tm/${employee_id}`;
+      }
       const submitValues = {
         half_day: data.half_day,
         comments: data.comments,
         date: formatDateApi(data.date),
       };
       setIsLoadingRequest(true);
-      const res = await ApiHR.post('/contingencies', submitValues);
+      const res = await ApiHR.post(url, submitValues);
       setIsLoadingRequest(false);
       getContingenciesByPage(1);
       setFolio(res.data.folio);
@@ -85,10 +91,15 @@ export const useContingency = () => {
 
   const getContingenciesByPage = async (page?: number) => {
     try {
+      let url = '';
+      if (employee_id === 0) {
+        url = `/contingencies?page=${page ?? 1}`;
+      } else {
+        url = `/contingencies-tm/${employee_id}?page=${page ?? 1}`;
+      }
+
       setIsLoadingTable(true);
-      const { data } = await ApiHR<ContingenciesTmHttp>(
-        `/contingencies?page=${page ?? 1}`,
-      );
+      const { data } = await ApiHR<ContingenciesTmHttp>(url);
       setDisabledDates(data.days_taken);
       setContingenciesCount(data.total_contingencies);
       setContingencyRows(data.docs);
@@ -102,8 +113,14 @@ export const useContingency = () => {
 
   const updateContingency = async (values: any) => {
     try {
+      let url = '';
+      if (employee_id === 0) {
+        url = `contingencies/${contingency._id}`;
+      } else {
+        url = `/contingencies-tm/${employee_id}/${contingency._id}`;
+      }
       setIsLoadingRequest(true);
-      await ApiHR.patch(`contingencies/${contingency._id}`, values);
+      await ApiHR.patch(url, values);
       setIsLoadingRequest(false); //show the loader
       getContingenciesByPage(); // refresh the table
       setModalEdit(false);
@@ -116,8 +133,14 @@ export const useContingency = () => {
 
   const deleteContingency = async () => {
     try {
+      let url = '';
+      if (employee_id === 0) {
+        url = `contingencies/${contingency._id}`;
+      } else {
+        url = `/contingencies-tm/${employee_id}/${contingency._id}`;
+      }
       setIsLoadingRequest(true);
-      await ApiHR.delete(`contingencies/${contingency._id}`);
+      await ApiHR.delete(url);
       setIsLoadingRequest(false); //show the loader
       getContingenciesByPage(); // refresh the table
       setModalDelete(false);
