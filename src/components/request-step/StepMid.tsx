@@ -9,13 +9,17 @@ interface Props {
   prev: () => void;
   requestType: RequestType;
   createContingency: (data: CreateContingencyForm) => boolean;
+  disabledDates: string[];
 }
 export const StepMid = ({
   next,
   requestType,
   prev,
   createContingency,
+  disabledDates,
 }: Props) => {
+  console.log(disabledDates);
+
   switch (requestType) {
     case 'contingecy':
       return (
@@ -23,6 +27,7 @@ export const StepMid = ({
           next={next}
           createContingency={createContingency}
           prev={prev}
+          disabledDates={disabledDates}
         />
       );
     case 'vacation':

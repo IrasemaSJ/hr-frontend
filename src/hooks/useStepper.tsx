@@ -16,6 +16,7 @@ export const useStepper = ({ steps }) => {
       setCurrent(current - 1);
     }
   };
+
   const items = steps.map((item) => ({
     key: item.title,
     title: item.title,
@@ -23,10 +24,10 @@ export const useStepper = ({ steps }) => {
   }));
 
   return {
-    next,
-    prev,
     current,
     steps,
     items,
+    next,
+    prev,
   };
 };

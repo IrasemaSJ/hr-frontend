@@ -1,18 +1,23 @@
-import { Button, Checkbox, DatePicker, Form, Typography } from 'antd';
+import { Button, Checkbox, Form, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import './ContingencyForm.css';
-import * as dayjs from 'dayjs';
-import { format } from '../../helpers';
 import { CreateContingencyForm } from './interfaces';
+import { InputDatePicker } from '../inputs/InputDatePicker';
 
 const { Title } = Typography;
 interface Props {
   next: () => void;
   prev?: () => void;
   createContingency: (data: CreateContingencyForm) => boolean;
+  disabledDates: string[];
 }
 
-export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
+export const ContingencyForm = ({
+  next,
+  createContingency,
+  prev,
+  disabledDates,
+}: Props) => {
   // notification
   const onSubmit = async ({
     date,
@@ -25,13 +30,6 @@ export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
-  };
-
-  const disableWeekEnds = (current: dayjs.Dayjs) => {
-    return (
-      new Date(current.toString()).getDay() === 0 || // sundays
-      new Date(current.toString()).getDay() === 6 // saturdays
-    );
   };
 
   return (
@@ -51,11 +49,7 @@ export const ContingencyForm = ({ next, createContingency, prev }: Props) => {
             name="date"
             rules={[{ required: true, message: 'Please enter a date!' }]}
           >
-            <DatePicker
-              style={{ width: '100%' }}
-              format={format.input}
-              disabledDate={disableWeekEnds}
-            />
+            <InputDatePicker disabledDates={disabledDates} disableWeekends />
           </Form.Item>
 
           <Form.Item label="Half Day" name="half_day" valuePropName="checked">

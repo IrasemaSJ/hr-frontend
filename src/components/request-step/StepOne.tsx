@@ -7,8 +7,9 @@ import { Divider, Typography } from 'antd';
 interface Props {
   next: () => void;
   setType: (type: RequestType) => void;
+  contingenciesCount: number;
 }
-export const StepOne = ({ next, setType }: Props) => {
+export const StepOne = ({ next, setType, contingenciesCount }: Props) => {
   const handleClick = (type: RequestType) => {
     setType(type);
     next();
@@ -27,7 +28,11 @@ export const StepOne = ({ next, setType }: Props) => {
           urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"
           title="Contingency"
           text="7 days"
-          onClick={() => handleClick('contingecy')}
+          onClick={() => {
+            if (contingenciesCount !== 3) {
+              handleClick('contingecy');
+            }
+          }}
         />
         {/* <CardAction
           urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"

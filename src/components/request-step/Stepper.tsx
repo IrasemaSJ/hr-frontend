@@ -6,15 +6,26 @@ import { useStepper } from '../../hooks';
 import { useState } from 'react';
 import { StepMid } from './StepMid';
 import { CreateContingencyForm } from '../form/interfaces/contingencyForm.interfaces';
+import { disabledDate } from '../../helpers/formatDate';
 // const description = <p>holo</p>;
 
 interface Props {
   closeModal: () => void;
   createContingency: (data: CreateContingencyForm) => void;
   folio: string;
+  disabledDates: string[];
+  contingenciesCount: number;
 }
 export type RequestType = 'vacation' | 'contingecy' | '';
-export const Stepper = ({ closeModal, createContingency, folio }: Props) => {
+export const Stepper = ({
+  closeModal,
+  createContingency,
+  folio,
+  contingenciesCount,
+  disabledDates,
+}: Props) => {
+  console.log(disabledDates);
+
   // state of the request
   const [requestType, setRequestType] = useState<RequestType>('');
 
@@ -23,7 +34,13 @@ export const Stepper = ({ closeModal, createContingency, folio }: Props) => {
     steps: [
       {
         title: 'Select',
-        content: () => <StepOne next={next} setType={setRequestType} />,
+        content: () => (
+          <StepOne
+            next={next}
+            setType={setRequestType}
+            contingenciesCount={contingenciesCount}
+          />
+        ),
         description: 'Select your request',
       },
       {
@@ -34,6 +51,7 @@ export const Stepper = ({ closeModal, createContingency, folio }: Props) => {
             requestType={requestType}
             prev={prev}
             createContingency={createContingency}
+            disabledDates={disabledDates}
           />
         ),
         description: 'Fill out your info',
