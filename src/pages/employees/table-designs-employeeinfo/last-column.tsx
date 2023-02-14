@@ -34,7 +34,7 @@ export const lastColumn = ({
               }
             />
             <BtnTable
-              action="cancel"
+              action="delete"
               onClick={() =>
                 setParams({
                   record,

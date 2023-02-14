@@ -1,4 +1,5 @@
-import { DownloadOutlined } from '@ant-design/icons';
+import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card } from 'antd';
 import './SectionEmployeeInfo.css';
 
@@ -31,10 +32,10 @@ export const SectionEmployeeInfo = ({
         <Button
           onClick={onClick}
           type="primary"
-          icon={<DownloadOutlined />}
+          icon={<FontAwesomeIcon icon={faFileCirclePlus} />}
           size={'large'}
         >
-          Open Request
+          &nbsp;Open Request
         </Button>
       </Card>
       <Card className="section-employee-info-information-left-card">
