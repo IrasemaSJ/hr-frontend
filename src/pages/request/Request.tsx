@@ -4,10 +4,8 @@ import {
   columnsContigencyRequestInfo,
   lastColumn,
 } from './table-design';
-import { ModalReject } from '../../components/modals/ModalReject';
+import { ModalReject, ModalAprove, ModalInfo } from '../../components/modals';
 import { Loader } from '../../components';
-import { ModalAprove } from '../../components/modals/ModalAprove';
-import { ModalInfo } from '../../components/modals/ModalInfo';
 import { useRequestPage } from '../../hooks';
 
 export const Request = () => {
@@ -27,7 +25,7 @@ export const Request = () => {
     updateContingencyStatus,
     setParams, // set contingency info and modal to open
     contextHolder, // show the info from the server
-    setPage,
+    setPage, // page of the table
   } = useRequestPage();
 
   return (

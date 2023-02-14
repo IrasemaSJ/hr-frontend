@@ -1,32 +1,41 @@
-import { Button, Table, Tabs } from 'antd';
-import {
-  BtnTable,
-  HeaderEmployeeInfo,
-  Loader,
-  ModalOpenRequest,
-} from '../../components';
+import { Table, Tabs } from 'antd';
+import { HeaderEmployeeInfo, Loader, ModalOpenRequest } from '../../components';
 import { SectionEmployeeInfo } from '../../components/section-employee-info/SectionEmployeeInfo';
 import { useContingency } from '../../hooks';
 import './EmployeeInfo.css';
-import { columnsContigencyEmployeeInfo } from './table-designs/contingency-employeeinfo';
-import { useContext } from 'react';
+import { columnsContigencyEmployeeInfo } from './table-designs-employeeinfo/contingency-employeeinfo';
+import { useContext, useEffect, useState } from 'react';
+import { ModalEdit, ModalDelete, ModalInfo } from '../../components/modals';
+import { useLocation } from 'react-router-dom';
+import { firstColumn, lastColumn } from './table-designs-employeeinfo';
 import { AuthContext } from '../../contexts/AuthContext';
-import Link from 'antd/es/typography/Link';
-import { ModalEdit } from '../../components/modals/ModalEdit';
-import { ModalDelete } from '../../components/modals/ModalDelete';
-import { ModalInfo } from '../../components/modals/ModalInfo';
 
 export const EmployeeInfo = () => {
   //context info
   const { user } = useContext(AuthContext);
 
+  //get the path and the employee id
+  const { pathname } = useLocation();
+  const [employee_id, setEmployee_id] = useState(+pathname.split('/')[2] || 0);
+  useEffect(() => {
+    if (pathname.split('/').length === 3) {
+      setEmployee_id(+pathname.split('/')[2]);
+    } else {
+      setEmployee_id(0);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    console.log(employee_id);
+  }, [employee_id]);
+
   const {
     folio,
-    total,
-    contingency,
-    contingencyRows,
-    isLoadingTable,
-    isLoadingRequest,
+    total, //total of rows
+    contingency, //contingency information selected
+    contingencyRows, // data of contingency
+    isLoadingTable, //loader for table (get information)
+    isLoadingRequest, // loader for another request (create,update,delete)
     modalEdit,
     modalDelete,
     modalInfo,
@@ -39,11 +48,11 @@ export const EmployeeInfo = () => {
     createContingency,
     updateContingency,
     deleteContingency,
-    setParams,
-    contextHolder,
-    disabledDates,
-    contingenciesCount,
-  } = useContingency();
+    setParams, //set the contingency info
+    contextHolder, //information from server (feedback)
+    disabledDates, //days that are going to be disables because they are aleady taken
+    contingenciesCount, // amount of contingecies days taken
+  } = useContingency(employee_id);
 
   return (
     <>
@@ -58,7 +67,7 @@ export const EmployeeInfo = () => {
       {/* TODO:check day avaliables responsive container */}
       <SectionEmployeeInfo
         vacation={7}
-        contingency={3}
+        contingency={contingenciesCount}
         incapacity={2}
         time_by_time={1}
         bereavement={0}
@@ -81,52 +90,14 @@ export const EmployeeInfo = () => {
               <Table
                 loading={isLoadingTable}
                 columns={[
-                  {
-                    title: 'Folio',
-                    dataIndex: 'folio',
-                    key: '1',
-                    render: (_, record) => (
-                      <Link
-                        onClick={() =>
-                          setParams({ record, openModal: setModalInfo })
-                        }
-                      >
-                        {record.folio}
-                      </Link>
-                    ),
-                  },
+                  ...firstColumn({ setParams, setModalInfo }),
                   ...columnsContigencyEmployeeInfo,
-                  {
-                    title: 'Actions',
-                    dataIndex: 'actions',
-                    render: (_, record) =>
-                      record.status === 'pending' ||
-                      record.status === 'rejected' ? (
-                        <>
-                          <BtnTable
-                            action="edit"
-                            onClick={() =>
-                              setParams({
-                                record,
-                                openModal: setModalEdit,
-                              })
-                            }
-                          />
-                          <BtnTable
-                            action="cancel"
-                            onClick={() =>
-                              setParams({
-                                record,
-                                openModal: setModalDelete,
-                              })
-                            }
-                          />
-                        </>
-                      ) : (
-                        <></>
-                      ),
-                    align: 'center',
-                  },
+                  ...lastColumn({
+                    setParams,
+                    setModalEdit,
+                    setModalDelete,
+                    employee_id,
+                  }),
                 ]}
                 rowKey={'_id'}
                 dataSource={contingencyRows}
