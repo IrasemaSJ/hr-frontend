@@ -10,6 +10,7 @@ interface Props {
   prev?: () => void;
   createContingency: (data: CreateContingencyForm) => boolean;
   disabledDates: string[];
+  contingenciesCount: number;
 }
 
 export const ContingencyForm = ({
@@ -17,6 +18,7 @@ export const ContingencyForm = ({
   createContingency,
   prev,
   disabledDates,
+  contingenciesCount,
 }: Props) => {
   // notification
   const onSubmit = async ({
@@ -52,7 +54,21 @@ export const ContingencyForm = ({
             <InputDatePicker disabledDates={disabledDates} disableWeekends />
           </Form.Item>
 
-          <Form.Item label="Half Day" name="half_day" valuePropName="checked">
+          <Form.Item
+            label="Half Day"
+            name="half_day"
+            valuePropName="checked"
+            rules={[
+              {
+                validator: (_, value) => {
+                  return contingenciesCount < 2.5 ||
+                    (contingenciesCount === 2.5 && !!value)
+                    ? Promise.resolve()
+                    : Promise.reject(new Error('Only half day available'));
+                },
+              },
+            ]}
+          >
             <Checkbox />
           </Form.Item>
         </div>

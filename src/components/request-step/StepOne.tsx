@@ -27,11 +27,10 @@ export const StepOne = ({ next, setType, contingenciesCount }: Props) => {
         <CardAction
           urlAvatar="https://travellersworldwide.com/wp-content/uploads/2022/05/shutterstock_1938868960.png.webp"
           title="Contingency"
-          text="7 days"
+          text={`${3 - contingenciesCount} days`}
+          disableCard={contingenciesCount !== 3 ? false : true}
           onClick={() => {
-            if (contingenciesCount !== 3) {
-              handleClick('contingecy');
-            }
+            handleClick('contingecy');
           }}
         />
         {/* <CardAction
