@@ -1,6 +1,6 @@
 import { Avatar, Card } from 'antd';
 import Meta from 'antd/es/card/Meta';
-
+import './CardAction.css';
 interface Props {
   urlAvatar: string;
   title: string;
@@ -17,11 +17,22 @@ export const CardAction = ({
   disableCard,
 }: Props) => {
   const diableStyles = disableCard
-    ? { disabled: true, className: 'ant-card-disabled', hoverable: false }
+    ? {
+        disabled: true,
+        className: 'ant-card-disabled',
+        hoverable: false,
+      }
     : { hoverable: true, onClick };
   return (
     <Card bordered={false} {...diableStyles}>
-      <Meta avatar={<Avatar src={urlAvatar} />} title={title} />
+      <Meta
+        avatar={<Avatar src={urlAvatar} />}
+        title={
+          <p {...{ className: disableCard ? 'ant-card-disabled' : '' }}>
+            {title}
+          </p>
+        }
+      />
       <div style={{ marginTop: '10px' }}>
         <strong>Available</strong>
         <br />

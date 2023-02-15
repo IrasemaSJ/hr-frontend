@@ -1,0 +1,10 @@
+.ant-card-disabled {
+  background: #f2eff0;
+  color: #8a8a8a !important;
+  border-radius: 8;
+  cursor: not-allowed;
+}
+
+.ant-card-disabled > p{
+  color: #8a8a8a !important;
+}
