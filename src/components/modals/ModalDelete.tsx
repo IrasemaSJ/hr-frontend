@@ -29,7 +29,7 @@ export const ModalDelete = ({
         </p>
         <div style={{ marginTop: '10px', textAlign: 'right' }}>
           <Button type="primary" danger onClick={() => deleteContingecy()}>
-            Delete
+            {action}
           </Button>
         </div>
       </>
