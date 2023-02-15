@@ -1,8 +1,7 @@
-import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { EyeOutlined } from '@ant-design/icons';
 import { UsersActiveDirectory } from '../../../api/interfaces/users/user.interface';
 import { Link } from 'react-router-dom';
+import { BtnTable } from '../../../components';
 
 export const lastColumn = () => {
   const lastColumn: ColumnsType<UsersActiveDirectory> = [
@@ -10,12 +9,7 @@ export const lastColumn = () => {
       title: 'Actions',
       render: (_, record) => (
         <Link to={`./${record.id}`} style={{ fontSize: '20px' }}>
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<EyeOutlined />}
-            style={{ background: 'gray', margin: '2px' }}
-          />
+          <BtnTable action="info" />
         </Link>
       ),
 
