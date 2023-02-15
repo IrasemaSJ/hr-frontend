@@ -5,7 +5,7 @@ import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
 import { useEffect } from 'react';
 import { formatDateInput } from '../../helpers/formatDate';
 import { InputDatePicker } from '../inputs';
-
+import '../form/ContingencyForm.css';
 interface Props {
   update: (values: any) => void;
   record: ContingencyHttp;
@@ -56,6 +56,7 @@ export const ModalEdit = ({
             label="Half Day"
             name="half_day"
             valuePropName="checked"
+            className="contingency-form-checkbox"
             rules={[
               {
                 validator: (_, value) => {

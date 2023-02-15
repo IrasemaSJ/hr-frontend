@@ -58,16 +58,7 @@ export const ContingencyForm = ({
             label="Half Day"
             name="half_day"
             valuePropName="checked"
-            labelCol={{ span: 28 }}
-            wrapperCol={{ span: 24 }}
-            labelAlign="right"
-            style={{
-              background: 'red',
-              // textAlign: 'end',
-              justifyContent: 'stretch',
-              justifyItems: 'right',
-              // margin: '1rem inform',
-            }}
+            className="contingency-form-checkbox"
             rules={[
               {
                 validator: (_, value) => {
