@@ -33,8 +33,6 @@ export const ModalEdit = ({
       half_day: record.half_day,
     });
   }, [record, form]);
-
-  console.log(contingenciesCount);
   return (
     <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
       <Form

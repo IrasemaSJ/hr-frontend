@@ -25,10 +25,6 @@ export const EmployeeInfo = () => {
     }
   }, [pathname]);
 
-  useEffect(() => {
-    console.log(employee_id);
-  }, [employee_id]);
-
   const {
     folio,
     total, //total of rows
@@ -52,6 +48,8 @@ export const EmployeeInfo = () => {
     contextHolder, //information from server (feedback)
     disabledDates, //days that are going to be disables because they are aleady taken
     contingenciesCount, // amount of contingecies days taken
+    action, // indicate if delete or cancel
+    setAction,
   } = useContingency(employee_id);
 
   return (
@@ -97,6 +95,7 @@ export const EmployeeInfo = () => {
                     setModalEdit,
                     setModalDelete,
                     employee_id,
+                    setAction,
                   }),
                 ]}
                 rowKey={'_id'}
@@ -140,6 +139,7 @@ export const EmployeeInfo = () => {
         folio={contingency.folio}
         isModalOpen={modalDelete}
         closeModal={() => setModalDelete(false)}
+        action={action}
       />
 
       <ModalInfo

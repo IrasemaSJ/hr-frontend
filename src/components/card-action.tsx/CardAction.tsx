@@ -23,7 +23,7 @@ export const CardAction = ({
     <Card bordered={false} {...diableStyles}>
       <Meta avatar={<Avatar src={urlAvatar} />} title={title} />
       <div style={{ marginTop: '10px' }}>
-        <strong>Avaliable</strong>
+        <strong>Available</strong>
         <br />
         <span>{text}</span>
       </div>

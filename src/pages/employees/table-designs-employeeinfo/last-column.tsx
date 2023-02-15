@@ -9,6 +9,7 @@ interface Params {
   setModalEdit: Dispatch<SetStateAction<boolean>>;
   setModalDelete: Dispatch<SetStateAction<boolean>>;
   employee_id: number;
+  setAction: Dispatch<SetStateAction<'Cancel' | 'Delete'>>;
 }
 
 export const lastColumn = ({
@@ -16,6 +17,7 @@ export const lastColumn = ({
   setModalEdit,
   setModalDelete,
   employee_id,
+  setAction,
 }: Params) => {
   const lastColumn: ColumnsType<ContingencyHttp> = [
     {
@@ -35,23 +37,25 @@ export const lastColumn = ({
             />
             <BtnTable
               action="delete"
-              onClick={() =>
+              onClick={() => {
                 setParams({
                   record,
                   openModal: setModalDelete,
-                })
-              }
+                });
+                setAction('Delete');
+              }}
             />
           </>
         ) : employee_id !== 0 && record.status === 'approved' ? (
           <BtnTable
             action="cancel"
-            onClick={() =>
+            onClick={() => {
               setParams({
                 record,
                 openModal: setModalDelete,
-              })
-            }
+              });
+              setAction('Cancel');
+            }}
           />
         ) : (
           <></>

@@ -7,6 +7,11 @@ import { formatDateApi } from '../helpers';
 import { useHandleError } from './useHandleError';
 import { CreateContingencyForm } from '../components/form/interfaces';
 
+interface SetParams {
+  record: ContingencyHttp;
+  openModal: (param: boolean) => void;
+}
+
 export const useContingency = (employee_id: number) => {
   // first request to fill table
   useEffect(() => {
@@ -47,6 +52,9 @@ export const useContingency = (employee_id: number) => {
     __v: 0,
   });
 
+  //action delete or cancel variable
+  const [action, setAction] = useState<'Delete' | 'Cancel'>('Delete');
+
   //notifications
   const [api, contextHolder] = notification.useNotification();
   const { setServerError } = useHandleError(api);
@@ -65,6 +73,7 @@ export const useContingency = (employee_id: number) => {
   // functions to CRUD contingencies
   const createContingency = async (data: CreateContingencyForm) => {
     try {
+      console.log(employee_id);
       let url = '';
       if (employee_id === 0) {
         url = '/contingencies';
@@ -153,13 +162,7 @@ export const useContingency = (employee_id: number) => {
     }
   };
 
-  const setParams = async ({
-    record,
-    openModal,
-  }: {
-    record: ContingencyHttp;
-    openModal: (param: boolean) => void;
-  }) => {
+  const setParams = async ({ record, openModal }: SetParams) => {
     setContingency(record);
     openModal(true);
   };
@@ -186,5 +189,7 @@ export const useContingency = (employee_id: number) => {
     modalInfo,
     disabledDates,
     contingenciesCount,
+    action,
+    setAction,
   };
 };

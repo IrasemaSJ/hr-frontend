@@ -6,6 +6,7 @@ interface Props {
   width?: number;
   isModalOpen: boolean;
   closeModal: () => void;
+  action: 'Cancel' | 'Delete';
 }
 
 export const ModalDelete = ({
@@ -14,14 +15,16 @@ export const ModalDelete = ({
   width,
   isModalOpen,
   closeModal,
+  action,
 }: Props) => {
   return (
     <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
       <>
-        <Typography.Title level={2}>Delete Contingency</Typography.Title>
+        <Typography.Title level={2}>{action} Contingency</Typography.Title>
         <p>
           <Typography.Text>
-            Are you sure to delete the contingency <b>{folio}</b>?
+            Are you sure to {action.toLowerCase()} the contingency{' '}
+            <b>{folio}</b>?
           </Typography.Text>
         </p>
         <div style={{ marginTop: '10px', textAlign: 'right' }}>
