@@ -7,6 +7,7 @@ import { MenuRouter } from '../menu-router/MenuRouter';
 import './MainLayout.css';
 import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
 import { AuthContext } from '../../contexts/AuthContext';
+import { ReactComponent as Logo2 } from '../../assets/improving_isotype.svg';
 
 type Props = {
   children: JSX.Element;
@@ -28,8 +29,8 @@ export const MainLayout = ({ children }: Props) => {
         theme="light"
         width="250"
       >
-        <div className="mainlayout-logo">
-          <Logo width="100%" />
+        <div className={collapsed ? 'mainlayout-logo2' : 'mainlayout-logo'}>
+          {collapsed ? <Logo2 /> : <Logo width="100%" />}
         </div>
         <MenuRouter />
       </Sider>
