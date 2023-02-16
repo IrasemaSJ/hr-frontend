@@ -6,7 +6,7 @@ interface Props {
   title: string;
   text: string;
   onClick: () => void;
-  disableCard?: boolean;
+  disableCard?: boolean; // prop to make disable the card
 }
 
 export const CardAction = ({
@@ -16,6 +16,7 @@ export const CardAction = ({
   onClick,
   disableCard,
 }: Props) => {
+  // properties sended to Card depends on disabledCard flag
   const diableStyles = disableCard
     ? {
         disabled: true,
@@ -23,16 +24,10 @@ export const CardAction = ({
         hoverable: false,
       }
     : { hoverable: true, onClick };
+
   return (
     <Card bordered={false} {...diableStyles}>
-      <Meta
-        avatar={<Avatar src={urlAvatar} />}
-        title={
-          <p {...{ className: disableCard ? 'ant-card-disabled' : '' }}>
-            {title}
-          </p>
-        }
-      />
+      <Meta avatar={<Avatar src={urlAvatar} />} title={title} />
       <div style={{ marginTop: '10px' }}>
         <strong>Available</strong>
         <br />
