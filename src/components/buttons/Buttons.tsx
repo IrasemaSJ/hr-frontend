@@ -26,26 +26,22 @@ export const BtnTable = ({ children, onClick, action }: Props) => {
     },
     reject: {
       background: token.colorError,
-      //background: '#F5BB41',
       icon: <FontAwesomeIcon icon={faXmark} />,
     },
     info: {
-      //background: token.colorPrimary,
-      background: '#4597D3',
+      background: token.colorInfo,
       icon: <FontAwesomeIcon icon={faEye} />,
     },
     edit: {
-      //background: token.colorWarning,
-      background: '#005596',
+      background: token.colorInfo,
       icon: <FontAwesomeIcon icon={faPenToSquare} />,
     },
     accept: {
-      // background: token.colorSuccess,
-      background: '#5BC2A7',
+      background: token.colorSuccess,
       icon: <FontAwesomeIcon icon={faCheck} />,
     },
     cancel: {
-      background: token.colorError,
+      background: token.colorWarning,
       icon: <FontAwesomeIcon icon={faFileCircleXmark} />,
     },
   };
