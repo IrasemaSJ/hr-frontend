@@ -1,6 +1,10 @@
 .contingency-form-row{
     display: grid;
+    justify-content: space-between;
     grid-template-columns: 200px auto;
     gap: 7rem;
     align-items: flex-end;
+}
+.contingency-form-checkbox * {
+    align-items: self-end;
 }

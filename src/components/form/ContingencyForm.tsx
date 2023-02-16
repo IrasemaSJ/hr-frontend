@@ -58,6 +58,9 @@ export const ContingencyForm = ({
             label="Half Day"
             name="half_day"
             valuePropName="checked"
+            // contingency-form-checkbox class bring all the content to the right
+            className="contingency-form-checkbox"
+            // this rule doesnt allow select a complete day if you only have half
             rules={[
               {
                 validator: (_, value) => {
