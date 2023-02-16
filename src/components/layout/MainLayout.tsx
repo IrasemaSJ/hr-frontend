@@ -30,7 +30,7 @@ export const MainLayout = ({ children }: Props) => {
         width="250"
       >
         <div className={collapsed ? 'mainlayout-logo2' : 'mainlayout-logo'}>
-          {collapsed ? <Logo2 /> : <Logo width="100%" />}
+          {collapsed ? <Logo2 width="70" /> : <Logo width="100%" />}
         </div>
         <MenuRouter />
       </Sider>
