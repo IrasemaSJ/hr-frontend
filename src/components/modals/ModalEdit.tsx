@@ -2,7 +2,6 @@ import { Button, Checkbox, Form, Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Title from 'antd/es/typography/Title';
 import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
-import { useEffect } from 'react';
 import { formatDateInput } from '../../helpers/formatDate';
 import { InputDatePicker } from '../inputs';
 import '../form/ContingencyForm.css';
@@ -25,29 +24,22 @@ export const ModalEdit = ({
   disabledDates,
   contingenciesCount,
 }: Props) => {
-  const [form] = Form.useForm();
-  useEffect(() => {
-    form.setFieldsValue({
-      date: formatDateInput(record.date),
-      comments: record.comments,
-      half_day: record.half_day,
-    });
-  }, [record, form]);
   return (
-    <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
-      <Form
-        name="basic"
-        onFinish={update}
-        autoComplete="off"
-        layout="vertical"
-        form={form}
-      >
+    <Modal
+      width={width}
+      open={isModalOpen}
+      onCancel={closeModal}
+      destroyOnClose={true}
+      footer={false}
+    >
+      <Form name="basic" onFinish={update} autoComplete="off" layout="vertical">
         <Title level={4}>Edit Contingency</Title>
         <div className="contingency-form-row">
           <Form.Item
             label="Date"
             name="date"
             rules={[{ required: true, message: 'Please enter a date!' }]}
+            initialValue={formatDateInput(record.date)}
           >
             <InputDatePicker disabledDates={disabledDates} disableWeekends />
           </Form.Item>
@@ -57,6 +49,7 @@ export const ModalEdit = ({
             name="half_day"
             valuePropName="checked"
             className="contingency-form-checkbox"
+            initialValue={record.half_day}
             rules={[
               {
                 validator: (_, value) => {
@@ -71,7 +64,11 @@ export const ModalEdit = ({
             <Checkbox />
           </Form.Item>
         </div>
-        <Form.Item label="Comments" name="comments">
+        <Form.Item
+          label="Comments"
+          name="comments"
+          initialValue={record.comments}
+        >
           <TextArea
             autoSize={{ minRows: 4, maxRows: 4 }}
             rows={4}

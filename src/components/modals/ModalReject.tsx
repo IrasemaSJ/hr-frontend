@@ -17,14 +17,14 @@ export const ModalReject = ({
   isModalOpen,
   closeModal,
 }: Props) => {
-  const [form] = Form.useForm();
-
-  useEffect(() => {
-    form.resetFields();
-  }, [isModalOpen, form]);
-
   return (
-    <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
+    <Modal
+      width={width}
+      open={isModalOpen}
+      onCancel={closeModal}
+      footer={false}
+      destroyOnClose
+    >
       <>
         <Typography.Title level={2}>Reject Contingency</Typography.Title>
         <Typography.Text>
@@ -34,7 +34,6 @@ export const ModalReject = ({
           layout="vertical"
           initialValues={{ observations: '' }}
           onFinish={changeStatus}
-          form={form}
         >
           <Form.Item
             label="Observations"
