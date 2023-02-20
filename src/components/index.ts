@@ -11,5 +11,6 @@ export { Stepper } from './request-step/Stepper';
 export { RejectActionButton } from './table-actions/RejectActionButton';
 export { TableContingency } from './table/TableContingency';
 export { Status } from './status/Status';
-export { BtnTable } from './buttons/Buttons';
+export { BtnTable, MyButton } from './buttons/Buttons';
 export { ModalOpenRequest } from './modals/ModalOpenRequest';
+

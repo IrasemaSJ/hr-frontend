@@ -8,15 +8,19 @@ import {
   faTrashCan,
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
+import { ReactNode } from 'react';
 
 type Props = {
-  children?: JSX.Element;
-  action: 'info' | 'edit' | 'reject' | 'cancel' | 'accept' | 'delete';
+  children?: ReactNode;
+  action: 'info' | 'edit' | 'reject' | 'cancel' | 'accept' | 'delete' | 'link';
   onClick?: () => void;
+  icon?: JSX.Element;
+  arg?: any;
+  circled?: boolean;
 };
-const { useToken } = theme;
 
-export const BtnTable = ({ children, onClick, action }: Props) => {
+const useActionColors = (action: Props['action']) => {
+  const { useToken } = theme;
   const { token } = useToken();
 
   const config = {
@@ -44,15 +48,48 @@ export const BtnTable = ({ children, onClick, action }: Props) => {
       background: token.colorWarning,
       icon: <FontAwesomeIcon icon={faFileCircleXmark} />,
     },
+    link: {
+      background: token.colorLink,
+      icon: <FontAwesomeIcon icon={faFileCircleXmark} />,
+    },
   };
+  return config[action];
+};
+
+export const MyButton = ({
+  children,
+  onClick,
+  action,
+  icon,
+  ...arg
+}: Props) => {
+  const { background } = useActionColors(action);
+  return (
+    <Button
+      {...arg}
+      type="primary"
+      icon={icon}
+      style={{
+        background: background,
+        // margin: '2px',
+      }}
+      onClick={onClick}
+    >
+      {children}
+    </Button>
+  );
+};
+
+export const BtnTable = ({ children, onClick, action }: Props) => {
+  const { background, icon } = useActionColors(action);
 
   return (
     <Button
       type="primary"
       shape="circle"
-      icon={config[action].icon}
+      icon={icon}
       style={{
-        background: config[action].background,
+        background: background,
         margin: '2px',
       }}
       onClick={onClick}

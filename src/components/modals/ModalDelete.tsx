@@ -1,4 +1,5 @@
-import { Button, Modal, Typography } from 'antd';
+import { Modal, Typography } from 'antd';
+import { MyButton } from '../buttons/Buttons';
 
 interface Props {
   deleteContingecy: () => void;
@@ -17,6 +18,7 @@ export const ModalDelete = ({
   closeModal,
   action,
 }: Props) => {
+  const actionLower = action.toLowerCase() as Lowercase<Props['action']>;
   return (
     <Modal width={width} open={isModalOpen} onCancel={closeModal} footer={[]}>
       <>
@@ -28,9 +30,9 @@ export const ModalDelete = ({
           </Typography.Text>
         </p>
         <div style={{ marginTop: '10px', textAlign: 'right' }}>
-          <Button type="primary" danger onClick={() => deleteContingecy()}>
+          <MyButton action={actionLower} onClick={() => deleteContingecy()}>
             {action}
-          </Button>
+          </MyButton>
         </div>
       </>
     </Modal>

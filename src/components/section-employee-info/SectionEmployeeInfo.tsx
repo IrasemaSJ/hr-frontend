@@ -1,6 +1,7 @@
 import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card } from 'antd';
+import { Card } from 'antd';
+import { MyButton } from '../buttons/Buttons';
 import './SectionEmployeeInfo.css';
 
 interface Props {
@@ -29,14 +30,10 @@ export const SectionEmployeeInfo = ({
   return (
     <div className="section-employee-info-container-information-left">
       <Card className="section-employee-info-container-open-request">
-        <Button
-          onClick={onClick}
-          type="primary"
-          icon={<FontAwesomeIcon icon={faFileCirclePlus} />}
-          size={'large'}
-        >
+        <MyButton onClick={onClick} action="link">
+          <FontAwesomeIcon icon={faFileCirclePlus} />
           &nbsp;Open Request
-        </Button>
+        </MyButton>
       </Card>
       <Card className="section-employee-info-information-left-card">
         <div className="section-employee-info-information-left">
