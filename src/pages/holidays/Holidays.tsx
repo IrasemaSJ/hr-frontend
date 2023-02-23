@@ -1,4 +1,7 @@
 import Table, { ColumnsType } from 'antd/es/table';
+import { MyButton } from '../../components';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from '../../navigation/Navigation';
 
 interface DataType {
   key: string;
@@ -65,9 +68,19 @@ const data: DataType[] = [
 ];
 
 export const Holidays = () => {
+  const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
+
   return (
     <>
       <h1>Official Holidays</h1>
+      <div style={{ display: 'flex', gap: 10, flexDirection: 'row-reverse' }}>
+        <MyButton action="link" onClick={() => navigate('/holidays/register')}>
+          Register
+        </MyButton>
+        <MyButton action="link" onClick={() => navigate('/holidays/catalogue')}>
+          Catalogue
+        </MyButton>
+      </div>
       <Table
         columns={columns}
         dataSource={data}

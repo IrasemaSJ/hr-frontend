@@ -7,6 +7,8 @@ import {
   Employees,
   History,
   Holidays,
+  HolidaysRegister,
+  HolidaysCatalogue,
   Login,
   Request,
   VacationSeniority,
@@ -20,6 +22,8 @@ export interface Routes {
   employeeinfo: '/employeeinfo';
   history: '/history';
   holidays: '/holidays';
+  holidaysCatalogue: '/holidays/catalogue';
+  holidaysRegister: '/holidays/register';
   vacations_seniority: '/vacations_seniority';
 }
 
@@ -65,6 +69,22 @@ export const Navigation = () => {
             element={
               <Auth>
                 <EmployeeInfo />
+              </Auth>
+            }
+          />
+          <Route
+            path="/holidays/catalogue"
+            element={
+              <Auth>
+                <HolidaysCatalogue />
+              </Auth>
+            }
+          />
+          <Route
+            path="/holidays/register"
+            element={
+              <Auth>
+                <HolidaysRegister />
               </Auth>
             }
           />
