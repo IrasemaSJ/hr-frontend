@@ -1,57 +1,46 @@
-import { Tooltip, Checkbox, Typography } from 'antd';
+import { Checkbox, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
+import { CatalogueHolidays } from '../../../api/interfaces/holidays/catalogue-holidays.interface';
 import { BtnTable } from '../../../components';
 
-interface DataType {
-  country: string;
-  createdAt: string;
-  id_tm: number;
-  isActive: boolean;
-  name: string;
-  updatedAt: string;
-  __v: number;
-  _id: string;
-}
 interface Props {
   toggleActivate: (id: string) => Promise<void>;
-  edit?: (data: DataType) => void;
+  edit?: (data: CatalogueHolidays) => void;
 }
 export const generateColumns = ({ toggleActivate, edit }: Props) => {
-  const [name, actions]: ColumnsType<DataType> = [
+  const holidaysColumns: ColumnsType<CatalogueHolidays> = [
     {
-      title: 'Public holiday',
+      title: 'Name',
       dataIndex: 'name',
       render: (name: string, record) => (
         <Typography.Text disabled={!record.isActive} delete={!record.isActive}>
           {name.toUpperCase()}
         </Typography.Text>
       ),
-      key: 'name',
     },
     {
-      title: 'Actions',
+      title: 'Edit',
+      render: (_, record) => (
+        <BtnTable
+          action="edit"
+          onClick={() => {
+            edit && edit(record);
+          }}
+        />
+      ),
+    },
+    {
+      title: 'Active',
       dataIndex: '_id',
-      align: 'center',
-      render: (id: string, record) => {
-        return (
-          <>
-            <Checkbox
-              checked={record.isActive}
-              onClick={() => {
-                toggleActivate(id);
-              }}
-            />
-            {/* </Tooltip> */}
-            <BtnTable
-              action="edit"
-              onClick={() => {
-                edit && edit(record);
-              }}
-            />
-          </>
-        );
-      },
+      render: (id: string, record) => (
+        <Checkbox
+          checked={record.isActive}
+          onClick={() => {
+            toggleActivate(id);
+          }}
+        />
+      ),
     },
   ];
-  return { name, actions };
+  return holidaysColumns;
 };

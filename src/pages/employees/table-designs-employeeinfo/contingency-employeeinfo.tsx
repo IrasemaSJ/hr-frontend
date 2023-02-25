@@ -1,6 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
 import { formatTableDate } from '../../../helpers';
-import { ContingencyHttp } from '../../../api/interfaces/contingency.interfaces';
+import { ContingencyHttp } from '../../../api/interfaces/contingencies/contingency.interfaces';
 import '../../../styles/Table.css';
 import { Status } from '../../../components';
 

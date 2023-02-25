@@ -3,6 +3,7 @@ import { useHolidaysCatalogue } from '../../hooks';
 import { generateColumns } from './table-design-holidays/columns';
 import { Button, Card, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
+import { Holidays } from './Holidays';
 
 export const HolidaysCatalogue = () => {
   const {
@@ -18,7 +19,7 @@ export const HolidaysCatalogue = () => {
   const [form] = Form.useForm();
   const [isOpen, setIsOpen] = useState(false);
   const [idHoliday, setIdholiday] = useState('');
-  const { name, actions } = generateColumns({
+  const holidaysColumns = generateColumns({
     toggleActivate: toggleActivateCatalogueHoliday,
     edit: (values) => {
       setIdholiday(values._id);
@@ -33,7 +34,7 @@ export const HolidaysCatalogue = () => {
       <CreateHolidayCatalogue handleSubmit={createCatalogueHoliday} />
       <Table
         loading={isLoadingTable}
-        columns={[name, actions]}
+        columns={holidaysColumns}
         dataSource={holidayRows}
         rowKey="_id"
         style={{ marginTop: '20px' }}
@@ -55,6 +56,7 @@ export const HolidaysCatalogue = () => {
           editCatalogueHoliday(idHoliday, form.getFieldsValue());
           setIsOpen(false);
         }}
+        cancelButtonProps={{ style: { display: 'none' } }}
       >
         <Form form={form}>
           <Form.Item

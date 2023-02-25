@@ -23,7 +23,7 @@ export interface Routes {
   history: '/history';
   holidays: '/holidays';
   holidaysCatalogue: '/holidays/catalogue';
-  holidaysRegister: '/holidays/register';
+  holidaysRegister: `/holidays/register/${number}`;
   vacations_seniority: '/vacations_seniority';
 }
 
@@ -81,7 +81,7 @@ export const Navigation = () => {
             }
           />
           <Route
-            path="/holidays/register"
+            path="/holidays/register/*"
             element={
               <Auth>
                 <HolidaysRegister />
