@@ -8,6 +8,7 @@ import { NotificationPlacement } from 'antd/es/notification/interface';
 import { CurrentHolidays } from '../../api/interfaces';
 import { useHandleError } from '../../hooks';
 import ApiHR from '../../api/ApiHR';
+import { formatTableDate } from '../../helpers/formatDate';
 
 const columns: ColumnsType<CurrentHolidays> = [
   {
@@ -17,11 +18,12 @@ const columns: ColumnsType<CurrentHolidays> = [
   {
     title: 'name',
     dataIndex: 'holidays',
-    render: (holidays) => holidays[0].name.toUpperCase(),
+    render: (holidays) => holidays[0]?.name.toUpperCase(),
   },
   {
     title: 'Date',
     dataIndex: 'date',
+    render: (date) => formatTableDate(date),
   },
 ];
 
@@ -86,7 +88,7 @@ export const Holidays = () => {
       setServerError(error);
     }
   };
-
+  console.log(holidaysRow);
   return (
     <>
       {contextHolder}
@@ -120,6 +122,7 @@ export const Holidays = () => {
       <Table
         loading={isLoadingTable}
         columns={columns}
+        rowKey="_id"
         dataSource={holidaysRow}
         style={{ marginTop: '20px' }}
         pagination={{ hideOnSinglePage: true }}

@@ -1,12 +1,13 @@
-import { DatePicker } from 'antd';
+import { DatePicker, DatePickerProps } from 'antd';
 import { format } from '../../helpers';
 import { disabledDate } from '../../helpers/formatDate';
 
-interface Props {
+// se hizo para facilitar los atributos obtenidos por el componente padre
+// extiende de DatePickerProps y agrega nuevos params
+type Props = DatePickerProps & {
   disabledDates?: Array<string>;
   disableWeekends?: boolean;
-  args?: any; // se hizo para facilitar los atributos obtenidos por el componente padre
-}
+};
 
 export const InputDatePicker: React.FC<Props> = ({
   disabledDates = [],
