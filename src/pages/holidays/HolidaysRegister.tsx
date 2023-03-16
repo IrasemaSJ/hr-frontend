@@ -21,10 +21,12 @@ export interface ParamsHolidays {
 }
 
 export const HolidaysRegister = () => {
+  // navigate values
   const navigate: (
     url: Routes[keyof Routes],
     state?: { state: { message: string } },
   ) => void = useNavigate();
+
   const [cataloguesRows, setCataloguesRows] = useState(
     [] as CatalogueHolidays[],
   );
@@ -93,7 +95,9 @@ export const HolidaysRegister = () => {
         <div>
           <Table
             loading={isLoadingTable}
-            columns={[...generateRegisterColumns(setCurrentHolidays)]}
+            columns={[
+              ...generateRegisterColumns(setCurrentHolidays, Number(year)),
+            ]}
             dataSource={cataloguesRows}
             rowKey="_id"
             style={{ marginTop: '20px' }}
@@ -108,7 +112,9 @@ export const HolidaysRegister = () => {
             marginTop: '15px',
           }}
         >
-          <Button type="primary" onClick={() => setIsOpen(true)}>Save</Button>
+          <Button type="primary" onClick={() => setIsOpen(true)}>
+            Save
+          </Button>
         </div>
       </Form>
 

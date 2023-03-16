@@ -88,7 +88,6 @@ export const Holidays = () => {
       setServerError(error);
     }
   };
-  console.log(holidaysRow);
   return (
     <>
       {contextHolder}

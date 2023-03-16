@@ -6,6 +6,7 @@ import { DateObject } from '../../../helpers/formatDate';
 
 export const generateRegisterColumns = (
   setCurrentHolidays: (dateString: string, id_holiday: string) => void,
+  year?: number,
 ) => {
   const registerColumns: ColumnsType<CatalogueHolidays> = [
     {
@@ -23,6 +24,8 @@ export const generateRegisterColumns = (
             setCurrentHolidays(dateString, record._id)
           }
           disableWeekends
+          showNow
+          // defaultPickerValue={}
         />
       ),
     },
