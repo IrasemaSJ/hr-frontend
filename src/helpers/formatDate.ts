@@ -42,6 +42,7 @@ export const isDateObject = (date: string) => dayjs.isDayjs(date);
 interface DisableDateConfigProps {
   disableWeekends?: boolean;
   disabledDates?: string[];
+  enabledYear?: number;
 }
 /**
  * funcion que solo se deberia usar sobre el disabledDate de un DatePicker o de un RangePicker
@@ -51,10 +52,19 @@ interface DisableDateConfigProps {
  */
 export const disabledDate = (
   date: Dayjs,
-  { disableWeekends = false, disabledDates = [] }: DisableDateConfigProps,
+  {
+    disableWeekends = false,
+    disabledDates = [],
+    enabledYear = undefined,
+  }: DisableDateConfigProps,
 ) => {
   // Deshabilita los sábados y domingos
   if (disableWeekends && (date.day() === 0 || date.day() === 6)) {
+    return true;
+  }
+
+  // deshabilita los dias que no sean de este año
+  if (enabledYear && date.year() !== enabledYear) {
     return true;
   }
 

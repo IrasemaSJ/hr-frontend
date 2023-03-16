@@ -80,7 +80,7 @@ export const MyButton = ({
   );
 };
 
-export const BtnTable = ({ children, onClick, action }: Props) => {
+export const BtnTable = ({ children, onClick, action, ...args}: Props) => {
   const { background, icon } = useActionColors(action);
 
   return (
@@ -93,6 +93,7 @@ export const BtnTable = ({ children, onClick, action }: Props) => {
         margin: '2px',
       }}
       onClick={onClick}
+      {...args}
     >
       {children}
     </Button>

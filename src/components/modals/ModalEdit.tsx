@@ -1,7 +1,7 @@
 import { Button, Checkbox, Form, Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import Title from 'antd/es/typography/Title';
-import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
+import { ContingencyHttp } from '../../api/interfaces/contingencies/contingency.interfaces';
 import { formatDateInput } from '../../helpers/formatDate';
 import { InputDatePicker } from '../inputs';
 import '../form/ContingencyForm.css';

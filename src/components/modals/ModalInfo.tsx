@@ -1,5 +1,5 @@
 import { Modal, Typography } from 'antd';
-import { ContingencyHttp } from '../../api/interfaces/contingency.interfaces';
+import { ContingencyHttp } from '../../api/interfaces/contingencies/contingency.interfaces';
 import { formatTableDate } from '../../helpers';
 
 interface Props {

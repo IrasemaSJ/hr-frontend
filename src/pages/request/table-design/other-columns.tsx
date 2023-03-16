@@ -1,5 +1,5 @@
 import { ColumnsType } from 'antd/es/table';
-import { ContingencyHttp } from '../../../api/interfaces/contingency.interfaces';
+import { ContingencyHttp } from '../../../api/interfaces/contingencies/contingency.interfaces';
 import '../../../styles/Table.css';
 import { formatTableDate } from '../../../helpers';
 
