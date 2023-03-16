@@ -1,7 +1,7 @@
 import { DatePicker, DatePickerProps } from 'antd';
 import { format } from '../../helpers';
 import { disabledDate } from '../../helpers/formatDate';
-import * as dayjs from 'dayjs';
+// import * as dayjs from 'dayjs';
 
 // se hizo para facilitar los atributos obtenidos por el componente padre
 // extiende de DatePickerProps y agrega nuevos params
@@ -18,10 +18,10 @@ export const InputDatePicker: React.FC<Props> = ({
   ...args
 }: Props) => {
   // Crea una fecha con el primer día del año especificado
-  const defaultDate = enabledYear
-    ? dayjs().year(enabledYear).startOf('year')
-    : undefined;
-    
+  // const defaultDate = enabledYear
+  //   ? dayjs().year(enabledYear).startOf('year')
+  //   : undefined;
+  // enabledYear && console.log('enabledYear', enabledYear);
   return (
     <DatePicker
       style={{ width: '100%' }}

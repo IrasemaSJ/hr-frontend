@@ -34,6 +34,7 @@ export const HolidaysRegister = () => {
   const [isLoadingRequest, setIsLoadingRequest] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  // year use to lock dater from different days
   const { pathname } = useLocation();
   const year = pathname.split('/')[3];
 

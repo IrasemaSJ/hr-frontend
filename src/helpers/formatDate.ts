@@ -64,7 +64,7 @@ export const disabledDate = (
   }
 
   // deshabilita los dias que no sean de este año
-  if (date.year() === enabledYear) {
+  if (enabledYear && date.year() !== enabledYear) {
     return true;
   }
 

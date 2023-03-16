@@ -18,16 +18,18 @@ export const generateRegisterColumns = (
     },
     {
       title: 'Date',
-      render: (_, record) => (
-        <InputDatePicker
-          onChange={(_: DateObject | null, dateString: string) =>
-            setCurrentHolidays(dateString, record._id)
-          }
-          disableWeekends
-          showNow
-          // defaultPickerValue={}
-        />
-      ),
+      render: (_, record) => {
+        return (
+          <InputDatePicker
+            onChange={(_: DateObject | null, dateString: string) =>
+              setCurrentHolidays(dateString, record._id)
+            }
+            disableWeekends
+            showNow
+            enabledYear={year}
+          />
+        );
+      },
     },
   ];
   return registerColumns;
