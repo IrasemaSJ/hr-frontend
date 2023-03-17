@@ -2,13 +2,14 @@ import Table, { ColumnsType } from 'antd/es/table';
 import { MyButton } from '../../components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../navigation/Navigation';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { notification, Select, SelectProps } from 'antd';
 import { NotificationPlacement } from 'antd/es/notification/interface';
 import { CurrentHolidays } from '../../api/interfaces';
 import { useHandleError } from '../../hooks';
 import ApiHR from '../../api/ApiHR';
 import { formatTableDate } from '../../helpers/formatDate';
+import { AuthContext } from '../../contexts/AuthContext';
 
 const columns: ColumnsType<CurrentHolidays> = [
   {
@@ -28,6 +29,7 @@ const columns: ColumnsType<CurrentHolidays> = [
 ];
 
 export const Holidays = () => {
+  const { user } = useContext(AuthContext);
   const today = new Date();
   const navigate: (url: Routes[keyof Routes]) => void = useNavigate();
   const [year, setYear] = useState<number>(today.getFullYear());
@@ -108,15 +110,22 @@ export const Holidays = () => {
           options={options}
           onChange={handleChange}
         />
-        <MyButton
-          action="link"
-          onClick={() => navigate(`/holidays/register/${year}`)}
-        >
-          Register
-        </MyButton>
-        <MyButton action="link" onClick={() => navigate('/holidays/catalogue')}>
-          Catalogue
-        </MyButton>
+        {user.role === 'admin' && (
+          <>
+            <MyButton
+              action="link"
+              onClick={() => navigate(`/holidays/register/${year}`)}
+            >
+              Register
+            </MyButton>
+            <MyButton
+              action="link"
+              onClick={() => navigate('/holidays/catalogue')}
+            >
+              Catalogue
+            </MyButton>
+          </>
+        )}
       </div>
       <Table
         loading={isLoadingTable}
