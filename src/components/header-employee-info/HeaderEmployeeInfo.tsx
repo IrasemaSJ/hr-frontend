@@ -38,7 +38,7 @@ export const HeaderEmployeeInfo = ({
           </div>
           <div>
             <div style={{ fontSize: '18px' }}>
-              <b>Date of admission</b>
+              <b>Hire date</b>
             </div>
             <span>{admission_date}</span>
           </div>

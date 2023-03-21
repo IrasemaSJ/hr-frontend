@@ -47,7 +47,7 @@ export const SectionEmployeeInfo = ({
             {contingency} days
           </div>
           <div>
-            <strong>Incapacity: </strong>
+            <strong>Medical Incapacity: </strong>
             {/* {incapacity} days */}
             not available
           </div>
@@ -67,12 +67,12 @@ export const SectionEmployeeInfo = ({
             not available
           </div>
           <div>
-            <strong>Pregnancy: </strong>
+            <strong>Maternity Leave: </strong>
             {/* {pregnancy} days */}
             not available
           </div>
           <div>
-            <strong>No paid: </strong>
+            <strong>Non paid: </strong>
             {/* {no_paid} days */}
             not available
           </div>
