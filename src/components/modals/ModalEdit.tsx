@@ -53,7 +53,8 @@ export const ModalEdit = ({
             rules={[
               {
                 validator: (_, value) => {
-                  return contingenciesCount < 3 ||
+                  return !!value === record.half_day ||
+                    contingenciesCount < 3 ||
                     (contingenciesCount === 3 && !!value)
                     ? Promise.resolve()
                     : Promise.reject(new Error('Only half day available'));
