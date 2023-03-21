@@ -34,37 +34,16 @@ export const ModalEdit = ({
     >
       <Form name="basic" onFinish={update} autoComplete="off" layout="vertical">
         <Title level={4}>Edit Contingency</Title>
-        <div className="contingency-form-row">
-          <Form.Item
-            label="Date"
-            name="date"
-            rules={[{ required: true, message: 'Please enter a date!' }]}
-            initialValue={formatDateInput(record.date)}
-          >
-            <InputDatePicker disabledDates={disabledDates} disableWeekends />
-          </Form.Item>
 
-          <Form.Item
-            label="Half Day"
-            name="half_day"
-            valuePropName="checked"
-            className="contingency-form-checkbox"
-            initialValue={record.half_day}
-            rules={[
-              {
-                validator: (_, value) => {
-                  return !!value === record.half_day ||
-                    contingenciesCount < 3 ||
-                    (contingenciesCount === 3 && !!value)
-                    ? Promise.resolve()
-                    : Promise.reject(new Error('Only half day available'));
-                },
-              },
-            ]}
-          >
-            <Checkbox />
-          </Form.Item>
-        </div>
+        <Form.Item
+          label="Date"
+          name="date"
+          rules={[{ required: true, message: 'Please enter a date!' }]}
+          initialValue={formatDateInput(record.date)}
+        >
+          <InputDatePicker disabledDates={disabledDates} disableWeekends />
+        </Form.Item>
+
         <Form.Item
           label="Comments"
           name="comments"

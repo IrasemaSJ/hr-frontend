@@ -1,6 +1,5 @@
 import { Button, Form, Modal, Typography } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { useEffect } from 'react';
 
 interface Props {
   changeStatus: (data: { observations: string }) => void;

@@ -1,7 +1,6 @@
 // values sent in form
 export interface CreateContingencyForm {
   date: LibraryDate;
-  half_day?: boolean;
   comments?: string;
 }
 
