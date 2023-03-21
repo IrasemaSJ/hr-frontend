@@ -47,12 +47,6 @@ export const ModalInfo = ({
           </li>
           <li>
             <span>
-              <strong>Half day: </strong>
-              {record.half_day ? '  ✅' : ' ❌'}
-            </span>
-          </li>
-          <li>
-            <span>
               <strong>comments: </strong>
               {record.comments}
             </span>

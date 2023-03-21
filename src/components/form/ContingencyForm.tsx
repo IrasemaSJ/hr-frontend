@@ -21,12 +21,8 @@ export const ContingencyForm = ({
   contingenciesCount,
 }: Props) => {
   // notification
-  const onSubmit = async ({
-    date,
-    half_day,
-    comments,
-  }: CreateContingencyForm) => {
-    const isOk = await createContingency({ date, half_day, comments });
+  const onSubmit = async ({ date, comments }: CreateContingencyForm) => {
+    const isOk = await createContingency({ date, comments });
     if (isOk) next();
   };
 
@@ -44,37 +40,13 @@ export const ContingencyForm = ({
         layout="vertical"
       >
         <Title level={4}>Contingency</Title>
-
-        <div className="contingency-form-row">
-          <Form.Item
-            label="Date"
-            name="date"
-            rules={[{ required: true, message: 'Please enter a date!' }]}
-          >
-            <InputDatePicker disabledDates={disabledDates} disableWeekends />
-          </Form.Item>
-
-          <Form.Item
-            label="Half Day"
-            name="half_day"
-            valuePropName="checked"
-            // contingency-form-checkbox class bring all the content to the right
-            className="contingency-form-checkbox"
-            // this rule doesnt allow select a complete day if you only have half
-            rules={[
-              {
-                validator: (_, value) => {
-                  return contingenciesCount < 2.5 ||
-                    (contingenciesCount === 2.5 && !!value)
-                    ? Promise.resolve()
-                    : Promise.reject(new Error('Only half day available'));
-                },
-              },
-            ]}
-          >
-            <Checkbox />
-          </Form.Item>
-        </div>
+        <Form.Item
+          label="Date"
+          name="date"
+          rules={[{ required: true, message: 'Please enter a date!' }]}
+        >
+          <InputDatePicker disabledDates={disabledDates} disableWeekends />
+        </Form.Item>
 
         <Form.Item label="Comments" name="comments">
           <TextArea

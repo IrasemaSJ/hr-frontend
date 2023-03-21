@@ -20,7 +20,6 @@ export interface ContingencyHttp {
   id_employee: number;
   name_employee: string;
   date: string;
-  half_day: boolean;
   status: string;
   comments: string;
   observations: string;

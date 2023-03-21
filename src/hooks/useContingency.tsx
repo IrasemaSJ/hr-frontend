@@ -42,7 +42,6 @@ export const useContingency = (employee_id: number) => {
     id_employee: 0,
     name_employee: '',
     date: '',
-    half_day: false,
     status: '',
     comments: '',
     observations: '',
@@ -81,7 +80,6 @@ export const useContingency = (employee_id: number) => {
         url = `/contingencies-tm/${employee_id}`;
       }
       const submitValues = {
-        half_day: data.half_day,
         comments: data.comments,
         date: formatDateApi(data.date),
       };
