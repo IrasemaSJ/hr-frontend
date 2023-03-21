@@ -45,6 +45,7 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
         <div>
           <strong>Days requested</strong>
         </div>
+        <span>{record.half_day ? '- 0.5' : '- 1'}</span>
       </>
     ),
   },
