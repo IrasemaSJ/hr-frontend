@@ -6,8 +6,6 @@ import { useStepper } from '../../hooks';
 import { useState } from 'react';
 import { StepMid } from './StepMid';
 import { CreateContingencyForm } from '../form/interfaces/contingencyForm.interfaces';
-// import { disabledDate } from '../../helpers/formatDate';
-// const description = <p>holo</p>;
 
 interface Props {
   closeModal: () => void;

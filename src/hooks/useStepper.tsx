@@ -1,6 +1,9 @@
 import { useState } from 'react';
-
-export const useStepper = ({ steps }) => {
+import { StepProps } from 'antd/lib/steps';
+interface StepType extends StepProps {
+  content: () => JSX.Element;
+}
+export const useStepper = ({ steps }: { steps: StepType[] }) => {
   const [current, setCurrent] = useState(0);
 
   // go next step if current is minor than steps.length - 1
