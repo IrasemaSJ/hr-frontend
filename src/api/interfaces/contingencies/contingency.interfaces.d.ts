@@ -15,6 +15,7 @@ export interface ContingenciesTmHttp {
 }
 
 export interface ContingencyHttp {
+  half_day?: boolean;
   _id: string;
   folio: string;
   id_employee: number;
