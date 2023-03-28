@@ -2,7 +2,7 @@ import { faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Card } from 'antd';
 import { MyButton } from '../buttons/Buttons';
-import './SectionEmployeeInfo.css';
+import './SectionemployeeInfo.css';
 
 interface Props {
   vacation: number;

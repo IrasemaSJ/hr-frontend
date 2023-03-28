@@ -1,17 +1,30 @@
-FROM node:18-alpine
+# FROM node:lts-bullseye as build
+# WORKDIR /app
+# COPY package.json yarn.lock ./
+# RUN yarn install
+# COPY . .
+# RUN yarn build
+
+# FROM nginx:alpine
+# ADD ./config/default.conf /etc/nginx/conf.d/default.conf
+# COPY --from=build /app/dist /var/www/app/
+# EXPOSE 80
+# CMD ["nginx","-g","daemon off;"]
+
+FROM node:16-alpine
+
+RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY . /app
+COPY package.json /app
 
-ENV NODE_ENV=production
+RUN yarn install
 
-RUN npm install serve -g
+COPY . .
 
-RUN npm install
+RUN yarn build
 
-RUN npm run build
+EXPOSE 3001
 
-EXPOSE 3000
-
-CMD ["npm", "run", "serve"]
+CMD [ "yarn", "preview" ]
