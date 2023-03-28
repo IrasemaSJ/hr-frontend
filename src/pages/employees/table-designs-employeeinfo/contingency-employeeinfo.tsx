@@ -21,8 +21,8 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
   },
   {
     title: 'Number of days',
-    dataIndex: 'half_day',
-    render: (half_day) => <>{half_day ? '0.5' : '1'}</>,
+    dataIndex: 'days',
+    render: () => '1',
     responsive: ['lg'],
   },
   {
@@ -45,7 +45,7 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
         <div>
           <strong>Days requested</strong>
         </div>
-        <span>{record.half_day ? '- 0.5' : '- 1'}</span>
+        <span>- 1</span>
       </>
     ),
   },
