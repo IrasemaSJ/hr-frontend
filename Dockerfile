@@ -12,19 +12,11 @@
 # CMD ["nginx","-g","daemon off;"]
 
 FROM node:16-alpine
-
 RUN mkdir -p /app
-
 WORKDIR /app
-
 COPY package.json /app
-
 RUN yarn install
-
 COPY . .
-
 RUN yarn build
-
 EXPOSE 3001
-
 CMD [ "yarn", "preview" ]
