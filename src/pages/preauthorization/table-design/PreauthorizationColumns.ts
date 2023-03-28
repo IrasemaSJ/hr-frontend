@@ -4,7 +4,7 @@ import { Tooltip } from 'antd';
 import { PreauthorizationRow, project_role } from '../interfaces/preauthorization';
 import { BtnTable } from '../../../components/buttons/Buttons';
 
-exportconst columns: ColumnsType<PreauthorizationRow> = [
+export const columns: ColumnsType<PreauthorizationRow> = [
   {
     title: 'Name',
     dataIndex: 'name',

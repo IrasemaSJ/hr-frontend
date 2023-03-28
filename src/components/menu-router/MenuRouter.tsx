@@ -5,6 +5,7 @@ import {
   UnorderedListOutlined,
   ReadOutlined,
   CalendarOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Routes } from '../../navigation/Navigation';
@@ -36,6 +37,12 @@ export const MenuRouter = () => {
           icon: <UserOutlined />,
           label: 'Employees',
           onClick: () => navigate(`/employees`),
+        },
+        {
+          key: 'preauthorization',
+          icon: <UsergroupAddOutlined />,
+          label: 'Preauthorization',
+          onClick: () => navigate('/preauthorization'),
         },
         {
           key: 'history',
@@ -73,6 +80,12 @@ export const MenuRouter = () => {
           icon: <UnorderedListOutlined />,
           label: 'My Requests',
           onClick: () => navigate('/employeeinfo'),
+        },
+        {
+          key: 'preauthorization',
+          icon: <UsergroupAddOutlined />,
+          label: 'Preauthorization',
+          onClick: () => navigate('/preauthorization'),
         },
         {
           key: 'history',
