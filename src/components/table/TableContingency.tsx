@@ -13,7 +13,7 @@ export const TableContingency = ({ designTable, url }: Props) => {
   const [total, setTotal] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [rows, setRows] = useState([]);
-  const { contextHolder, setServerError } = useHandleError();
+  const { setServerError } = useHandleError();
 
   const getRegistersByPage = async (page?: number) => {
     try {
@@ -34,7 +34,6 @@ export const TableContingency = ({ designTable, url }: Props) => {
 
   return (
     <>
-      {contextHolder}
       <Table
         loading={isLoading}
         columns={designTable}

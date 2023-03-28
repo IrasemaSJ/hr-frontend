@@ -8,7 +8,9 @@ const { Title } = Typography;
 interface Props {
   next: () => void;
   prev?: () => void;
-  createContingency: (data: CreateContingencyForm) => boolean;
+  createContingency: (
+    data: CreateContingencyForm,
+  ) => Promise<boolean | undefined>;
   disabledDates: string[];
   contingenciesCount: number;
 }
@@ -18,7 +20,6 @@ export const ContingencyForm = ({
   createContingency,
   prev,
   disabledDates,
-  contingenciesCount,
 }: Props) => {
   // notification
   const onSubmit = async ({ date, comments }: CreateContingencyForm) => {

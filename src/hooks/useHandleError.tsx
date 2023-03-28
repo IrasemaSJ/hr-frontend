@@ -6,7 +6,7 @@ import {
 import { handleErrorHttp } from '../helpers';
 import { AuthContext } from '../contexts/AuthContext';
 
-export const useHandleError = (api: NotificationInstance) => {
+export const useHandleError = (api?: NotificationInstance) => {
   const { logOut } = useContext(AuthContext);
   const [serverError, setServerError] = useState();
 
@@ -20,7 +20,7 @@ export const useHandleError = (api: NotificationInstance) => {
     placement: NotificationPlacement,
     messages: string | string[],
   ) => {
-    api.error({
+    api!.error({
       message: `Oops! Something went wrong!`,
       description: (
         <ul>

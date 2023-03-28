@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  hr-frontend-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: hr-frontend-docker
+    container_name: hr-frontend
+    restart: always 
+    ports:
+      - 3001:3001

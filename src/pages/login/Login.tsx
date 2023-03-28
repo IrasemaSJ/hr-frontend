@@ -14,8 +14,11 @@ export const Login = () => {
   const { credentials, error, errorServer, isLoading, logIn, setCredentials } =
     useContext(AuthContext);
 
-  const changeCredentials = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  const changeCredentials = (e: React.FormEvent<HTMLInputElement>) => {
+    setCredentials({
+      ...credentials,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
   };
 
   return (

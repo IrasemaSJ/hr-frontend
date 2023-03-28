@@ -1,3 +1,4 @@
+/// <reference types="vite-plugin-svgr/client" />
 import { useNavigate } from 'react-router-dom';
 import { Routes } from '../../navigation/Navigation';
 import { ReactComponent as ImprovingLogo } from '../../assets/logo_improving.svg';
