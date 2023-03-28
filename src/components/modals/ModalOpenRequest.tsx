@@ -7,7 +7,9 @@ interface Props {
   closeModal: () => void;
   width?: number;
   isModalOpen: boolean;
-  createContingency: (data: CreateContingencyForm) => void;
+  createContingency: (
+    data: CreateContingencyForm,
+  ) => Promise<boolean | undefined>;
   folio: string;
   disabledDates: string[];
   contingenciesCount: number;

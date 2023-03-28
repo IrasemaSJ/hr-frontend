@@ -12,5 +12,9 @@ export default defineConfig({
   //   // strictPort: true,
   //   port: 5173, // you can replace this port with any port
   // },
+  server: {
+    host: '0.0.0.0',
+    port: 3000,
+  },
   plugins: [react(), svgr()],
 });

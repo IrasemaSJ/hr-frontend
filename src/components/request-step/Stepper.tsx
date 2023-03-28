@@ -9,7 +9,9 @@ import { CreateContingencyForm } from '../form/interfaces/contingencyForm.interf
 
 interface Props {
   closeModal: () => void;
-  createContingency: (data: CreateContingencyForm) => void;
+  createContingency: (
+    data: CreateContingencyForm,
+  ) => Promise<boolean | undefined>;
   folio: string;
   disabledDates: string[];
   contingenciesCount: number;
