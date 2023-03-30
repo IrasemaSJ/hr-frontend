@@ -22,6 +22,16 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
     render: () => '1',
   },
   {
+    title: 'Preauthorization',
+    responsive: ['lg'],
+    render: () => (
+      <ul>
+        <li>Arturo Mosqueda: | DM | ✅ </li>
+        <li>Luis Colorado: | ADM | ❌ </li>
+      </ul>
+    ),
+  },
+  {
     title: 'Information',
     className: 'table-hidden-table-column',
     render: (_, record) => (
@@ -38,6 +48,13 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
           <strong>Days requested</strong>
         </div>
         <span>1</span>
+        <div>
+          <strong>Preauthorization</strong>
+          <ul>
+            <li>Arturo Mosqueda: | DM | ✅ </li>
+            <li>Luis Colorado: | ADM | ❌ </li>
+          </ul>
+        </div>
       </>
     ),
   },
