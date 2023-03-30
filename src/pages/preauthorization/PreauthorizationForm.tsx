@@ -1,7 +1,7 @@
 import { Button, Form, Input, Select } from 'antd';
 import React from 'react';
 import type { SelectProps } from 'antd';
-import { project_role } from './interfaces/preauthorization';
+import { role_project } from './interfaces/preauthorization';
 
 export const PreauthorizationForm = ({
   handleSubmit,
@@ -12,7 +12,7 @@ export const PreauthorizationForm = ({
 
   // key value relationship for select input
   const options: SelectProps['options'] = [];
-  for (const [key, value] of Object.entries(project_role)) {
+  for (const [key, value] of Object.entries(role_project)) {
     options.push({ label: value, value: key });
   }
 
@@ -39,7 +39,7 @@ export const PreauthorizationForm = ({
       <Form.Item
         label="Position"
         style={{ flex: 1 }}
-        name="position"
+        name="project_role"
         rules={[{ required: true }]}
       >
         <Select placeholder="Position" options={options} />

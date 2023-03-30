@@ -135,11 +135,16 @@ export const EmployeeInfo = () => {
       />
 
       <ModalDelete
-        deleteContingecy={deleteContingency}
-        folio={contingency.folio}
+        deleteFunction={deleteContingency}
+        message={
+          <>
+            Are you sure to delete <b>{contingency.folio}</b>
+          </>
+        }
         isModalOpen={modalDelete}
         closeModal={() => setModalDelete(false)}
-        action={action}
+        action={action} // to indicate if is cancel or delete
+        headerName={'Contingency'}
       />
 
       <ModalInfo

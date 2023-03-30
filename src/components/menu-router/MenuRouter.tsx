@@ -88,12 +88,6 @@ export const MenuRouter = () => {
           onClick: () => navigate('/preauthorization'),
         },
         {
-          key: 'history',
-          icon: <ReadOutlined />,
-          label: 'History',
-          onClick: () => navigate('/history'),
-        },
-        {
           key: 'holidays',
           icon: <CalendarOutlined />,
           label: 'Holidays',

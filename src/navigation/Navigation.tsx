@@ -102,14 +102,6 @@ export const Navigation = () => {
         }
       />
       <Route
-        path="/history"
-        element={
-          <Auth>
-            <History />
-          </Auth>
-        }
-      />
-      <Route
         path="/holidays"
         element={
           <Auth>
