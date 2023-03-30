@@ -7,6 +7,5 @@ export interface CreateContingencyForm {
 // values sent to api
 export interface CreateContingencyApi {
   date: string;
-  half_day?: boolean;
   comments?: string;
 }

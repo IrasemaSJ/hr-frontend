@@ -19,7 +19,7 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
   {
     title: 'Days requested',
     responsive: ['lg'],
-    render: (_, record) => (record.half_day ? '0.5' : '1'),
+    render: () => '1',
   },
   {
     title: 'Information',
@@ -37,7 +37,7 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
         <div>
           <strong>Days requested</strong>
         </div>
-        <span>{record.half_day ? '0.5' : '1'}</span>
+        <span>1</span>
       </>
     ),
   },

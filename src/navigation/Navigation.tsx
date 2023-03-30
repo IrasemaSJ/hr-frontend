@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Auth, Error404 } from '../components';
 import { AuthContext } from '../contexts/AuthContext';
+import { Preauthorization } from '../pages/preauthorization/Preauthorization';
 import {
   EmployeeInfo,
   Employees,
@@ -25,6 +26,7 @@ export interface Routes {
   holidaysCatalogue: '/holidays/catalogue';
   holidaysRegister: `/holidays/register/${number}`;
   vacations_seniority: '/vacations_seniority';
+  preauthorization: '/preauthorization';
 }
 
 export const Navigation = () => {
@@ -100,14 +102,6 @@ export const Navigation = () => {
         }
       />
       <Route
-        path="/history"
-        element={
-          <Auth>
-            <History />
-          </Auth>
-        }
-      />
-      <Route
         path="/holidays"
         element={
           <Auth>
@@ -120,6 +114,14 @@ export const Navigation = () => {
         element={
           <Auth>
             <VacationSeniority />
+          </Auth>
+        }
+      />
+      <Route
+        path="/preauthorization"
+        element={
+          <Auth>
+            <Preauthorization />
           </Auth>
         }
       />
