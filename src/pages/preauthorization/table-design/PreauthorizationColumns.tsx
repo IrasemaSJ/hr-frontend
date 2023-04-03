@@ -12,11 +12,11 @@ export const PreauthorizationColums = ({ setParams }: Params) => {
   const preauthorizationColumns: ColumnsType<PreauthorizationHttp> = [
     {
       title: 'Name',
-      dataIndex: 'name',
+      dataIndex: 'name_responsible',
     },
     {
       title: 'Email',
-      dataIndex: 'email',
+      dataIndex: 'email_responsible',
     },
     {
       title: 'Position',

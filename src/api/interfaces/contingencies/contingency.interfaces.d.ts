@@ -18,13 +18,13 @@ export interface ContingencyHttp {
   half_day?: boolean;
   _id: string;
   folio: string;
-  id_employee: number;
+  id_employee: string;
   name_employee: string;
   date: string;
   status: string;
   comments: string;
   observations: string;
-  id_tm: number;
+  id_tm: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
