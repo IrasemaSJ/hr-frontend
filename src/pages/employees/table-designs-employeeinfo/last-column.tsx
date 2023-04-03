@@ -8,7 +8,7 @@ interface Params {
   setParams: ({ record, openModal }: SetParamsContingnecy) => Promise<void>;
   setModalEdit: Dispatch<SetStateAction<boolean>>;
   setModalDelete: Dispatch<SetStateAction<boolean>>;
-  employee_id: number;
+  employee_id: string;
   setAction: Dispatch<SetStateAction<'Cancel' | 'Delete'>>;
 }
 
@@ -46,7 +46,7 @@ export const lastColumn = ({
               }}
             />
           </>
-        ) : employee_id !== 0 && record.status === 'approved' ? (
+        ) : employee_id !== '' && record.status === 'approved' ? (
           <BtnTable
             action="cancel"
             onClick={() => {

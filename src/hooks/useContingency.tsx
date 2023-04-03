@@ -12,7 +12,7 @@ interface SetParams {
   openModal: (param: boolean) => void;
 }
 
-export const useContingency = (employee_id: number) => {
+export const useContingency = (employee_id: string) => {
   // first request to fill table
   useEffect(() => {
     getContingenciesByPage();
@@ -45,6 +45,16 @@ export const useContingency = (employee_id: number) => {
     status: '',
     comments: '',
     observations: '',
+    project_responsibles: [
+      {
+        id: '',
+        name: '',
+        email: '',
+        project_role: '',
+        preauthorize: '',
+        observations: '',
+      },
+    ],
     id_tm: '',
     createdAt: '',
     updatedAt: '',
@@ -74,7 +84,7 @@ export const useContingency = (employee_id: number) => {
     try {
       console.log(employee_id);
       let url = '';
-      if (employee_id === 0) {
+      if (employee_id === '') {
         url = '/contingencies';
       } else {
         url = `/contingencies-tm/${employee_id}`;
@@ -101,7 +111,7 @@ export const useContingency = (employee_id: number) => {
   const getContingenciesByPage = async (page?: number) => {
     try {
       let url = '';
-      if (employee_id === 0) {
+      if (employee_id === '') {
         url = `/contingencies?page=${page ?? 1}`;
       } else {
         url = `/contingencies-tm/${employee_id}?page=${page ?? 1}`;
@@ -123,7 +133,7 @@ export const useContingency = (employee_id: number) => {
   const updateContingency = async (values: any) => {
     try {
       let url = '';
-      if (employee_id === 0) {
+      if (employee_id === '') {
         url = `contingencies/${contingency._id}`;
       } else {
         url = `/contingencies-tm/${employee_id}/${contingency._id}`;
@@ -143,7 +153,7 @@ export const useContingency = (employee_id: number) => {
   const deleteContingency = async () => {
     try {
       let url = '';
-      if (employee_id === 0) {
+      if (employee_id === '') {
         url = `contingencies/${contingency._id}`;
       } else {
         url = `/contingencies-tm/${employee_id}/${contingency._id}`;
