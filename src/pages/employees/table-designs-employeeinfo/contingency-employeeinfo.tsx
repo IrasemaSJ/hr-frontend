@@ -3,6 +3,7 @@ import { formatTableDate } from '../../../helpers';
 import { ContingencyHttp } from '../../../api/interfaces/contingencies/contingency.interfaces';
 import '../../../styles/Table.css';
 import { Status } from '../../../components';
+import { role_project } from '../../preauthorization/interfaces/preauthorization';
 
 export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
   {
@@ -26,6 +27,21 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
     responsive: ['lg'],
   },
   {
+    title: 'Preauthorization',
+    responsive: ['lg'],
+    render: (_, record) => (
+      <ul>
+        {record.project_responsibles.map(
+          ({ id, name, project_role, preauthorize }) => (
+            <li key={id}>
+              {name}: | {project_role} | {<Status status={preauthorize} />}
+            </li>
+          ),
+        )}
+      </ul>
+    ),
+  },
+  {
     title: 'Information',
     className: 'table-hidden-table-column',
     render: (_, record) => (
@@ -46,6 +62,17 @@ export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
           <strong>Days requested</strong>
         </div>
         <span>- 1</span>
+        <div>
+          <strong>Preauthorization</strong>
+          {record.project_responsibles.map(
+            ({ id, name, project_role, preauthorize }) => (
+              <div key={id}>
+                {' '}
+                -{name}: | {project_role} | <Status status={preauthorize} />{' '}
+              </div>
+            ),
+          )}
+        </div>
       </>
     ),
   },

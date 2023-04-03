@@ -2,6 +2,7 @@ import { ColumnsType } from 'antd/es/table';
 import { ContingencyHttp } from '../../../api/interfaces/contingencies/contingency.interfaces';
 import '../../../styles/Table.css';
 import { formatTableDate } from '../../../helpers';
+import { Status } from '../../../components';
 
 //design table columns to requests pendings for tm-users
 export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
@@ -24,10 +25,15 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
   {
     title: 'Preauthorization',
     responsive: ['lg'],
-    render: () => (
+    render: (_, record) => (
       <ul>
-        <li>Arturo Mosqueda: | DM | ✅ </li>
-        <li>Luis Colorado: | ADM | ❌ </li>
+        {record.project_responsibles.map(
+          ({ id, name, project_role, preauthorize }) => (
+            <li key={id}>
+              {name}: | {project_role} | {<Status status={preauthorize} />}
+            </li>
+          ),
+        )}
       </ul>
     ),
   },
@@ -50,10 +56,14 @@ export const columnsContigencyRequestInfo: ColumnsType<ContingencyHttp> = [
         <span>1</span>
         <div>
           <strong>Preauthorization</strong>
-          <ul>
-            <li>Arturo Mosqueda: | DM | ✅ </li>
-            <li>Luis Colorado: | ADM | ❌ </li>
-          </ul>
+          {record.project_responsibles.map(
+            ({ id, name, project_role, preauthorize }) => (
+              <div key={id}>
+                {' '}
+                -{name}: | {project_role} | <Status status={preauthorize} />{' '}
+              </div>
+            ),
+          )}
         </div>
       </>
     ),

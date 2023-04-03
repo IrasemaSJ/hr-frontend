@@ -24,8 +24,18 @@ export interface ContingencyHttp {
   status: string;
   comments: string;
   observations: string;
+  project_responsibles: ProjectResponsible[];
   id_tm: string;
   createdAt: string;
   updatedAt: string;
   __v: number;
+}
+
+export interface ProjectResponsible {
+  id: string;
+  name: string;
+  email: string;
+  project_role: '';
+  preauthorize: string;
+  observations: string;
 }

@@ -16,12 +16,12 @@ export const EmployeeInfo = () => {
 
   //get the path and the employee id
   const { pathname } = useLocation();
-  const [employee_id, setEmployee_id] = useState(+pathname.split('/')[2] || 0);
+  const [employee_id, setEmployee_id] = useState(pathname.split('/')[2] || '');
   useEffect(() => {
     if (pathname.split('/').length === 3) {
-      setEmployee_id(+pathname.split('/')[2]);
+      setEmployee_id(pathname.split('/')[2]);
     } else {
-      setEmployee_id(0);
+      setEmployee_id('');
     }
   }, [pathname]);
 
