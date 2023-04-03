@@ -1,6 +1,6 @@
+import { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { NotificationPlacement } from 'antd/es/notification/interface';
-import React, { useEffect, useState } from 'react';
 import ApiHR from '../api/ApiHR';
 import { PreauthorizationHttp } from '../api/interfaces/preauthorizations/preauthorization.interface';
 import { useHandleError } from './useHandleError';

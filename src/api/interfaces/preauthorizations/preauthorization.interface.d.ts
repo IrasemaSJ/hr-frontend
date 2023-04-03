@@ -2,9 +2,9 @@
 
 export interface PreauthorizationHttp {
   _id: string;
-  id_employee: number;
-  name: string;
-  email: string;
+  id_employee: string;
+  name_responsible: string;
+  email_responsible: string;
   project_role: string;
   createdAt: string;
   updatedAt: string;

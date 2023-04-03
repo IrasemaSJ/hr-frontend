@@ -27,7 +27,7 @@ export const PreauthorizationForm = ({
       }}
     >
       <Form.Item
-        name="email"
+        name="email_responsible"
         label="Authorizator email"
         rules={[
           { type: 'email', message: 'Not a valid email' },
