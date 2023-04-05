@@ -3,6 +3,7 @@ import { PreauthorizationForm } from './PreauthorizationForm';
 import { Loader } from '../../components';
 import { PreauthorizationColums } from './table-design/PreauthorizationColumns';
 import usePreauthorization from '../../hooks/usePreauthorization';
+import { PreauthorizationAction } from './PreauthorizationAction';
 
 export const Preauthorization = () => {
   const {
@@ -48,6 +49,7 @@ export const Preauthorization = () => {
         action="Delete"
         headerName="Project User"
       />
+      <PreauthorizationAction />
     </>
   );
 };
