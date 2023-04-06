@@ -7,3 +7,4 @@ export {
   ContingenciesTmHttp,
   ContingencyHttp,
 } from './contingencies/contingency.interfaces';
+export { ProjectResponsiblesHttp } from './project-responsibles/projectResponsibles.interface';

@@ -3,7 +3,7 @@ import React from 'react';
 import type { SelectProps } from 'antd';
 import { role_project } from './interfaces/preauthorization';
 
-export const PreauthorizationForm = ({
+export const ProjectResponsiblesForm = ({
   handleSubmit,
 }: {
   handleSubmit: (values: { name: string }) => void;

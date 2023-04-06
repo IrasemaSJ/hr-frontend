@@ -4,3 +4,4 @@ export { useModal } from './useModal';
 export { useHandleError } from './useHandleError';
 export { useRequestPage } from './useRequestPage';
 export { useHolidaysCatalogue } from './useHolidaysCatalogue';
+export { useProjectResponsibles } from './useProjectResponsibles';
