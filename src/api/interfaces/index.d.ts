@@ -8,3 +8,7 @@ export {
   ContingencyHttp,
 } from './contingencies/contingency.interfaces';
 export { ProjectResponsiblesHttp } from './project-responsibles/projectResponsibles.interface';
+export {
+  TokenValidateHttp,
+  TokenContentInterface,
+} from './preauthorization/preauthorization-validate-token.interface';

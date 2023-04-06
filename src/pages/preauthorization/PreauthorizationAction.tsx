@@ -1,60 +1,60 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Card,
-  Typography,
-  Divider,
-  Form,
-  Input,
-  Button,
-  Modal,
-  Spin,
-  Result,
-} from 'antd';
+import { Card, Typography, Divider, Spin } from 'antd';
 import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
 import { useSearchParams } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import ApiHR from '../../api/ApiHR';
 import { PreauthorizationForm } from './PreauthorizationForm';
 import { PreauthorizationResult } from './PreauthorizationResult';
+import { TokenContentInterface, TokenValidateHttp } from '../../api/interfaces';
 
-//simulacion de manejador de peticiones
-function apiReqest(body: any, delay: number) {
-  return new Promise(function (_resolve, _reject) {
-    setTimeout(() => {
-      // _resolve({ statusCode: 200, ...body });
-      _reject({ statusCode: 500, ...body });
-    }, delay);
-  });
-}
-interface TokenInterface {
+export interface TokenInfoData {
   dates: string[];
-  email_responsible: string;
-  exp: number;
+  email: string;
   folio: string;
-  iat: number;
   id_request: string;
   requestType: string;
+  token: string;
 }
+
 export const PreauthorizationAction = () => {
   const [searchParams] = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<any>();
+  const [tokenInfo, setTokenInfo] = useState<TokenInfoData>();
 
   async function handleToken() {
+    setIsLoading(true);
     try {
       // call the api to check if the token is valid
       const token = searchParams.get('hash') || null;
       if (!token) return <div>Token not found</div>;
-      const response = await ApiHR.get(
+      await ApiHR.get<TokenValidateHttp>(
         `/preauthorizations/validate-token-url/${token}`,
       );
-      console.log(response);
+
+      // if the token is valid, decode the info
+      const { dates, email_responsible, folio, id_request, requestType } =
+        await jwt_decode<TokenContentInterface>(token);
+
+      // set the token info in state
+      setTokenInfo({
+        dates: dates,
+        email: email_responsible,
+        folio: folio,
+        id_request: id_request,
+        requestType: requestType,
+        token,
+      });
     } catch (error) {
-      console.log(error);
+      return <>not found</>;
+    } finally {
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
+    console.log(tokenInfo);
     handleToken();
   }, []);
 
@@ -63,8 +63,8 @@ export const PreauthorizationAction = () => {
   if (!token) return <div>Token not found</div>;
 
   // check if it is a valid token in syntax
-  const decoded: TokenInterface = jwt_decode(token);
-  // console.log(decoded);
+  const decoded = jwt_decode<TokenContentInterface>(token);
+  console.log(decoded);
   const { folio, requestType, id_request, email_responsible } = decoded;
   if (!folio) return <div>Folio not found</div>;
 
@@ -80,6 +80,7 @@ export const PreauthorizationAction = () => {
         requestType,
         token,
       };
+
       const response = await ApiHR.patch(`/preauthorizations/${id_request}`, {
         email: email_responsible,
         status: values.status,
@@ -129,23 +130,34 @@ export const PreauthorizationAction = () => {
             }}
           >
             <Logo />
-            <Typography.Title
-              type="secondary"
-              level={5}
-              style={{ marginTop: 25 }}
-            >
-              {requestType} Request
-            </Typography.Title>
+            {requestType && (
+              <Typography.Title
+                type="secondary"
+                level={5}
+                style={{ marginTop: 25 }}
+              >
+                {requestType} Request
+              </Typography.Title>
+            )}
             <Divider />
-            {!result ? (
-              <PreauthorizationForm handleFinish={handleFinish} folio={folio} />
-            ) : (
-              <PreauthorizationResult
-                folio={result.folio}
-                observations={result.observations || 'None'}
-                statusCode={result.statusCode}
-                status={result.status}
-              />
+            {tokenInfo && (
+              <>
+                {!result ? (
+                  <PreauthorizationForm
+                    // this component uses dat in tokenInfo
+                    handleFinish={handleFinish}
+                    folio={tokenInfo.folio}
+                  />
+                ) : (
+                  <PreauthorizationResult
+                    // this component uses data in result after respond vacation request
+                    folio={result.folio}
+                    observations={result.observations || 'None'}
+                    statusCode={result.statusCode}
+                    status={result.status}
+                  />
+                )}
+              </>
             )}
           </div>
         </Card>
