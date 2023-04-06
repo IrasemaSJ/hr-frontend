@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Card,
   Typography,
@@ -37,8 +37,26 @@ interface TokenInterface {
 }
 export const PreauthorizationAction = () => {
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [result, setResult] = React.useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState<any>();
+
+  async function handleToken() {
+    try {
+      // call the api to check if the token is valid
+      const token = searchParams.get('hash') || null;
+      if (!token) return <div>Token not found</div>;
+      const response = await ApiHR.get(
+        `/preauthorizations/validate-token-url/${token}`,
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    handleToken();
+  }, []);
 
   // check if it exists a token
   const token = searchParams.get('hash');
@@ -46,6 +64,7 @@ export const PreauthorizationAction = () => {
 
   // check if it is a valid token in syntax
   const decoded: TokenInterface = jwt_decode(token);
+  // console.log(decoded);
   const { folio, requestType, id_request, email_responsible } = decoded;
   if (!folio) return <div>Folio not found</div>;
 
