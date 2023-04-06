@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react';
 import { notification } from 'antd';
 import { NotificationPlacement } from 'antd/es/notification/interface';
 import ApiHR from '../api/ApiHR';
-import { PreauthorizationHttp } from '../api/interfaces/preauthorizations/preauthorization.interface';
+import { ProjectResponsiblesHttp } from '../api/interfaces';
 import { useHandleError } from './useHandleError';
 import { ModalDelete } from '../components/modals/ModalDelete';
 
-const usePreauthorization = () => {
-  const [preauthorization, setPreauthorization] = useState(
-    {} as PreauthorizationHttp,
+export const useProjectResponsibles = () => {
+  const [projectResponsible, setProjectResponsible] = useState(
+    {} as ProjectResponsiblesHttp,
   );
-  const [preauthorizationRows, setPreauthorizationRows] = useState(
-    [] as PreauthorizationHttp[],
+  const [projectResponsibleRows, setProjectResponsibleRows] = useState(
+    [] as ProjectResponsiblesHttp[],
   );
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -33,14 +33,16 @@ const usePreauthorization = () => {
   const { setServerError } = useHandleError(api);
 
   useEffect(() => {
-    getData();
+    getProjectResponsible();
   }, []);
 
-  const getData = async () => {
+  const getProjectResponsible = async () => {
     try {
       setIsLoadingTable(true);
-      const preauthorizationUserHttp = await ApiHR.get('/preauthorizations');
-      setPreauthorizationRows(preauthorizationUserHttp.data);
+      const projectResponsibleUserHttp = await ApiHR.get(
+        '/project-responsables',
+      );
+      setProjectResponsibleRows(projectResponsibleUserHttp.data);
       setIsLoadingTable(false);
     } catch (error: any) {
       setIsLoadingTable(false);
@@ -48,52 +50,51 @@ const usePreauthorization = () => {
     }
   };
 
-  const createPreauthorization = async (values: any) => {
+  const createProjectResponsible = async (values: any) => {
     try {
       setIsLoading(true);
-      const preauthorizationUserHttp = await ApiHR.post(
-        '/preauthorizations',
+      const projectResponsibleUserHttp = await ApiHR.post(
+        '/project-responsables',
         values,
       );
-      setPreauthorizationRows([
-        ...preauthorizationRows,
-        preauthorizationUserHttp.data,
+      setProjectResponsibleRows([
+        ...projectResponsibleRows,
+        projectResponsibleUserHttp.data,
       ]);
       setIsLoading(false);
-      openNotification('top', 'user created');
+      openNotification('top', 'person added');
     } catch (error: any) {
       setIsLoading(false);
       setServerError(error);
     }
   };
 
-  const deletePreauthorization = async () => {
+  const deleteProjectResponsible = async () => {
     try {
-      console.log('hola');
       setIsLoading(true);
-      const preauthorizationUserHttp = await ApiHR.delete(
-        `/preauthorizations/${preauthorization._id}`,
-      );
-      setPreauthorizationRows([
-        ...preauthorizationRows.filter((el) => el._id !== preauthorization._id),
+      await ApiHR.delete(`/project-responsables/${projectResponsible._id}`);
+      setProjectResponsibleRows([
+        ...projectResponsibleRows.filter(
+          (el) => el._id !== projectResponsible._id,
+        ),
       ]);
       setIsLoading(false);
       setModalDelete(false);
-      openNotification('top', 'user deleted');
+      openNotification('top', 'person removed');
     } catch (error: any) {
       setIsLoading(false);
       setServerError(error);
     }
   };
 
-  const setParams = (values: PreauthorizationHttp) => {
-    setPreauthorization(values);
+  const setParams = (values: ProjectResponsiblesHttp) => {
+    setProjectResponsible(values);
     setModalDelete(true);
   };
 
   return {
-    preauthorizationRows,
-    preauthorization,
+    projectResponsibleRows,
+    projectResponsible,
     isLoadingTable,
     ModalDelete,
     contextHolder,
@@ -102,10 +103,7 @@ const usePreauthorization = () => {
     setParams,
     modalDelete,
     setModalDelete,
-    deletePreauthorization,
-    createPreauthorization,
-
+    deleteProjectResponsible,
+    createProjectResponsible,
   };
 };
-
-export default usePreauthorization;

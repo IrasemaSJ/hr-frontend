@@ -39,10 +39,10 @@ export const MenuRouter = () => {
           onClick: () => navigate(`/employees`),
         },
         {
-          key: 'preauthorization',
+          key: 'project_responsibles',
           icon: <UsergroupAddOutlined />,
-          label: 'Preauthorization',
-          onClick: () => navigate('/preauthorization'),
+          label: 'Project Responsibles',
+          onClick: () => navigate('/project_responsibles'),
         },
         {
           key: 'history',
@@ -82,10 +82,10 @@ export const MenuRouter = () => {
           onClick: () => navigate('/employeeinfo'),
         },
         {
-          key: 'preauthorization',
+          key: 'project_responsibles',
           icon: <UsergroupAddOutlined />,
-          label: 'Preauthorization',
-          onClick: () => navigate('/preauthorization'),
+          label: 'Project Responsibles',
+          onClick: () => navigate('/project_responsibles'),
         },
         {
           key: 'holidays',

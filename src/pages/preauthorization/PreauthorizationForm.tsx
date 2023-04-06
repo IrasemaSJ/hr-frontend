@@ -1,54 +1,118 @@
-import { Button, Form, Input, Select } from 'antd';
+import { Button, Form, Input, Modal, Typography } from 'antd';
 import React from 'react';
-import type { SelectProps } from 'antd';
-import { role_project } from './interfaces/preauthorization';
 
-export const PreauthorizationForm = ({
-  handleSubmit,
-}: {
-  handleSubmit: (values: { name: string }) => void;
-}) => {
-  const [formCreate] = Form.useForm();
+export const PreauthorizationForm: React.FC<{
+  handleFinish: (values: any) => void;
+  folio: string;
+}> = ({ handleFinish, folio }) => {
+  const [form] = Form.useForm();
+  const status = {
+    positive: 'approved',
+    negative: 'rejected',
+  };
+  const [modal, contextHolder] = Modal.useModal();
 
-  // key value relationship for select input
-  const options: SelectProps['options'] = [];
-  for (const [key, value] of Object.entries(role_project)) {
-    options.push({ label: value, value: key });
-  }
+  // when declined, observations message is required
+  const handleDecline = async () => {
+    form.setFieldValue('status', status.negative);
+    const values = { ...form.getFieldsValue(), status: status.negative };
+    await form.validateFields();
+    modal.confirm({
+      title: 'Confirm Rejection',
+      content: `Are you sure you want to reject this request?`,
+      okText: 'Reject',
+      okType: 'danger',
+      onOk: () => {
+        handleFinish({ ...values });
+      },
+    });
+  };
+
+  // when approved, observations message is not required
+  const handleAccept = () => {
+    const values = { ...form.getFieldsValue(), status: status.positive };
+    modal.confirm({
+      title: 'Confirm Approval',
+      content: `Are you sure you want to approve this request?`,
+      okText: 'Approve',
+      onOk: () => {
+        handleFinish({ ...values });
+      },
+    });
+  };
 
   return (
-    <Form
-      form={formCreate}
-      name="preauthorization"
-      layout="vertical"
-      onFinish={(values) => {
-        handleSubmit({ ...values });
-        formCreate.resetFields();
-      }}
-    >
-      <Form.Item
-        name="email_responsible"
-        label="Authorizator email"
-        rules={[
-          { type: 'email', message: 'Not a valid email' },
-          { required: true },
-        ]}
+    <>
+      <Typography.Text>
+        The request <b>{folio}</b> need your review
+      </Typography.Text>
+      <Form
+        form={form}
+        layout="vertical"
+        name="authorize"
+        style={{ width: '100%', margin: '2rem' }}
       >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        label="Position"
-        style={{ flex: 1 }}
-        name="project_role"
-        rules={[{ required: true }]}
-      >
-        <Select placeholder="Position" options={options} />
-      </Form.Item>
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Add
-        </Button>
-      </Form.Item>
-    </Form>
+        <Form.Item
+          name="observations"
+          label="Observations"
+          colon={true}
+          validateFirst={false}
+          rules={[
+            {
+              /** observations is required when status is decline
+               * Only onClick of
+               *
+               * Status is blanked when user focus on observations input
+               */
+              async validator(rule, value) {
+                if (
+                  form.getFieldValue('status') === status.negative &&
+                  !value
+                ) {
+                  throw new Error(
+                    "Please, for decline input the request's observations!",
+                  );
+                }
+              },
+            },
+          ]}
+        >
+          <Input.TextArea
+            placeholder="Observations"
+            onFocus={() => {
+              form.setFieldValue('status', '');
+            }}
+            style={{ height: 120, marginBottom: 24, resize: 'none', margin: 0 }}
+          />
+        </Form.Item>
+        <Form.Item>
+          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Button
+              danger
+              type="primary"
+              htmlType="button"
+              onClick={handleDecline}
+            >
+              Decline
+            </Button>
+            <Button
+              type="primary"
+              htmlType="button"
+              onClick={() => {
+                form.setFieldValue('status', '');
+                handleAccept();
+              }}
+            >
+              Authorize
+            </Button>
+          </div>
+        </Form.Item>
+      </Form>
+      <Typography.Text type="secondary">
+        For more information enter your panel in the system or check your email
+        again.
+      </Typography.Text>
+      {contextHolder}
+    </>
   );
 };

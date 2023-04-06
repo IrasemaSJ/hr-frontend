@@ -1,13 +1,13 @@
 import { Table } from 'antd';
-import { PreauthorizationForm } from './PreauthorizationForm';
 import { Loader } from '../../components';
-import { PreauthorizationColums } from './table-design/PreauthorizationColumns';
-import usePreauthorization from '../../hooks/usePreauthorization';
+import { ProjectResponsibleColums } from './table-design/ProjectResponsibleColumns';
+import { ProjectResponsiblesForm } from './ProjectResponsiblesForm';
+import { useProjectResponsibles } from '../../hooks';
 
-export const Preauthorization = () => {
+export const ProjectResponsibles = () => {
   const {
-    preauthorizationRows,
-    preauthorization,
+    projectResponsible,
+    projectResponsibleRows,
     isLoadingTable,
     ModalDelete,
     contextHolder,
@@ -15,22 +15,22 @@ export const Preauthorization = () => {
     setParams,
     modalDelete,
     setModalDelete,
-    deletePreauthorization,
-    createPreauthorization,
-  } = usePreauthorization();
+    deleteProjectResponsible,
+    createProjectResponsible,
+  } = useProjectResponsibles();
 
   return (
     <>
       {contextHolder}
       <Loader show={isLoading} />
       <h1>Preauthorization</h1>
-      <PreauthorizationForm
-        handleSubmit={(values) => createPreauthorization(values)}
+      <ProjectResponsiblesForm
+        handleSubmit={(values) => createProjectResponsible(values)}
       />
       <Table
         loading={isLoadingTable}
-        columns={PreauthorizationColums({ setParams })}
-        dataSource={preauthorizationRows}
+        columns={ProjectResponsibleColums({ setParams })}
+        dataSource={projectResponsibleRows}
         rowKey="_id"
         style={{ marginTop: '20px' }}
         pagination={{ hideOnSinglePage: true }}
@@ -39,10 +39,10 @@ export const Preauthorization = () => {
       <ModalDelete
         message={
           <>
-            Are you sure to delete <b>{preauthorization.name}</b>
+            Are you sure to delete <b>{projectResponsible.name_responsible}</b>
           </>
         }
-        deleteFunction={deletePreauthorization}
+        deleteFunction={deleteProjectResponsible}
         isModalOpen={modalDelete}
         closeModal={() => setModalDelete(false)}
         action="Delete"
