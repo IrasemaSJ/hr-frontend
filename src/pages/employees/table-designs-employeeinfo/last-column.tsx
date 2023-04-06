@@ -23,43 +23,54 @@ export const lastColumn = ({
     {
       title: 'Actions',
       dataIndex: 'actions',
-      render: (_, record) =>
-        record.status === 'pending' || record.status === 'rejected' ? (
+      render: (_, record) => {
+        // check if any preauthorizer is pending
+        const isPreauthorizated: boolean = record.project_responsibles.some(
+          ({ preauthorize }) => preauthorize !== 'pending',
+        );
+        return (
           <>
-            <BtnTable
-              action="edit"
-              onClick={() =>
-                setParams({
-                  record,
-                  openModal: setModalEdit,
-                })
-              }
-            />
-            <BtnTable
-              action="delete"
-              onClick={() => {
-                setParams({
-                  record,
-                  openModal: setModalDelete,
-                });
-                setAction('Delete');
-              }}
-            />
+            {/** si es pending or rejected muestra edit modal */}
+            {/** se puede editar si todos los autorizadores estan en pending o si hubo un reject */}
+            {(record.status === 'pending' || record.status === 'rejected') &&
+              !isPreauthorizated && (
+                <BtnTable
+                  action="edit"
+                  onClick={() =>
+                    setParams({
+                      record,
+                      openModal: setModalEdit,
+                    })
+                  }
+                />
+              )}
+            {(record.status === 'pending' || record.status === 'rejected') && (
+              <BtnTable
+                action="delete"
+                onClick={() => {
+                  setParams({
+                    record,
+                    openModal: setModalDelete,
+                  });
+                  setAction('Delete');
+                }}
+              />
+            )}
+            {employee_id !== '' && record.status === 'approved' && (
+              <BtnTable
+                action="cancel"
+                onClick={() => {
+                  setParams({
+                    record,
+                    openModal: setModalDelete,
+                  });
+                  setAction('Cancel');
+                }}
+              />
+            )}
           </>
-        ) : employee_id !== '' && record.status === 'approved' ? (
-          <BtnTable
-            action="cancel"
-            onClick={() => {
-              setParams({
-                record,
-                openModal: setModalDelete,
-              });
-              setAction('Cancel');
-            }}
-          />
-        ) : (
-          <></>
-        ),
+        );
+      },
       align: 'center',
     },
   ];
