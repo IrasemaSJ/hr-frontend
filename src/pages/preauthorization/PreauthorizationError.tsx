@@ -1,5 +1,9 @@
 import React from 'react';
 
 export const PreauthorizationError = () => {
-  return <div>PreauthorizationError</div>;
+  return (
+    <div>
+      <p>PreauthorizationError</p>
+    </div>
+  );
 };
