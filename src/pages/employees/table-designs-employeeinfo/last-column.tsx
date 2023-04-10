@@ -24,27 +24,30 @@ export const lastColumn = ({
       title: 'Actions',
       dataIndex: 'actions',
       render: (_, record) => {
+        // si uno da reject se puede hacer update
+        // si todos los autorizadores estan en pending se puede hacer update
+        // si todos los autorizadores estan en approved no se puede hacer update
+
         // check if any preauthorizer is pending
-        const isPreauthorizated: boolean = record.project_responsibles.some(
-          ({ preauthorize }) => preauthorize !== 'pending',
+        const allowEdit: boolean = record.project_responsibles.some(
+          ({ preauthorize }) => preauthorize === 'rejected',
         );
         return (
           <>
             {/** si es pending or rejected muestra edit modal */}
             {/** se puede editar si todos los autorizadores estan en pending o si hubo un reject */}
-            {(record.status === 'pending' || record.status === 'rejected') &&
-              !isPreauthorizated && (
-                <BtnTable
-                  action="edit"
-                  onClick={() =>
-                    setParams({
-                      record,
-                      openModal: setModalEdit,
-                    })
-                  }
-                />
-              )}
-            {(record.status === 'pending' || record.status === 'rejected') && (
+            {allowEdit && (
+              <BtnTable
+                action="edit"
+                onClick={() =>
+                  setParams({
+                    record,
+                    openModal: setModalEdit,
+                  })
+                }
+              />
+            )}
+            {allowEdit && (
               <BtnTable
                 action="delete"
                 onClick={() => {
