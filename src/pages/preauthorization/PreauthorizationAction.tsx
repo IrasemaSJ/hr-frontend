@@ -87,7 +87,6 @@ export const PreauthorizationAction = () => {
         token,
         requestType,
       });
-
       // if all ok, set the values in state variable result
       // this help us to render the result component
       setResult({
@@ -96,6 +95,8 @@ export const PreauthorizationAction = () => {
         token,
         message: response.data,
         statusCode: response.status,
+        status: values.status,
+        observations: values.observations,
       });
     } catch (error) {
       // if error: set the error in state, to show it in result component
@@ -149,6 +150,7 @@ export const PreauthorizationAction = () => {
             {!result ? (
               <PreauthorizationForm
                 // this component uses dat in tokenInfo
+                dates={tokenInfo.dates}
                 handleFinish={handleFinish}
                 folio={tokenInfo.folio}
               />
