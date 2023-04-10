@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, Typography, Divider, Spin } from 'antd';
 import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
 import { useSearchParams } from 'react-router-dom';
-import jwt_decode, { JwtPayload } from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import ApiHR from '../../api/ApiHR';
 import { PreauthorizationForm } from './PreauthorizationForm';
 import { PreauthorizationResult } from './PreauthorizationResult';
 import { TokenContentInterface, TokenValidateHttp } from '../../api/interfaces';
-import { PreauthorizationError } from './PreauthorizationError';
+import { Error404 } from '../../components';
 
 export interface TokenInfoData {
   dates: string[];
@@ -51,7 +51,7 @@ export const PreauthorizationAction = () => {
         token,
       });
     } catch (error) {
-      return <p>not found</p>;
+      return <Error404 message="Url Expired" />;
     } finally {
       setIsLoading(false);
     }
@@ -113,7 +113,13 @@ export const PreauthorizationAction = () => {
         minHeight: '100vh',
       }}
     >
-      <Spin spinning={isLoading} style={{ width: '100%' }}>
+      <Spin
+        spinning={isLoading}
+        style={{
+          width: '100%',
+        }}
+      />
+      {tokenInfo && !isLoading ? (
         <Card
           style={{
             margin: '10 auto',
@@ -121,47 +127,45 @@ export const PreauthorizationAction = () => {
             height: '70vh',
           }}
         >
-          {tokenInfo ? (
-            <div
-              style={{
-                width: 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                margin: 'auto',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
+          <div
+            style={{
+              width: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              margin: 'auto',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Logo />
+            <Typography.Title
+              type="secondary"
+              level={5}
+              style={{ marginTop: 25 }}
             >
-              <Logo />
-              <Typography.Title
-                type="secondary"
-                level={5}
-                style={{ marginTop: 25 }}
-              >
-                {tokenInfo.requestType} Request
-              </Typography.Title>
-              <Divider />
-              {!result ? (
-                <PreauthorizationForm
-                  // this component uses dat in tokenInfo
-                  handleFinish={handleFinish}
-                  folio={tokenInfo.folio}
-                />
-              ) : (
-                <PreauthorizationResult
-                  // this component uses data in result after respond vacation request
-                  folio={result.folio}
-                  observations={result.observations || 'None'}
-                  statusCode={result.statusCode}
-                  status={result.status}
-                />
-              )}
-            </div>
-          ) : (
-            <PreauthorizationError />
-          )}
+              {tokenInfo.requestType} Request
+            </Typography.Title>
+            <Divider />
+            {!result ? (
+              <PreauthorizationForm
+                // this component uses dat in tokenInfo
+                handleFinish={handleFinish}
+                folio={tokenInfo.folio}
+              />
+            ) : (
+              <PreauthorizationResult
+                // this component uses data in result after respond vacation request
+                folio={result.folio}
+                observations={result.observations || 'None'}
+                statusCode={result.statusCode}
+                status={result.status}
+              />
+            )}
+          </div>
         </Card>
-      </Spin>
+      ) : (
+        !isLoading && <Error404 message="Url Expired" />
+      )}
     </div>
   );
 };
