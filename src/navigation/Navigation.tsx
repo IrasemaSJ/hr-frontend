@@ -2,11 +2,10 @@ import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Auth, Error404 } from '../components';
 import { AuthContext } from '../contexts/AuthContext';
-import { Preauthorization } from '../pages/preauthorization/Preauthorization';
+import { ProjectResponsibles } from '../pages/project_responsibles/ProjectResponsibles';
 import {
   EmployeeInfo,
   Employees,
-  History,
   Holidays,
   HolidaysRegister,
   HolidaysCatalogue,
@@ -14,6 +13,7 @@ import {
   Request,
   VacationSeniority,
 } from '../pages';
+import { PreauthorizationAction } from '../pages/preauthorization/PreauthorizationAction';
 
 export interface Routes {
   root: '/';
@@ -26,7 +26,8 @@ export interface Routes {
   holidaysCatalogue: '/holidays/catalogue';
   holidaysRegister: `/holidays/register/${number}`;
   vacations_seniority: '/vacations_seniority';
-  preauthorization: '/preauthorization';
+  project_responsibles: '/project_responsibles';
+  preauthorizationRequest: `requests/preauthorization/${string}`;
 }
 
 export const Navigation = () => {
@@ -118,13 +119,15 @@ export const Navigation = () => {
         }
       />
       <Route
-        path="/preauthorization"
+        path="/project_responsibles"
         element={
           <Auth>
-            <Preauthorization />
+            <ProjectResponsibles />
           </Auth>
         }
       />
+      {/* Se prefirio usar query para el token porque por params se rompe por los caracteres . */}
+      <Route path="/preauthorization" element={<PreauthorizationAction />} />
       <Route
         path="*"
         element={

@@ -3,7 +3,7 @@ import { formatTableDate } from '../../../helpers';
 import { ContingencyHttp } from '../../../api/interfaces/contingencies/contingency.interfaces';
 import '../../../styles/Table.css';
 import { Status } from '../../../components';
-import { role_project } from '../../preauthorization/interfaces/preauthorization';
+import { role_project } from '../../project_responsibles/interfaces/preauthorization';
 
 export const columnsContigencyEmployeeInfo: ColumnsType<ContingencyHttp> = [
   {
