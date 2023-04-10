@@ -1,6 +1,7 @@
 import { Modal, Typography } from 'antd';
 import { ContingencyHttp } from '../../api/interfaces/contingencies/contingency.interfaces';
 import { formatTableDate } from '../../helpers';
+import { Status } from '../status/Status';
 
 interface Props {
   employee?: boolean;
@@ -41,20 +42,46 @@ export const ModalInfo = ({
           )}
           <li>
             <span>
+              <strong>Status: </strong>
+              {<Status status={record.status} />}
+            </span>
+          </li>
+          <li>
+            <span>
               <strong>Date: </strong>
               {formatTableDate(record.date)}
             </span>
           </li>
           <li>
             <span>
-              <strong>comments: </strong>
+              <strong>Preauthorization responsibles: </strong>
+              {record.project_responsibles.map(
+                ({ id, name, project_role, preauthorize, observations }) => (
+                  <li key={id}>
+                    {name}: | {project_role} |{' '}
+                    {<Status status={preauthorize} />}
+                    <br />
+                    {observations && (
+                      <div>
+                        Observations:{' '}
+                        <span style={{ color: 'red' }}>{observations}</span>
+                      </div>
+                    )}
+                  </li>
+                ),
+              )}
+            </span>
+          </li>
+          <li>
+            <span>
+              <strong>Detail of request: </strong>
               {record.comments}
             </span>
           </li>
           {record.observations !== '' && (
             <li>
               <span style={{ color: 'red' }}>
-                <strong style={{ color: 'black' }}>observations: </strong>
+                <strong style={{ color: 'black' }}>Observations: </strong>
                 {record.observations}
               </span>
             </li>
