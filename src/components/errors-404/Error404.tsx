@@ -1,9 +1,13 @@
 import './Error404.css';
 
-export const Error404 = () => {
+export const Error404 = ({
+  message = 'Page Not Found',
+}: {
+  message: string;
+}) => {
   return (
     <div className="error404-container">
-      <div>Page Not Found</div>
+      <div>{message}</div>
     </div>
   );
 };

@@ -1,10 +1,12 @@
 import { Button, Form, Input, Modal, Typography } from 'antd';
 import React from 'react';
+import { formatTableDate } from '../../helpers';
 
 export const PreauthorizationForm: React.FC<{
   handleFinish: (values: any) => void;
   folio: string;
-}> = ({ handleFinish, folio }) => {
+  dates: string[];
+}> = ({ handleFinish, folio, dates }) => {
   const [form] = Form.useForm();
   const status = {
     positive: 'approved',
@@ -46,6 +48,13 @@ export const PreauthorizationForm: React.FC<{
       <Typography.Text>
         The request <b>{folio}</b> need your review
       </Typography.Text>
+      <section className="list-with-heading">
+        <ul>
+          {dates.map((date, index) => (
+            <li key={index}>{formatTableDate(date)}</li>
+          ))}
+        </ul>
+      </section>
       <Form
         form={form}
         layout="vertical"
@@ -67,7 +76,7 @@ export const PreauthorizationForm: React.FC<{
               async validator(rule, value) {
                 if (
                   form.getFieldValue('status') === status.negative &&
-                  !value
+                  !value.trim()
                 ) {
                   throw new Error(
                     "Please, for decline input the request's observations!",

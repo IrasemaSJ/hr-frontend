@@ -62,7 +62,7 @@ export const useProjectResponsibles = () => {
         projectResponsibleUserHttp.data,
       ]);
       setIsLoading(false);
-      openNotification('top', 'person added');
+      openNotification('top', 'Person added');
     } catch (error: any) {
       setIsLoading(false);
       setServerError(error);

@@ -1,53 +1,74 @@
-import React from 'react';
-import {
-  Card,
-  Typography,
-  Divider,
-  Form,
-  Input,
-  Button,
-  Modal,
-  Spin,
-  Result,
-} from 'antd';
+import { useEffect, useState } from 'react';
+import { Card, Typography, Divider, Spin } from 'antd';
 import { ReactComponent as Logo } from '../../assets/logo_improving.svg';
 import { useSearchParams } from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import ApiHR from '../../api/ApiHR';
 import { PreauthorizationForm } from './PreauthorizationForm';
 import { PreauthorizationResult } from './PreauthorizationResult';
+import { TokenContentInterface, TokenValidateHttp } from '../../api/interfaces';
+import { Error404 } from '../../components';
 
-//simulacion de manejador de peticiones
-function apiReqest(body: any, delay: number) {
-  return new Promise(function (_resolve, _reject) {
-    setTimeout(() => {
-      // _resolve({ statusCode: 200, ...body });
-      _reject({ statusCode: 500, ...body });
-    }, delay);
-  });
-}
-interface TokenInterface {
+export interface TokenInfoData {
   dates: string[];
-  email_responsible: string;
-  exp: number;
+  email: string;
   folio: string;
-  iat: number;
   id_request: string;
   requestType: string;
+  token: string;
 }
+
 export const PreauthorizationAction = () => {
   const [searchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [result, setResult] = React.useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [result, setResult] = useState<any>();
+
+  // this variable is used to store the token info
+  // and to manake the render of most of the content
+  const [tokenInfo, setTokenInfo] = useState<TokenInfoData>();
+
+  async function handleToken() {
+    setIsLoading(true);
+    try {
+      // call the api to check if the token is valid
+      const token = searchParams.get('hash') || null;
+      if (!token) return <div>Token not found</div>;
+      await ApiHR.get<TokenValidateHttp>(
+        `/preauthorizations/validate-token-url/${token}`,
+      );
+
+      // if the token is valid, decode the info
+      const { dates, email_responsible, folio, id_request, requestType } =
+        await jwt_decode<TokenContentInterface>(token);
+
+      // set the token info in state variabe tokenInfo
+      setTokenInfo({
+        dates: dates,
+        email: email_responsible,
+        folio: folio,
+        id_request: id_request,
+        requestType: requestType,
+        token,
+      });
+    } catch (error) {
+      return <Error404 message="Url Expired" />;
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    handleToken();
+  }, []);
 
   // check if it exists a token
-  const token = searchParams.get('hash');
-  if (!token) return <div>Token not found</div>;
+  // const token = searchParams.get('hash');
+  // if (!token) return <div>Token not found</div>;
 
   // check if it is a valid token in syntax
-  const decoded: TokenInterface = jwt_decode(token);
-  const { folio, requestType, id_request, email_responsible } = decoded;
-  if (!folio) return <div>Folio not found</div>;
+  // const decoded = jwt_decode<TokenContentInterface>(token);
+  // const { folio, requestType, id_request, email_responsible } = decoded;
+  // if (!folio) return <div>Folio not found</div>;
 
   const handleFinish = async (values: {
     observations: string;
@@ -55,28 +76,30 @@ export const PreauthorizationAction = () => {
   }) => {
     setIsLoading(true);
     try {
-      const postBody = {
-        ...values,
-        folio,
-        requestType,
-        token,
-      };
+      // get all data from token
+      const { email, folio, id_request, requestType, token } = tokenInfo!;
+
+      // send token data and form data to the api to update the request
       const response = await ApiHR.patch(`/preauthorizations/${id_request}`, {
-        email: email_responsible,
+        email,
         status: values.status,
         observations: values.observations,
         token,
         requestType,
       });
-
-      console.log(response);
+      // if all ok, set the values in state variable result
+      // this help us to render the result component
       setResult({
-        ...postBody,
+        folio,
+        requestType,
+        token,
         message: response.data,
         statusCode: response.status,
+        status: values.status,
+        observations: values.observations,
       });
     } catch (error) {
-      console.log(error);
+      // if error: set the error in state, to show it in result component
       setResult(error);
     }
     setIsLoading(false);
@@ -91,12 +114,18 @@ export const PreauthorizationAction = () => {
         minHeight: '100vh',
       }}
     >
-      <Spin spinning={isLoading} style={{ width: '100%' }}>
+      <Spin
+        spinning={isLoading}
+        style={{
+          width: '100%',
+        }}
+      />
+      {tokenInfo && !isLoading ? (
         <Card
           style={{
             margin: '10 auto',
-            maxWidth: '600px',
-            minWidth: '90%',
+            width: '600px',
+            height: '70vh',
           }}
         >
           <div
@@ -115,13 +144,19 @@ export const PreauthorizationAction = () => {
               level={5}
               style={{ marginTop: 25 }}
             >
-              {requestType} Request
+              {tokenInfo.requestType} Request
             </Typography.Title>
             <Divider />
             {!result ? (
-              <PreauthorizationForm handleFinish={handleFinish} folio={folio} />
+              <PreauthorizationForm
+                // this component uses dat in tokenInfo
+                dates={tokenInfo.dates}
+                handleFinish={handleFinish}
+                folio={tokenInfo.folio}
+              />
             ) : (
               <PreauthorizationResult
+                // this component uses data in result after respond vacation request
                 folio={result.folio}
                 observations={result.observations || 'None'}
                 statusCode={result.statusCode}
@@ -130,7 +165,9 @@ export const PreauthorizationAction = () => {
             )}
           </div>
         </Card>
-      </Spin>
+      ) : (
+        !isLoading && <Error404 message="Url Expired" />
+      )}
     </div>
   );
 };
