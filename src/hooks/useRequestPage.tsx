@@ -11,12 +11,28 @@ export interface SetParamsContingnecy {
 }
 
 const initContingency = {
+  _id: '',
   folio: '',
-  comments: '',
+  id_employee: '',
+  name_employee: '',
   date: '',
-  half_day: false,
-  observations: '',
   status: '',
+  comments: '',
+  observations: '',
+  project_responsibles: [
+    {
+      id: '',
+      name: '',
+      email: '',
+      project_role: '',
+      preauthorize: '',
+      observations: '',
+    },
+  ],
+  id_tm: '',
+  createdAt: '',
+  updatedAt: '',
+  __v: 0,
 } as ContingencyHttp;
 export const useRequestPage = () => {
   const [page, setPage] = useState(1);
