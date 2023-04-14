@@ -26,11 +26,13 @@ export const lastColumn = ({
       render: (_, record) => {
         // si uno da reject se puede hacer update
         // si todos los autorizadores estan en pending se puede hacer update
+
+
         // si todos los autorizadores estan en approved no se puede hacer update
 
         // check if any preauthorizer is pending
         const allowEdit: boolean = record.project_responsibles.some(
-          ({ preauthorize }) => preauthorize === 'rejected',
+          ({ preauthorize }) => preauthorize !== 'approved',
         );
         return (
           <>
