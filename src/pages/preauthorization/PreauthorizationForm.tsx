@@ -76,7 +76,7 @@ export const PreauthorizationForm: React.FC<{
               async validator(rule, value) {
                 if (
                   form.getFieldValue('status') === status.negative &&
-                  !value.trim()
+                  (!value || value.trim() === '')
                 ) {
                   throw new Error(
                     "Please, for decline input the request's observations!",
